@@ -1,0 +1,282 @@
+"PolygonID","MRGID","GeoName","Pol_type","MRGID_Ter1","Territory1","MRGID_Sov1","Sovereign1","ISO_Ter1","MRGID_Ter2","Territory2","MRGID_Sov2","Sovereign2","ISO_Ter2","MRGID_Ter3","Territory3","MRGID_Sov3","Sovereign3","ISO_Ter3","x_1","y_1","Area_km2","MRGID_EEZ","Nospecies"
+"1","8444","American Samoa Exclusive Economic Zone","200NM","8670","American Samoa","2204","United States","ASM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-169.063470082,-13.8548393188,405844.21967,"8444",21
+"2","8379","Ascension Exclusive Economic Zone","200NM","8620","Ascension","2208","United Kingdom","ASC","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-14.3633726647,-7.94746851996,446005.325434,"8379",15
+"3","8446","Cook Islands Exclusive Economic Zone","200NM","8672","Cook Islands","2227","New Zealand","COK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-161.303414012,-15.0189070607,1969507.12039,"8446",21
+"4","8389","Disputed area Falkland Islands Exclusive Economic Zone: UK / Argentina","Disputed","8623","Falkland Islands","2208","United Kingdom","FLK","2149","Argentina","2149","Argentina","ARG","0",NA,"0",NA,NA,-58.3223660504,-51.667026383,549931.724317,"8389",30
+"5","8440","French Polynesian Exclusive Economic Zone","200NM","8656","French Polynesia","17","France","PYF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-144.003272853,-18.7363445188,4766884.32996,"8440",32
+"6","8439","Pitcairn Islands Exclusive Economic Zone","200NM","2259","Pitcairn","2208","United Kingdom","PCN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-127.421309783,-24.6062265562,842344.756396,"8439",16
+"7","8380","St. Helena Exclusive Economic Zone","200NM","8619","Saint Helena","2208","United Kingdom","SHN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-5.70869129251,-15.9727780519,449214.734358,"8380",16
+"8","8445","Samoan Exclusive Economic Zone","200NM","8671","Samoa","8671","Samoa","WSM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-172.753720967,-13.296866319,130473.54685,"8445",21
+"9","8448","Tongan Exclusive Economic Zone","200NM","8674","Tonga","8674","Tonga","TON","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-174.765860806,-20.2217486938,666078.527932,"8448",20
+"10","8382","Tristan Da Cunha Exclusive Economic Zone","200NM","8621","Tristan da Cunha","2208","United Kingdom","TAA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-11.3358981314,-39.0680540905,817104.430557,"8382",10
+"11","8465","Chilean Exclusive Economic Zone","200NM","2165","Chile","2165","Chile","CHL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-75.6994658146,-40.7386937476,2465054.67659,"8465",65
+"12","8447","Niue Exclusive Economic Zone","200NM","8673","Niue","2227","New Zealand","NIU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-169.331383301,-19.5231481912,318143.64148,"8447",18
+"14","8383","Disputed area South Georgia and South Sandwich Exclusive Economic Zone: UK / Argentina","Disputed","8624","South Georgia and the South Sandwich Islands","2208","United Kingdom","SGS","2149","Argentina","2149","Argentina","ARG","0",NA,"0",NA,NA,-31.570227793,-56.4545855337,1287582.613,"8383",3
+"15","48961","Joint regime area Argentina / Uruguay","Joint regime","2216","Uruguay","2216","Uruguay","URY","2149","Argentina","2149","Argentina","ARG","0",NA,"0",NA,NA,-55.160956601,-36.2549332604,41412.483948,"48961",69
+"16","48962","Joint regime area Peru / Ecuador","Joint regime","2257","Peru","2257","Peru","PER","2166","Ecuador","2166","Ecuador","ECU","0",NA,"0",NA,NA,-82.5324770996,-3.38858390804,16123.8786382,"48962",53
+"17","8467","Uruguayan Exclusive Economic Zone","200NM","2216","Uruguay","2216","Uruguay","URY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-53.3214266066,-35.7892709012,143090.710488,"8467",86
+"18","8386","Amsterdam Island & St. Paul Island Exclusive Economic Zone","200NM","48979","Amsterdam and Saint Paul Islands","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,77.5418063106,-38.2943091334,512187.835173,"8386",5
+"20","8344","Disputed area Chagos Archipelago Exclusive Economic Zone: UK / Mauritius","Disputed","8616","Chagos Archipelago","2208","United Kingdom","IOT","8614","Republic of Mauritius","8614","Republic of Mauritius","MUS","0",NA,"0",NA,NA,71.9497918473,-6.58327164324,638107.764246,"8344",18
+"21","8309","Christmas Island Exclusive Economic Zone","200NM","8590","Christmas Island","2147","Australia","CXR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,105.365226493,-11.2435805623,327994.30766,"8309",20
+"22","8308","Cocos Islands Exclusive Economic Zone","200NM","8589","Cocos Islands","2147","Australia","CCK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,96.854335723,-12.0314623377,467439.781112,"8308",17
+"23","8334","Comoran Exclusive Economic Zone","200NM","2163","Comores","2163","Comores","COM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,43.4516873616,-11.4210933175,164777.450393,"8334",28
+"24","8385","Crozet Islands Exclusive Economic Zone","200NM","8627","Crozet Islands","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,51.2121814074,-46.3069575449,575374.872768,"8385",3
+"25","48944","Disputed area Mayotte: France / Comoros","Disputed","8606","Mayotte","17","France","MYT","2163","Comores","2163","Comores","COM","0",NA,"0",NA,NA,45.3048317181,-13.2170708758,66620.6279949,"48944",34
+"26","48946","Disputed area Ile Tromelin: Reunion / Mauritus","Disputed","8609","Réunion","17","France","REU","8614","Republic of Mauritius","8614","Republic of Mauritius","MUS","0",NA,"0",NA,NA,54.673051301,-15.7112679439,274437.628544,"48946",16
+"27","8388","Heard and McDonald Islands Exclusive Economic Zone","200NM","8631","Heard and McDonald Islands","2147","Australia","HMD","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,73.7305145861,-53.4986252975,417353.385682,"8388",3
+"28","8387","Kerguelen Exclusive Economic Zone","200NM","8630","Kerguélen","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,68.9745991558,-48.877945391,550720.881404,"8387",5
+"29","8348","Madagascan Exclusive Economic Zone","200NM","7963","Madagascar","7963","Madagascar","MDG","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,47.2538894845,-20.9128765386,1196333.81237,"8348",68
+"30","8396","South African Exclusive Economic Zone","200NM","2176","South Africa","2176","South Africa","ZAF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,24.4433127625,-33.5080154268,1072718.43265,"8396",156
+"31","8312","New Caledonian Exclusive Economic Zone","200NM","2261","New Caledonia","17","France","NCL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,163.203766208,-21.0187061029,1175906.30347,"8312",63
+"32","8310","Norfolk Island Exclusive Economic Zone","200NM","8591","Norfolk Island","2147","Australia","NFK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,167.928983087,-29.0931356705,430746.502762,"8310",33
+"33","8343","Mauritian Exclusive Economic Zone","200NM","8614","Republic of Mauritius","8614","Republic of Mauritius","MUS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,60.1172030942,-16.8102129211,1278112.77102,"8343",38
+"34","8338","Réunion Exclusive Economic Zone","200NM","8609","Réunion","17","France","REU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,54.713277658,-21.7819697451,315408.212326,"8338",31
+"35","8313","Vanuatu Exclusive Economic Zone","200NM","2202","Vanuatu","2202","Vanuatu","VUT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,168.568831776,-16.5948777211,623417.068474,"8313",31
+"36","8395","Namibian Exclusive Economic Zone","200NM","2218","Namibia","2218","Namibia","NAM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,12.2854741973,-23.649686501,562210.160942,"8395",92
+"37","21791","Oecussi Ambeno Exclusive Economic Zone","200NM","26234","Oecusse","8757","East Timor","TLS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,124.270746861,-9.04988535896,1826.50002327,"21791",0
+"38","8394","Congolese Exclusive Economic Zone","200NM","8633","Republic of the Congo","8633","Republic of the Congo","COG","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,10.5957743479,-5.33647579774,33806.6828524,"8394",66
+"39","8478","Angolan Exclusive Economic Zone","200NM","2150","Angola","2150","Angola","AGO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,11.0353708514,-11.701097795,495861.858053,"8478",72
+"40","8347","Mozambican Exclusive Economic Zone","200NM","2220","Mozambique","2220","Mozambique","MOZ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,37.9562060878,-20.3732121341,566107.319809,"8347",103
+"41","8349","Kenyan Exclusive Economic Zone","200NM","2118","Kenya","2118","Kenya","KEN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,42.2930873388,-3.20733029195,113818.646103,"8349",58
+"42","8758","East Timorian Exclusive Economic Zone","200NM","8757","East Timor","8757","East Timor","TLS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,126.81268257,-9.77185441186,72174.8295001,"8758",79
+"43","21795","Joint regime area Australia / East Timor","Joint regime","2147","Australia","2147","Australia","AUS","8757","East Timor","8757","East Timor","TLS","0",NA,"0",NA,NA,127.14331346,-10.4103568152,35039.0162075,"21795",66
+"44","21798","Protected Zone established under the Torres Strait Treaty","Joint regime","2237","Papua New Guinea","2237","Papua New Guinea","PNG","2147","Australia","2147","Australia","AUS","0",NA,"0",NA,NA,142.410287691,-9.50248815536,3716.58035339,"21798",0
+"45","8384","South African Exclusive Economic Zone (Prince Edward Islands)","200NM","22598","Prince Edward Islands","2176","South Africa","ZAF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,37.8085360917,-46.8329157487,474896.777438,"8384",3
+"46","8479","Tanzanian Exclusive Economic Zone","200NM","2205","Tanzania","2205","Tanzania","TZA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,41.1678741176,-7.20984671049,241452.798387,"8479",67
+"47","8314","Solomon Islands Exclusive Economic Zone","200NM","8593","Solomon Islands","8593","Solomon Islands","SLB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,163.688495688,-10.0506821726,1605255.91456,"8314",35
+"48","8412","Anguilla Exclusive Economic Zone","200NM","8643","Anguilla","2208","United Kingdom","AIA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.5432850246,20.018030055,90154.3649636,"8412",48
+"49","8414","Antigua and Barbuda Exclusive Economic Zone","200NM","8645","Antigua and Barbuda","8645","Antigua and Barbuda","ATG","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-60.5706983334,18.7327649162,111560.086278,"8414",49
+"50","26519","Aruban Exclusive Economic Zone","200NM","8652","Aruba","15","Netherlands","ABW","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-69.6734120383,13.7413800338,29950.1260655,"26519",57
+"51","8361","Portuguese Exclusive Economic Zone (Azores)","200NM","2454","Azores","2243","Portugal","PRT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-27.9760149599,38.4753756266,960420.584331,"8361",35
+"52","8404","Bahamas Exclusive Economic Zone","200NM","2144","Bahamas","2144","Bahamas","BHS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-75.5706026891,25.1151384808,618667.242186,"8404",87
+"53","8418","Barbados Exclusive Economic Zone","200NM","8649","Barbados","8649","Barbados","BRB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-57.9936743404,13.3232118543,185006.191263,"8418",35
+"54","8429","Mexican Exclusive Economic Zone","200NM","2224","Mexico","2224","Mexico","MEX","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-105.333456024,21.3501812799,3186924.40663,"8429",154
+"55","8402","Bermudian Exclusive Economic Zone","200NM","8636","Bermuda","2208","United Kingdom","BMU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-64.7672540598,32.334721936,453160.413003,"8402",21
+"56","26520","Bonaire Exclusive Economic Zone","200NM","15074","Bonaire","15","Netherlands","BES","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-68.3697839747,12.7111952419,12980.2477467,"26520",61
+"57","8411","British Virgin Islands Exclusive Economic Zone","200NM","8653","British Virgin Islands","2208","United Kingdom","VGB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-64.5049713668,20.3898760877,81583.1247953,"8411",38
+"58","8362","Cape Verdean Exclusive Economic Zone","200NM","2168","Cape Verde","2168","Cape Verde","CPV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-24.1716379097,16.0919044675,801936.702842,"8362",34
+"59","8364","Spanish Exclusive Economic Zone (Canary Islands)","200NM","3743","Canary Islands","2185","Spain","ESP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-17.6139556167,28.367147652,445893.382119,"8364",88
+"60","8407","Cayman Islands Exclusive Economic Zone","200NM","8638","Cayman Islands","2208","United Kingdom","CYM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-81.1391391941,19.153448028,118398.433806,"8407",40
+"61","8401","Clipperton Exclusive Economic Zone","200NM","8635","Clipperton Island","17","France","CPT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-109.217281712,10.3086885787,435657.049626,"8401",17
+"62","8423","Panamanian Exclusive Economic Zone","200NM","2249","Panama","2249","Panama","PAN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-80.3458256144,8.28880359641,331242.370352,"8423",105
+"63","8424","Costa Rican Exclusive Economic Zone","200NM","2162","Costa Rica","2162","Costa Rica","CRI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-86.6607193288,6.62124016996,567365.437993,"8424",95
+"64","26517","Curaçaoan Exclusive Economic Zone","200NM","19143","Curaçao","15","Netherlands","CUW","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-68.9717632758,13.162460911,25397.0379826,"26517",64
+"65","8417","Dominican Exclusive Economic Zone","200NM","8648","Dominica","8648","Dominica","DMA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-60.7211417111,15.4973889186,28589.5552507,"8417",42
+"66","8409","Dominican Republic Exclusive Economic Zone","200NM","8640","Dominican Republic","8640","Dominican Republic","DOM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-69.6722372535,19.1382628147,350697.677696,"8409",49
+"67","8430","Guatemalan Exclusive Economic Zone","200NM","2097","Guatemala","2097","Guatemala","GTM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-92.0907971305,12.5524312281,110643.131743,"8430",53
+"68","8435","Faeroe Exclusive Economic Zone","200NM","3297","Faeroe","2157","Denmark","FRO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-6.98147891699,62.6049066497,264369.642022,"8435",41
+"69","8370","Gambian Exclusive Economic Zone","200NM","2113","Gambia","2113","Gambia","GMB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-18.3875108981,13.3286663278,22956.7941229,"8370",65
+"70","8365","Disputed area Gibraltarian Exclusive Economic Zone","Disputed","3344","Gibraltar","2208","United Kingdom","GIB","2185","Spain","2185","Spain","ESP","0",NA,"0",NA,NA,-5.21961235242,36.0883186746,388.29707089,"8365",0
+"71","8419","Grenadian Exclusive Economic Zone","200NM","8650","Grenada","8650","Grenada","GRD","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.05880506,12.2438817621,25576.6292954,"8419",54
+"72","33177","Guadeloupean Exclusive Economic Zone","200NM","8654","Guadeloupe","17","France","GLP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-59.8504431156,16.7988045773,90858.9144169,"33177",47
+"73","8390","Sierra Leonian Exclusive Economic Zone","200NM","2191","Sierra Leone","2191","Sierra Leone","SLE","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-14.1446799886,6.6354075324,160578.277588,"8390",77
+"74","5680","Icelandic Exclusive Economic Zone","200NM","2129","Iceland","2129","Iceland","ISL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-18.4548612676,64.6994946389,763172.764242,"5680",35
+"75","8459","Jamaican Exclusive Economic Zone","200NM","8682","Jamaica","8682","Jamaica","JAM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-77.2908938472,16.6686107246,257049.4206,"8459",44
+"77","8363","Portuguese Exclusive Economic Zone (Madeira)","200NM","4956","Madeira","2243","Portugal","PRT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-16.8109067611,33.1730175134,452810.174016,"8363",82
+"78","8369","Mauritanian Exclusive Economic Zone","200NM","2236","Mauritania","2236","Mauritania","MRT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-17.9181448954,18.2466224476,173189.736645,"8369",94
+"79","8415","Montserrat Exclusive Economic Zone","200NM","8646","Montserrat","2208","United Kingdom","MSR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.4838447003,16.4129227994,7190.1181674,"8415",43
+"81","48951","Disputed area Navassa Island: USA / Haiti / Jamaica","Disputed","8639","Haiti","8639","Haiti","HTI","2204","United States","2204","United States","USA","8682","Jamaica","8682","Jamaica","JAM",-75.1837262083,18.338143081,13890.8022545,"48951",35
+"82","8443","Palmyra Atoll Exclusive Economic Zone","200NM","8669","Palmyra Atoll","2204","United States","UMI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-162.898806844,6.68793833684,353739.677389,"8443",20
+"83","33179","Puerto Rican Exclusive Economic Zone","200NM","8641","Puerto Rico","2204","United States","PRI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-66.7868748643,17.7982100164,154652.244219,"33179",45
+"84","26518","Saba Exclusive Economic Zone","200NM","19095","Saba","15","Netherlands","BES","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-63.6018537449,17.3773879325,9487.86004099,"26518",46
+"85","48952","Saint-Barthélemy Exclusive Economic Zone","200NM","19099","Saint-Barthélemy","17","France","BLM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.627396234,17.9326998633,4179.01620913,"48952",47
+"86","26526","Sint-Eustatius Exclusive Economic Zone","200NM","26525","Sint-Eustatius","15","Netherlands","BES","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-63.1298700042,17.3389023869,2175.3949696,"26526",0
+"87","8413","Saint Kitts and Nevis Exclusive Economic Zone","200NM","8644","Saint Kitts and Nevis","8644","Saint Kitts and Nevis","KNA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.9057776097,16.9902197815,9501.83433544,"8413",48
+"88","8416","Saint Lucia Exclusive Economic Zone","200NM","8647","Saint Lucia","8647","Saint Lucia","LCA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-61.1035883678,13.877703726,15412.9352272,"8416",35
+"89","8495","Saint-Martin Exclusive Economic Zone","200NM","8688","Collectivity of Saint Martin","17","France","MAF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-63.202822639,18.0346923308,1099.39449847,"8495",0
+"90","8494","Saint-Pierre and Miquelon Exclusive Economic Zone","200NM","8686","Saint-Pierre and Miquelon","17","France","SPM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-56.3870090588,45.8571905908,12413.8016754,"8494",13
+"91","8421","Saint Vincent and the Grenadines Exclusive Economic Zone","200NM","8651","Saint Vincent and the Grenadines","8651","Saint Vincent and the Grenadines","VCT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-61.6944240413,13.1580517887,36243.1925939,"8421",40
+"92","21803","Sint-Maarten Exclusive Economic Zone","200NM","21802","Sint-Maarten","15","Netherlands","SXM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-63.1228498936,17.9381258597,465.987614666,"21803",0
+"93","8420","Trinidad and Tobago Exclusive Economic Zone","200NM","2186","Trinidad and Tobago","2186","Trinidad and Tobago","TTO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-59.9847752098,10.9578843863,76575.0360158,"8420",57
+"94","8405","Turks and Caicos Exclusive Economic Zone","200NM","2211","Turks and Caicos Islands","2208","United Kingdom","TCA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-70.8535688822,22.8098957013,91028.3310066,"8405",40
+"95","33180","Virgin Islander Exclusive Economic Zone","200NM","8642","United States Virgin Islands","2204","United States","VIR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-64.9243537727,17.2549629495,38290.0629235,"33180",39
+"96","5688","Portuguese Exclusive Economic Zone","200NM","2243","Portugal","2243","Portugal","PRT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-10.922837746,38.3192142122,315475.133682,"5688",82
+"97","8428","El Salvador Exclusive Economic Zone","200NM","2135","El Salvador","2135","El Salvador","SLV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-89.744108452,11.8485870936,95098.9801233,"8428",48
+"98","8457","Belizean Exclusive Economic Zone","200NM","8681","Belize","8681","Belize","BLZ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-87.5931957881,17.1877404836,34310.002032,"8457",48
+"99","8406","Cuban Exclusive Economic Zone","200NM","8637","Cuba","8637","Cuba","CUB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-81.5304954834,21.600037556,352265.987352,"8406",74
+"100","8408","Haitian Exclusive Economic Zone","200NM","8639","Haiti","8639","Haiti","HTI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-73.5485596268,17.9121851763,103497.883331,"8408",42
+"101","33178","Martinican Exclusive Economic Zone","200NM","8655","Martinique","17","France","MTQ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-60.2005459721,14.9751154515,47599.5553363,"33178",40
+"102","48964","Joint regime area Senegal / Guinea Bissau","Joint regime","2225","Senegal","2225","Senegal","SEN","8685","Guinea-Bissau","8685","Guinea-Bissau","GNB","0",NA,"0",NA,NA,-18.7744292536,11.2609962226,63504.9930222,"48964",55
+"103","48965","Disputed area: Venezuela / Aruba / Dominican Republic","Disputed","2201","Venezuela","2201","Venezuela","VEN","8652","Aruba","15","Netherlands","ABW","8640","Dominican Republic","8640","Dominican Republic","DOM",-69.6532561891,15.3038067108,1114.61161769,"48965",0
+"104","48966","Joint regime area Spain / France","Joint regime","17","France","17","France","FRA","2185","Spain","2185","Spain","ESP","0",NA,"0",NA,NA,-5.33333333308,45.2541666666,2859.50870608,"48966",9
+"105","48967","Joint regime area United Kingdom / Denmark (Faeroe Islands)","Joint regime","2208","United Kingdom","2208","United Kingdom","GBR","3297","Faeroe","2157","Denmark","FRO","0",NA,"0",NA,NA,-7.5190207701,60.0360866869,7935.63728108,"48967",16
+"106","48943","Disputed area: Canada / USA","Disputed","2169","Canada","2169","Canada","CAN","2204","United States","2204","United States","USA","0",NA,"0",NA,NA,-139.936048604,72.0253405239,23372.5712709,"48943",0
+"107","48968","Joint regime area Costa Rica / Ecuador (Galapagos)","Joint regime","2162","Costa Rica","2162","Costa Rica","CRI","5660","Galapagos","2166","Ecuador","ECU","0",NA,"0",NA,NA,-88.8413167805,3.22640804155,17337.2348417,"48968",16
+"108","8425","Nicaraguan Exclusive Economic Zone","200NM","2255","Nicaragua","2255","Nicaragua","NIC","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-83.3105122043,12.7195681683,228251.857132,"8425",99
+"109","8460","Guyanese Exclusive Economic Zone","200NM","2124","Guyana","2124","Guyana","GUY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-57.6411085408,8.61271338198,135053.148853,"8460",61
+"110","48969","Joint regime area Guyana / Barbados","Joint regime","8649","Barbados","8649","Barbados","BRB","2124","Guyana","2124","Guyana","GUY","0",NA,"0",NA,NA,-57.1321427973,10.6807768195,67.1575217265,"48969",0
+"111","48970","Joint regime area Colombia / Dominican Republic","Joint regime","8640","Dominican Republic","8640","Dominican Republic","DOM","2175","Colombia","2175","Colombia","COL","0",NA,"0",NA,NA,-72.5038611031,15.0185096768,13110.2397339,"48970",13
+"112","48971","Disputed area: Venezuela / Colombia / Dominican Republic","Disputed","2175","Colombia","2175","Colombia","COL","8640","Dominican Republic","8640","Dominican Republic","DOM","2201","Venezuela","2201","Venezuela","VEN",-71.0882839046,15.0531958348,863.049826952,"48971",0
+"113","5681","Irish Exclusive Economic Zone","200NM","2114","Ireland","2114","Ireland","IRL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-11.7463132477,52.652694236,426997.656893,"5681",67
+"114","21788","Guernsey Exclusive Economic Zone","200NM","4377","Guernsey","2208","United Kingdom","GGY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-2.65844594606,49.6396764324,6526.09735102,"21788",33
+"115","21789","Jersey Exclusive Economic Zone","200NM","4378","Jersey","2208","United Kingdom","JEY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-2.19115542792,49.121504151,2276.9611741,"21789",34
+"116","8371","Senegalese Exclusive Economic Zone","200NM","2225","Senegal","2225","Senegal","SEN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-18.5035747312,13.6946293156,158604.115529,"8371",97
+"117","8471","Guinea Bissau Exclusive Economic Zone","200NM","8685","Guinea-Bissau","8685","Guinea-Bissau","GNB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-17.5671963259,10.5806587096,106745.931659,"8471",86
+"118","8472","Guinean Exclusive Economic Zone","200NM","2122","Guinea","2122","Guinea","GIN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-15.6205073648,9.18113919475,102165.349909,"8472",85
+"119","8473","Ivory Coast Exclusive Economic Zone","200NM","2161","Ivory Coast","2161","Ivory Coast","CIV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-5.4494860846,3.30806149919,172015.188351,"8473",84
+"120","33185","Disputed area: Trinidad and Tobago / Venezuela / Guyana","Disputed","2124","Guyana","2124","Guyana","GUY","2186","Trinidad and Tobago","2186","Trinidad and Tobago","TTO","2201","Venezuela","2201","Venezuela","VEN",-57.8871181546,10.5653892367,3590.78552744,"33185",14
+"121","8391","Liberian Exclusive Economic Zone","200NM","2105","Liberia","2105","Liberia","LBR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-10.1776290674,3.80280296257,251776.275286,"8391",73
+"122","21792","Joint regime area Colombia / Jamaica","Joint regime","8682","Jamaica","8682","Jamaica","JAM","2175","Colombia","2175","Colombia","COL","0",NA,"0",NA,NA,-79.1457221594,15.470345559,15251.3689556,"21792",19
+"123","48972","Joint regime area Honduras / Cayman Islands","Joint regime","2103","Honduras","2103","Honduras","HND","8638","Cayman Islands","2208","United Kingdom","CYM","0",NA,"0",NA,NA,-83.942222222,18.701111111,2075.80842569,"48972",0
+"124","48973","Joint regime area Iceland / Denmark (Faeroe Islands)","Joint regime","3297","Faeroe","2157","Denmark","FRO","2129","Iceland","2129","Iceland","ISL","0",NA,"0",NA,NA,-10.9820423174,63.1529839977,1282.12335338,"48973",0
+"125","8433","Venezuelan Exclusive Economic Zone","200NM","2201","Venezuela","2201","Venezuela","VEN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-65.914234022,12.7888675475,472616.003707,"8433",84
+"126","8427","Honduran Exclusive Economic Zone","200NM","2103","Honduras","2103","Honduras","HND","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-83.84844835,16.9115353147,208534.450393,"8427",82
+"127","48974","Joint regime area Ecuador / Colombia","Joint regime","2166","Ecuador","2166","Ecuador","ECU","2175","Colombia","2175","Colombia","COL","0",NA,"0",NA,NA,-81.4366783228,1.46100008944,18639.6879249,"48974",0
+"129","48975","Joint regime area Iceland / Norway (Jan Mayen)","Joint regime","2129","Iceland","2129","Iceland","ISL","5343","Jan Mayen","2252","Norway","SJM","0",NA,"0",NA,NA,-8.50000000001,69.2916666666,45504.5354559,"48975",2
+"131","8360","United Arab Emirates Exclusive Economic Zone","200NM","2206","United Arab Emirates","2206","United Arab Emirates","ARE","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,53.864742889,24.9443383341,52580.3217567,"8360",41
+"132","8376","Cypriote Exclusive Economic Zone","200NM","2159","Cyprus","2159","Cyprus","CYP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,32.6352575462,34.4892906437,98453.3205103,"8376",40
+"133","48947","Disputed area: Iran / United Arab Emirates","Disputed","2206","United Arab Emirates","2206","United Arab Emirates","ARE","2126","Iran","2126","Iran","IRN","0",NA,"0",NA,NA,55.1718033541,26.0126890305,6173.22489162,"48947",36
+"134","48956","Disputed area Doumeira Islands: Djibouti / Eritrea","Disputed","2111","Eritrea","2111","Eritrea","ERI","2131","Djibouti","2131","Djibouti","DJI","0",NA,"0",NA,NA,43.2222066003,12.7588941374,244.983278024,"48956",0
+"135","8490","Egyptian Exclusive Economic Zone","200NM","3868","Egypt","3868","Egypt","EGY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,31.149135591,30.4508234116,243230.486587,"8490",93
+"136","8351","Eritrean Exclusive Economic Zone","200NM","2111","Eritrea","2111","Eritrea","ERI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,40.5925502681,15.8234585394,78108.5928819,"8351",53
+"137","5678","Georgian Exclusive Economic Zone","200NM","2102","Georgia","2102","Georgia","GEO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,40.5617419539,42.4462488511,22951.8826179,"5678",2
+"138","8469","Iranian Exclusive Economic Zone","200NM","2126","Iran","2126","Iran","IRN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,53.8860317307,29.7820224927,215347.604482,"8469",62
+"139","8374","Lebanese Exclusive Economic Zone","200NM","2098","Lebanon","2098","Lebanon","LBN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,34.9039215283,33.9094237826,20185.6097866,"8374",43
+"140","8372","Libyan Exclusive Economic Zone","200NM","2194","Libya","2194","Libya","LBY","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,18.4993444533,33.1430015882,364446.950274,"8372",63
+"141","5685","Maltese Exclusive Economic Zone","200NM","2217","Malta","2217","Malta","MLT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,15.1112067205,35.3135543136,52913.4248289,"5685",52
+"142","8354","Omani Exclusive Economic Zone","200NM","2251","Oman","2251","Oman","OMN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,58.6699806823,18.9491464112,556485.906171,"8354",71
+"143","8356","Saudi Arabian Exclusive Economic Zone","200NM","2215","Saudi Arabia","2215","Saudi Arabia","SAU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,40.4817099566,22.453897246,224137.855448,"8356",64
+"144","8346","Sri Lankan Exclusive Economic Zone","200NM","2195","Sri Lanka","2195","Sri Lanka","LKA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,81.6360736851,6.5463774611,533545.991412,"8346",88
+"145","8355","Sudanese Exclusive Economic Zone","200NM","2183","Sudan","2183","Sudan","SDN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,38.1436708014,19.7479237752,62825.9412341,"8355",47
+"146","8373","Syrian Exclusive Economic Zone","200NM","3384","Syria","3384","Syria","SYR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,35.4962435481,35.328707793,10270.2553582,"8373",40
+"147","8392","Togolese Exclusive Economic Zone","200NM","8632","Togo","8632","Togo","TGO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,1.82134961928,4.6394919934,15439.2618032,"8392",75
+"148","5679","Greek Exclusive Economic Zone","200NM","2099","Greece","2099","Greece","GRC","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,23.9324458505,36.5071422798,482874.187763,"5679",56
+"149","5697","Turkish Exclusive Economic Zone","200NM","2213","Turkey","2213","Turkey","TUR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,33.2205977618,40.5222437012,262134.62716,"5697",47
+"150","21790","Monégasque Exclusive Economic Zone","200NM","2222","Monaco","2222","Monaco","MCO","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,7.58768028014,43.3480154122,287.610932884,"21790",0
+"151","8366","Tunisian Exclusive Economic Zone","200NM","2214","Tunisia","2214","Tunisia","TUN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,11.0531894413,36.0013257587,99763.7373247,"8366",67
+"152","5691","Montenegrin Exclusive economic Zone","200NM","17831","Montenegro","17831","Montenegro","MNE","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,18.6801469453,41.8702342631,6382.36937715,"5691",48
+"153","5670","Albanian Exclusive Economic Zone","200NM","2153","Albania","2153","Albania","ALB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,19.1130007712,40.927083965,12165.6105921,"5670",49
+"154","5672","Bulgarian Exclusive Economic Zone","200NM","2174","Bulgaria","2174","Bulgaria","BGR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,29.1928536582,42.9317912348,34752.8122073,"5672",3
+"155","48953","Disputed area: Palestinian Exclusive Economic Zone","Disputed","15525","Palestine","15525","Palestine","PSE","2123","Israel","2123","Israel","ISR","0",NA,"0",NA,NA,34.0598447939,31.6695523619,2329.73147998,"48953",0
+"156","8357","Kuwaiti Exclusive Economic Zone","200NM","2115","Kuwait","2115","Kuwait","KWT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,48.6290824971,29.1845911752,11182.5360034,"8357",40
+"157","8470","Iraqi Exclusive Economic Zone","200NM","2125","Iraq","2125","Iraq","IRQ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,48.5848904072,29.7695160791,1187.50111346,"8470",0
+"158","8358","Bahraini Exclusive Economic Zone","200NM","2154","Bahrain","2154","Bahrain","BHR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,50.705336466,26.3353961148,7515.05531597,"8358",39
+"159","8468","Qatari Exclusive Economic Zone","200NM","2242","Qatar","2242","Qatar","QAT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,51.867444042,25.8805051284,30648.8431247,"8468",42
+"160","8353","Yemeni Exclusive Economic Zone","200NM","2199","Yemen","2199","Yemen","YEM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,52.0616096242,12.8890558088,527382.733788,"8353",77
+"161","8375","Israeli Exclusive Economic Zone","200NM","2123","Israel","2123","Israel","ISR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,34.0976418872,32.6113556487,23511.4177216,"8375",50
+"162","8491","Jordanian Exclusive Economic Zone","200NM","2120","Jordan","2120","Jordan","JOR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,34.9468344737,29.4351678075,97.0835220622,"8491",0
+"163","8352","Djiboutian Exclusive Economic Zone","200NM","2131","Djibouti","2131","Djibouti","DJI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,43.432962888,11.9971041774,7223.43334664,"8352",39
+"164","8481","Bangladeshi Exclusive Economic Zone","200NM","2142","Bangladesh","2142","Bangladesh","BGD","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,90.5397686404,20.4111789845,112302.620749,"8481",72
+"166","8474","Nigerian Exclusive Economic Zone","200NM","2253","Nigeria","2253","Nigeria","NGA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,4.82278332072,4.08512461991,179050.962041,"8474",87
+"167","8475","Cameroonian Exclusive Economic Zone","200NM","2170","Cameroon","2170","Cameroon","CMR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,9.31100269891,3.46271367413,15140.979128,"8475",78
+"168","8397","Sao Tome and Principe Exclusive Economic Zone","200NM","2238","Sao Tome and Principe","2238","Sao Tome and Principe","STP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,6.35334522867,0.779096486722,130840.024661,"8397",58
+"169","21797","Joint regime area Nigeria / Sao Tome and Principe","Joint regime","2238","Sao Tome and Principe","2238","Sao Tome and Principe","STP","2253","Nigeria","2253","Nigeria","NGA","0",NA,"0",NA,NA,5.58698920142,2.06760424839,34536.3549382,"21797",32
+"170","48976","Joint regime area Italy / France","Joint regime","17","France","17","France","FRA","2133","Italy","2133","Italy","ITA","0",NA,"0",NA,NA,9.048856776,41.3071528226,67.0413063769,"48976",0
+"171","22491","Bosnian and Herzegovinian Exclusive Economic Zone","200NM","2136","Bosnia and Herzegovina","2136","Bosnia and Herzegovina","BIH","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,17.5925605485,42.9165596313,12.9796793791,"22491",0
+"172","48957","Guam Exclusive Economic Zone","200NM","8599","Guam","2204","United States","GUM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,144.002607874,12.9295751986,208211.490668,"48957",22
+"173","48955","Disputed area Liancourt Rocks: Japan / South Korea","Disputed","2121","Japan","2121","Japan","JPN","8600","South Korea","8600","South Korea","KOR","0",NA,"0",NA,NA,132.684728739,38.1349541466,60573.9623814,"48955",31
+"174","8318","Marshall Islands Exclusive Economic Zone","200NM","2226","Marshall Islands","2226","Marshall Islands","MHL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,167.487347243,10.1520394692,2001385.96498,"8318",27
+"175","8316","Micronesian Exclusive Economic Zone","200NM","8595","Micronesia","8595","Micronesia","FSM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,150.322031428,6.76930482445,3010627.5342,"8316",27
+"176","8327","South Korean Exclusive Economic Zone","200NM","8600","South Korea","8600","South Korea","KOR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,126.961471211,35.4196462554,310220.953983,"8327",83
+"177","48980","Northern Mariana Exclusive Economic Zone","200NM","8598","Northern Mariana Islands","2204","United States","MNP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,145.73933219,18.2865983172,763555.008407,"48980",23
+"178","8315","Palau Exclusive Economic Zone","200NM","8594","Palau","8594","Palau","PLW","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,133.067109938,6.44072082768,614805.248533,"8315",28
+"179","8322","Philippines Exclusive Economic Zone","200NM","2245","Philippines","2245","Philippines","PHL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,122.546805869,12.3401155141,1971039.86154,"8322",144
+"180","48954","Disputed area Senkaku Islands: Japan / China / Taiwan","Disputed","2177","Taiwan","2177","Taiwan","TWN","2121","Japan","2121","Japan","JPN","8603","China","8603","China","CHN",124.122109181,26.5208027254,73777.0441761,"48954",90
+"181","8485","Singaporean Exclusive Economic Zone","200NM","2190","Singapore","2190","Singapore","SGP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,103.816427663,1.27428184632,721.555202966,"8485",0
+"183","8332","Thailand Exclusive Economic Zone","200NM","2207","Thailand","2207","Thailand","THA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,99.6286756622,9.16617314888,298685.971043,"8332",100
+"184","8319","Wake Island Exclusive Economic Zone","200NM","8597","Wake Island","2204","United States","UMI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,166.530457536,19.5032615321,407153.960988,"8319",18
+"185","8484","Vietnamese Exclusive Economic Zone","200NM","2200","Vietnam","2200","Vietnam","VNM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,107.865630238,11.5549947852,750997.838971,"8484",119
+"186","21796","Joint regime area Japan / Korea","Joint regime","8600","South Korea","8600","South Korea","KOR","2121","Japan","2121","Japan","JPN","0",NA,"0",NA,NA,127.578081731,30.8139587202,82702.3311195,"21796",93
+"187","26521","Bruneian Exclusive Economic Zone","200NM","2145","Brunei","2145","Brunei","BRN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,114.040513079,5.37283237294,43137.5920732,"26521",88
+"188","8321","Taiwanese Exclusive Economic Zone","200NM","2177","Taiwan","2177","Taiwan","TWN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,118.848425827,21.5385134976,355471.949988,"8321",165
+"189","8328","North Korean Exclusive Economic Zone","200NM","8601","North Korea","8601","North Korea","PRK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,128.987444629,39.8278792319,114165.514473,"8328",52
+"191","8331","Cambodian Exclusive Economic Zone","200NM","2171","Cambodia","2171","Cambodia","KHM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,102.542280479,10.2254258282,48697.2172266,"8331",84
+"192","8486","Chinese Exclusive Economic Zone","200NM","8603","China","8603","China","CHN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,118.676418867,28.6766590494,963547.862843,"8486",166
+"193","5675","Estonian Exclusive Economic Zone","200NM","2110","Estonia","2110","Estonia","EST","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,23.0023188331,58.7701196016,36442.3364254,"5675",2
+"194","5676","Finnish Exclusive Economic Zone","200NM","2106","Finland","2106","Finland","FIN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,21.88918562,61.7548366612,81003.6348989,"5676",2
+"195","5694","Swedish Exclusive Economic Zone","200NM","2180","Sweden","2180","Sweden","SWE","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,18.1151682684,59.4854995664,155951.836705,"5694",16
+"196","5684","Lithuanian Exclusive Economic Zone","200NM","2156","Lithuania","2156","Lithuania","LTU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,20.3641170157,55.7552690241,6830.53928988,"5684",2
+"197","48977","Joint regime area Sweden / Norway","Joint regime","2252","Norway","2252","Norway","NOR","2180","Sweden","2180","Sweden","SWE","0",NA,"0",NA,NA,10.5009537039,58.8099814814,139.943003003,"48977",0
+"198","3293","Belgian Exclusive Economic Zone","200NM","14","Belgium","14","Belgium","BEL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,2.70503854662,51.4654455537,3491.7011964,"3293",25
+"199","5668","Dutch Exclusive Economic Zone","200NM","15","Netherlands","15","Netherlands","NLD","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,4.19290821239,53.6120313964,64444.3368919,"5668",25
+"200","5669","German Exclusive Economic Zone","200NM","2101","Germany","2101","Germany","DEU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,8.39967915655,54.5563583152,56597.6543338,"5669",24
+"201","5674","Danish Exclusive Economic Zone","200NM","2157","Denmark","2157","Denmark","DNK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,9.24983396528,56.1421317001,104884.788693,"5674",23
+"202","5683","Latvian Exclusive Economic Zone","200NM","2132","Latvia","2132","Latvia","LVA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,21.3519656539,57.1043333209,28355.9762185,"5683",2
+"203","8455","New Zealand Exclusive Economic Zone","200NM","2227","New Zealand","2227","New Zealand","NZL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,71.7216744348,-42.7656320827,4104579.03432,"8455",87
+"204","8399","Bouvet Exclusive Economic Zone","200NM","8634","Bouvet","2252","Norway","BVT","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,3.35557324104,-54.4556346338,441841.102452,"8399",0
+"207","8442","Jarvis Island Exclusive Economic Zone","200NM","8668","Jarvis Island","2204","United States","UMI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-160.468385678,-0.913995273863,323173.119683,"8442",20
+"209","8489","Antarctic 200NM zone beyond the coastline","200NM","1926","Antarctica","1926","Antarctica","ATA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-10.9756939853,-71.1123381926,9618928.14224,"8489",4
+"210","8326","Tuvaluan Exclusive Economic Zone","200NM","2210","Tuvalu","2210","Tuvalu","TUV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,74.2878528352,-7.81254213691,753126.434715,"8326",27
+"211","8454","Wallis and Futuna Exclusive Economic Zone","200NM","8680","Wallis and Futuna","17","France","WLF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-172.775945776,-12.7966355295,262750.561412,"8454",20
+"212","8451","Howland and Baker Islands Exclusive Economic Zone","200NM","48684","Howland and Baker islands","2204","United States","UMI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-176.72726847,0.791304953123,434885.338532,"8451",20
+"213","8325","Fijian Exclusive Economic Zone","200NM","2108","Fiji","2108","Fiji","FJI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,94.9811669811,-17.9942361498,1283243.50985,"8325",25
+"214","8337","Seychellois Exclusive Economic Zone","200NM","2192","Seychelles","2192","Seychelles","SYC","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,52.4687739034,-6.54782117364,1341497.0288,"8337",47
+"215","8398","Equatorial Guinean Exclusive Economic Zone","200NM","2112","Equatorial Guinea","2112","Equatorial Guinea","GNQ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,5.43745069906,-1.37183355987,304131.929643,"8398",89
+"216","8345","Maldives Exclusive Economic Zone","200NM","2229","Maldives","2229","Maldives","MDV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,73.0880145593,2.45483622223,925222.836017,"8345",41
+"217","8324","Papua New Guinean Exclusive Economic Zone","200NM","2237","Papua New Guinea","2237","Papua New Guinea","PNG","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,150.717739785,-5.46159340329,2399610.72138,"8324",94
+"218","8350","Somali Exclusive Economic Zone","200NM","2187","Federal Republic of Somalia","2187","Federal Republic of Somalia","SOM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,48.7178065692,5.38119709067,781835.626833,"8350",72
+"219","8317","Nauruan Exclusive Economic Zone","200NM","8596","Nauru","8596","Nauru","NRU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,166.123963816,-0.591130617199,309260.512828,"8317",21
+"220","8492","Indonesian Exclusive Economic Zone","200NM","2127","Indonesia","2127","Indonesia","IDN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,117.898147552,-3.30903479808,6025109.71458,"8492",167
+"222","48978","Joint regime area United States / Russia","Joint regime","2204","United States","2204","United States","USA","2240","Russia","2240","Russia","RUS","0",NA,"0",NA,NA,-88.1419636799,66.9706170954,8462.82034165,"48978",5
+"224","5677","French Exclusive Economic Zone","200NM","17","France","17","France","FRA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-1.96612922953,46.0421241338,344795.437503,"5677",93
+"225","8378","Algerian Exclusive Economic Zone","200NM","2152","Algeria","2152","Algeria","DZA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,3.53979379733,37.2034369817,131184.423485,"8378",69
+"226","8400","Ghanaian Exclusive Economic Zone","200NM","2100","Ghana","2100","Ghana","GHA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-0.847226823817,3.50286659343,227218.059083,"8400",84
+"227","8438","Greenlandic Exclusive Economic Zone","200NM","2260","Greenland","2157","Denmark","GRL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-31.9709635324,75.4796502777,2270601.239,"8438",16
+"228","5696","United Kingdom Exclusive Economic Zone","200NM","2208","United Kingdom","2208","United Kingdom","GBR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-4.25918474969,56.7469239933,732922.625801,"5696",72
+"229","8453","United States Exclusive Economic Zone (Hawaii)","200NM","8679","Hawaii","2204","United States","USA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-151.05752732,24.0409882574,2474713.60519,"8453",49
+"230","33181","Svalvard Exclusive Economic Zone","200NM","5334","Svalbard","2252","Norway","SJM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,18.2890415813,78.7134022616,796621.045326,"33181",5
+"231","5686","Norwegian Exclusive Economic Zone","200NM","2252","Norway","2252","Norway","NOR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,14.0571352197,68.188925744,933667.554218,"5686",34
+"232","5690","Russian Exclusive economic Zone","200NM","2240","Russia","2240","Russia","RUS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,93.5554082721,71.3259188065,7734475.08159,"5690",51
+"233","5673","Croatian Exclusive Economic Zone","200NM","2160","Croatia","2160","Croatia","HRV","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,15.6515147267,43.4307960226,55428.4849722,"5673",49
+"235","5682","Italian Exclusive Economic Zone","200NM","2133","Italy","2133","Italy","ITA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,12.9279072597,39.6552300897,536727.544683,"5682",68
+"236","5695","Disputed area Ukrainian Exclusive Economic Zone","Disputed","2196","Ukraine","2196","Ukraine","UKR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,33.6346521053,44.9519170891,136252.734661,"5695",3
+"237","5689","Romanian Exclusive economic Zone","200NM","2241","Romania","2241","Romania","ROU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,30.0839807205,44.2368041546,29604.783396,"5689",3
+"238","8487","Japanese Exclusive Economic Zone","200NM","2121","Japan","2121","Japan","JPN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,138.481815283,29.5117767836,4043057.35049,"8487",208
+"239","48950","Disputed area Kuril Islands: Japan / Russia","Disputed","2121","Japan","2121","Japan","JPN","2240","Russia","2240","Russia","RUS","0",NA,"0",NA,NA,147.961539344,43.8860570245,213385.537199,"48950",31
+"240","8437","Jan Mayen Exclusive Economic Zone","200NM","5343","Jan Mayen","2252","Norway","SJM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-5.25149856322,71.1141265973,291637.563172,"8437",3
+"241","8333","Indian Exclusive Economic Zone (Andaman and Nicobar Islands)","200NM","8605","Andaman and Nicobar","2128","India","IND","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,92.1896665703,9.97738230194,664340.490167,"8333",45
+"242","8359","Pakistani Exclusive Economic Zone","200NM","2250","Pakistan","2250","Pakistan","PAK","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,64.7122448427,23.5394045623,224387.832462,"8359",70
+"243","26523","Turkmen Exclusive Economic Zone","200NM","2212","Turkmenistan","2212","Turkmenistan","TKM","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,52.8792283705,39.7805938052,61222.8609384,"26523",0
+"244","26524","Azerbaijanis Exclusive Economic Zone","200NM","2134","Azerbaijan","2134","Azerbaijan","AZE","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,50.3317181634,40.2835047415,80576.1964994,"26524",0
+"245","26522","Kazakh Exclusive Economic Zone","200NM","2119","Kazakhstan","2119","Kazakhstan","KAZ","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,51.0143954042,44.4744157339,114381.001862,"26522",0
+"246","8493","Canadian Exclusive Economic Zone","200NM","2169","Canada","2169","Canada","CAN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-90.3213368241,68.6613959329,5769849.28296,"8493",60
+"247","8482","Myanmar Exclusive Economic Zone","200NM","2219","Myanmar","2219","Myanmar","MMR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,94.655511075,14.9965421677,497442.180134,"8482",85
+"248","8449","Tokelau Exclusive Economic Zone","200NM","8675","Tokelau","2227","New Zealand","TKL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-172.084954608,-8.63257349086,320617.268168,"8449",20
+"249","48945","Disputed area Glorioso Islands: France / Madagascar","Disputed","7963","Madagascar","7963","Madagascar","MDG","8607","Glorioso Islands","17","France","FRA","0",NA,"0",NA,NA,47.0961709991,-11.6185429823,43559.8317675,"48945",28
+"250","8341","Ile Europa Exclusive Economic Zone","200NM","8612","Europa Island","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,40.109277452,-23.5368181698,127945.997412,"8341",29
+"252","8368","Disputed area Western Saharan Exclusive Economic Zone","Disputed","8617","Western Sahara","8617","Western Sahara","ESH","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-17.6951303974,23.3411860745,284066.375395,"8368",90
+"253","8461","Surinamese Exclusive Economic Zone","200NM","2182","Suriname","2182","Suriname","SUR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-54.7761732224,7.58813141544,133316.418383,"8461",71
+"254","48948","Disputed area Matthew and Hunter Islands: New Caledonia / Vanuatu","Disputed","2261","New Caledonia","17","France","NCL","2202","Vanuatu","2202","Vanuatu","VUT","0",NA,"0",NA,NA,172.036551979,-23.2791119381,187985.096385,"48948",20
+"255","5687","Polish Exclusive Economic Zone","200NM","2244","Poland","2244","Poland","POL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,17.290603293,54.9085653054,29970.7399095,"5687",3
+"256","8462","French Guiana Exclusive Economic Zone","200NM","8683","French Guiana","17","France","GUF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-51.7545173709,6.69126981517,131542.056553,"8462",66
+"257","8477","Democratic Republic of the Congo Exclusive Economic Zone","200NM","2198","Democratic Republic of the Congo","2198","Democratic Republic of the Congo","COD","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,10.7325554821,-6.40152598619,13360.665776,"8477",59
+"258","8476","Gabonese Exclusive Economic Zone","200NM","2104","Gabon","2104","Gabon","GAB","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,8.73897075276,-3.06254123261,201753.746636,"8476",85
+"259","8480","Indian Exclusive Economic Zone","200NM","2128","India","2128","India","IND","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,76.0853171614,14.5979955792,1659486.57465,"8480",119
+"260","8432","Peruvian Exclusive Economic Zone","200NM","2257","Peru","2257","Peru","PER","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-78.883056182,-11.9042309742,855322.284264,"8432",70
+"130","26582","Disputed area: Sudan / Egypt","Disputed","2183","Sudan","2183","Sudan","SDN","3868","Egypt","3868","Egypt","EGY","0",NA,"0",NA,NA,36.8791693772,22.6116408335,19733.5118706,"26582",46
+"165","8393","Beninese Exclusive Economic Zone","200NM","2139","Benin","2139","Benin","BEN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,2.42123297004,4.84154943849,35528.368644,"8393",71
+"234","5692","Slovenian Exclusive Economic Zone","200NM","2188","Slovenia","2188","Slovenia","SVN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,13.6029524894,45.5630329257,149.46070435,"5692",0
+"261","22756","Chilean Exclusive Economic Zone (San Felix and San Ambrosio islands)","200NM","25135","Islas San Félix and San Ambrosio","2165","Chile","CHL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-79.9908635581,-26.3309136903,450960.402638,"22756",10
+"262","21787","Chilean Exclusive Economic Zone (Easter Island)","200NM","15120","Easter Island","2165","Chile","CHL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-107.438687937,-26.8240003679,729763.366364,"21787",12
+"263","48982","Disputed area: Puerto Rico / Dominican Republic","Disputed","8641","Puerto Rico","2204","United States","PRI","8640","Dominican Republic","8640","Dominican Republic","DOM","0",NA,"0",NA,NA,-66.8412519674,20.8944771349,18298.6504434,"48982",22
+"76","8452","Johnston Atoll Exclusive Economic Zone","200NM","8678","Johnston Atoll","2204","United States","UMI","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-169.50611759,16.7510913077,442442.946973,"8452",22
+"19","8323","Australian Exclusive Economic Zone","200NM","2147","Australia","2147","Australia","AUS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,138.083587564,-27.369229549,6870741.53364,"8323",315
+"264","8311","Australian Exclusive Economic Zone (Macquarie Island)","200NM","8592","Macquarie Island","2147","Australia","AUS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,158.649874215,-54.878177407,475737.98177,"8311",6
+"265","8339","Juan de Nova Exclusive Economic Zone","200NM","8610","Juan de Nova Island","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,42.0942817109,-17.3066334276,62770.4657039,"8339",41
+"266","8340","Bassas da India Exclusive Economic Zone","200NM","31136","Bassas da India","17","France","ATF","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,39.42517963,-20.8605425261,120689.515135,"8340",24
+"205","8464","Brazilian Exclusive Economic Zone","200NM","2143","Brazil","2143","Brazil","BRA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-39.4442325948,-11.0979857632,3205100.30771,"8464",128
+"267","8381","Brazilian Exclusive Economic Zone (Trindade)","200NM","8622","Trindade","2143","Brazil","BRA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-29.0964357789,-20.5027699013,472480.840469,"8381",14
+"221","8456","United States Exclusive Economic Zone","200NM","2204","United States","2204","United States","USA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-95.8160986924,34.759366767,2451978.73855,"8456",180
+"268","8463","United States Exclusive Economic Zone (Alaska)","200NM","8684","Alaska","2204","United States","USA","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-119.976599431,59.0116992673,3682949.91893,"8463",27
+"208","8450","Kiribati Exclusive Economic Zone (Phoenix Islands)","200NM","8658","Phoenix Group","2116","Kiribati","KIR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-172.453965248,-3.73181210892,745700.775566,"8450",21
+"269","8441","Kiribati Exclusive Economic Zone (Line Islands)","200NM","8657","Line Group","2116","Kiribati","KIR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-154.726337182,-3.82154491972,1640932.58762,"8441",21
+"270","8488","Kiribati Exclusive Economic Zone (Gilbert Islands)","200NM","17597","Gilbert Islands","2116","Kiribati","KIR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,172.782142391,-0.259123609503,1053239.66469,"8488",25
+"128","8426","Colombian Exclusive Economic Zone","200NM","2175","Colombia","2175","Colombia","COL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-78.0622198147,8.60754392884,718163.16433,"8426",119
+"271","33183","Colombian Exclusive Economic Zone (Quitasueño)","200NM","5765","Quitasueño Bank","2175","Colombia","COL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-80.301848623,14.3808745442,2838.08187939,"33183",19
+"272","33184","Colombian Exclusive Economic Zone (Serrana)","200NM","5770","Serrana Bank","2175","Colombia","COL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-81.1608804118,14.3036190524,3689.41076274,"33184",0
+"273","48984","Colombian Exclusive Economic Zone (Serranilla)","200NM","5772","Serranilla Bank","2175","Colombia","COL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-79.8556192108,15.7971921556,1552.47584257,"48984",0
+"274","48985","Colombian Exclusive Economic Zone (Bajo Nuevo)","200NM","48983","Bajo Nuevo Bank","2175","Colombia","COL","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-78.6333303458,15.8499938828,1550.45737245,"48985",19
+"206","8403","Ecuadorian Exclusive Economic Zone (Galapagos)","200NM","5660","Galapagos","2166","Ecuador","ECU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-90.8317420491,-0.041839185943,841431.77571,"8403",43
+"275","8431","Ecuadorian Exclusive Economic Zone","200NM","2166","Ecuador","2166","Ecuador","ECU","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-82.2086338635,-0.965565682864,236289.144622,"8431",65
+"80","8367","Moroccan Exclusive Economic Zone","200NM","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-9.85139129396,32.7816028423,280453.136651,"8367",88
+"13","8466","Argentinean Exclusive Economic Zone","200NM","2149","Argentina","2149","Argentina","ARG","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-62.159504061,-47.0899881567,1072785.76611,"8466",80
+"251","8483","Malaysian Exclusive Economic Zone","200NM","2230","Malaysia","2230","Malaysia","MYS","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,108.435167801,4.85143661206,510822.838776,"8483",112
+"881","49000","Disputed area Melilla: Spain / Morocco","Disputed","36288","Melilla","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-2.95,35.53,27.0578785361,"49000",0
+"223","5693","Spanish Exclusive Economic Zone","200NM","2185","Spain","2185","Spain","ESP","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,-4.15798022934,41.7212148176,561681.917973,"5693",93
+"878","49001","Disputed area Alhucemas Islands: Spain / Morocco","Disputed","48995","Alhucemas Islands","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-3.8895,35.2135,14.0577120537,"49001",0
+"876","48998","Disputed area Perejil Island: Spain / Morocco","Disputed","48994","Perejil Island","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-5.418889,35.913889,0.641232913734,"48998",0
+"880","49002","Disputed area Ceuta: Spain / Morocco","Disputed","14864","Ceuta","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-5.315556,35.888333,32.7176357482,"49002",0
+"877","48999","Disputed area Peñón de Vélez de la Gomera: Spain / Morocco","Disputed","48996","Peñón de Vélez de la Gomera","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-4.300803,35.172581,3.68515325559,"48999",0
+"879","48997","Disputed area Chafarinas Islands: Spain / Morocco","Disputed","5363","Chafarinas Islands","2185","Spain","ESP","2221","Morocco","2221","Morocco","MAR","0",NA,"0",NA,NA,-2.433333,35.183333,25.5080981045,"48997",0
+"882","49003","Disputed area South China Sea","Disputed","8603","China","0",NA,"CHN","0",NA,"0",NA,NA,"0",NA,"0",NA,NA,114.10182274,13.1418639,338839.158301,"49003",33
+"883","33176","Disputed area: Kenya / Somalia","Disputed","2118","Kenya","2118","Kenya","KEN","2187","Federal Republic of Somalia","2187","Federal Republic of Somalia","SOM","0",NA,"0",NA,NA,42.303611,-1.860443,50229.5785767,"33176",42

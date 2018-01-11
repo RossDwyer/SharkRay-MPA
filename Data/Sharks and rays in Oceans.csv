@@ -1,0 +1,308 @@
+"featurecla","name","namealt","changed","note","name_fr","min_label","max_label","scalerank","Nospecies"
+"ocean","ARCTIC OCEAN",NA,"Version 1.4",NA,"OCEAN GLACIAL ARCTIQUE",1,6.5,0,2
+"ocean","SOUTHERN OCEAN",NA,"Version 1.4",NA,"OCEAN GLACIAL ANTARCTIQUE",1,6.5,0,4
+"ocean","NORTH ATLANTIC OCEAN",NA,"Version 1.4",NA,"OCEAN ATLANTIQUE NORD",1,6.5,0,257
+"ocean","NORTH PACIFIC OCEAN",NA,"Version 1.4",NA,"OCEAN PACIFIQUE NORD",1,6.5,0,248
+"ocean","SOUTH PACIFIC OCEAN",NA,"Version 1.4",NA,"OCEAN PACIFIQUE SUD",1,6.5,0,248
+"ocean","INDIAN OCEAN",NA,"Version 1.4",NA,"OCEAN INDIEN",1,6.5,0,363
+"ocean","SOUTH ATLANTIC OCEAN",NA,"Version 1.4",NA,"OCEAN ATLANTIQUE SUD",1,6.5,0,238
+"sea","Black Sea",NA,"Version 1.4",NA,"Mer Noire",2,7.5,1,3
+"sea","Philippine Sea",NA,"Version 1.4",NA,"Mer des Philippines",2,7.5,1,221
+"sea","Coral Sea",NA,"Version 1.4",NA,"Mer de Corail",2,7.5,1,194
+"sea","Tasman Sea",NA,"Version 1.4",NA,"Mer de Tasman",2,7.5,1,170
+"bay","Bay of Bengal",NA,"Version 1.4",NA,"Golfe du Bengale",2,7.5,1,105
+"sea","South China Sea",NA,"Version 1.4",NA,"Mer de Chine méridionale",2,7.5,1,204
+"sea","Sea of Japan","East Sea","Version 1.4",NA,"Mer du Japon",2,7.5,1,91
+"sea","Mediterranean Sea",NA,"Version 1.4",NA,"Mer Méditerranée",2,7.5,1,69
+"sea","Arabian Sea",NA,"Version 1.4",NA,"Mer d'Oman",2,7.5,1,104
+"sea","Beaufort Sea",NA,"Version 1.4",NA,"Mer de Beaufort",2,7.5,1,0
+"sea","Caribbean  Sea",NA,"Version 1.4",NA,"Mer des Caraïbes",2,7.5,1,122
+"gulf","Gulf of Mexico",NA,"Version 1.4",NA,"Golfe du Mexique",2,7.5,1,121
+"sea","Labrador Sea",NA,"Version 1.4",NA,"Mer du Labrador",2,7.5,1,21
+"bay","Hudson Bay",NA,"Version 1.4",NA,"Baie d'Hudson",2,7.5,1,1
+"sea","Caspian Sea",NA,"Version 1.4",NA,"Mer Caspienne",2,7.5,1,0
+"bay","Baffin Bay",NA,"Version 1.4",NA,"Baie de Baffin",2,7.5,1,3
+"gulf","Gulf of Alaska",NA,"Version 1.4",NA,"Golfe d'Alaska",2,7.5,1,19
+"sea","Red Sea",NA,"Version 1.4",NA,"Mer Rouge",2,7.5,1,55
+"sea","Sea of Okhotsk",NA,"Version 1.4",NA,"Mer d'Okhotsk",2,7.5,1,34
+"sea","Ross  Sea",NA,"Version 1.4",NA,"Mer de Ross",2,7.5,1,1
+"sea","Weddell  Sea",NA,"Version 1.4",NA,"Mer de Weddell",2,7.5,1,0
+"gulf","Persian Gulf","Arabian Gulf","Version 1.4",NA,"Golfe Persique",2,7.5,1,45
+"sea","Ross  Sea",NA,"Version 1.4",NA,"Mer de Ross",2,7.5,1,0
+"sea","Celebes Sea",NA,"Version 1.4",NA,"Mer de Célèbes",4,8.5,2,100
+"sea","Sulu Sea",NA,"Version 1.4",NA,"Mer de Sulu",4,8.5,2,116
+"sea","Norwegian Sea",NA,"Version 1.4",NA,"Mer de Norvège",4,8.5,2,44
+"sea","Greenland Sea",NA,"Version 1.4",NA,"Mer du Groenland",4,8.5,2,20
+"sea","Banda Sea",NA,"Version 1.4",NA,"Mer de Banda",4,8.5,2,76
+"strait","Luzon Strait",NA,"Version 1.4",NA,"Détroit de Luçon",4,8.5,2,0
+"bay","Bay of Biscay",NA,"Version 1.4",NA,"Golfe de Gascogne",4,8.5,2,65
+"channel","Mozambique Channel",NA,"Version 1.4",NA,"Canal du Mozambique",4,8.5,2,118
+"gulf","Gulf of Guinea",NA,"Version 1.4",NA,"Golfe de Guinée",4,8.5,2,97
+"sea","Scotia Sea",NA,"Version 1.4",NA,"Mer de Scotia",4,8.5,2,0
+"sea","Baltic Sea",NA,"Version 1.4",NA,"Mer Baltique",4,8.5,2,8
+"sea","Barents Sea",NA,"Version 1.4",NA,"Mer de Barents",4,8.5,2,12
+"sea","North Sea",NA,"Version 1.4",NA,"Mer du Nord",4,8.5,2,37
+"channel","Bristol Channel",NA,"Version 1.4",NA,"Canal de Bristol",5.7,10,4,40
+"sea","Inner Seas",NA,"Version 1.4",NA,"Mer des Hébrides",5.7,10,4,40
+"sea","Irish Sea",NA,"Version 1.4",NA,"Mer d'Irlande",4,8.5,2,40
+"sea","Java Sea",NA,"Version 1.4",NA,"Mer de Java",4,8.5,2,96
+"sea","Andaman Sea",NA,"Version 1.4",NA,"Mer d'Andaman",4,8.5,2,87
+"sea","Yellow Sea",NA,"Version 1.4",NA,"Mer Jaune",4,8.5,2,69
+"sea","East China Sea",NA,"Version 1.4",NA,"Mer de Chine Orientale",4,8.5,2,178
+"sea","Chukchi Sea",NA,"Version 1.4",NA,"Mer des Tchouktches",4,8.5,2,1
+"bay","Bahía de Campeche",NA,NA,"Bay of Campeche",NA,4,8.5,2,62
+"sea","Arafura Sea",NA,"Version 1.4",NA,"Mer d'Arafura",4,8.5,2,98
+"sea","Timor Sea",NA,"Version 1.4",NA,"Mer de Timor",4,8.5,2,104
+"gulf","Gulf of Thailand",NA,"Version 1.4",NA,"Golfe de Thaïlande",4,8.5,2,99
+"sea","Laccadive Sea",NA,"Version 1.4",NA,"Mer des Laquedives",4,8.5,2,98
+"sea","Bellingshausen Sea",NA,"Version 1.4",NA,"Mer de Bellingshausen",4,8.5,2,0
+"sea","Amundsen Sea",NA,"Version 1.4",NA,"Mer d'Amundsen",4,8.5,2,0
+"strait","Davis Strait",NA,"Version 1.4",NA,"Détroit de Davis",4,8.5,2,12
+"sea","Kara Sea",NA,"Version 1.4",NA,"Mer de Kara",4,8.5,2,1
+"sea","Laptev Sea",NA,"Version 1.4",NA,"Mer de Laptev",4,8.5,2,0
+"channel","Drake Passage",NA,"Version 1.4",NA,"Passage de Drake",4,8.5,2,0
+"sea","Mediterranean Sea",NA,"Version 1.4",NA,"Mer Méditerranée",2,7.5,1,71
+"gulf","Great Australian Bight",NA,"Version 1.4",NA,"Grande Baie Australienne",5,9.5,3,96
+"gulf","Gulf of Aden",NA,"Version 1.4",NA,"Golfe d'Aden",5,9.5,3,62
+"gulf","Gulf of Oman",NA,"Version 1.4",NA,"Golfe d'Oman",5,9.5,3,64
+"sea","Tyrrhenian Sea",NA,"Version 1.4",NA,"Mer Tyrrhénienne",5,9.5,3,65
+"sea","White  Sea",NA,"Version 1.4",NA,"Mer Blanche",5,9.5,3,5
+"sea","Sea of Azov",NA,"Version 1.4",NA,"Mer d'Azov",6,10,5,1
+"bay","James Bay",NA,"Version 1.4",NA,"Baie James",5,9.5,3,0
+"gulf","Gulf of Carpentaria",NA,"Version 1.4",NA,"Golfe de Carpentarie",5,9.5,3,82
+"gulf","Golfo de California",NA,"Version 1.4",NA,"Golfe de Californie",5,9.5,3,83
+"strait","Hudson Strait",NA,"Version 1.4",NA,"Détroit d'Hudson",5,9.5,3,2
+"gulf","Gulf of Finland",NA,"Version 1.4",NA,"Golfe de Finlande",5.7,10,4,2
+"channel","English Channel",NA,"Version 1.4",NA,"Manche",5,9.5,3,47
+"gulf","Gulf of Honduras",NA,"Version 1.4",NA,"Golfe du Honduras",5,9.5,3,46
+"gulf","Golfe du Lion",NA,"Version 1.4",NA,"Golfe du Lion",5.7,10,4,63
+"gulf","Gulf of Bothnia",NA,"Version 1.4",NA,"Golfe de Botnie",5,9.5,3,2
+"sea","Adriatic Sea",NA,"Version 1.4",NA,"Mer Adriatique",5,9.5,3,54
+"strait","Straits of Florida",NA,"Version 1.4",NA,"Détroit de Floride",5.7,10,4,85
+"bay","Bay of Plenty",NA,"Version 1.4",NA,"Baie de Plenty",5.7,10,4,58
+"channel","The North Western Passages",NA,"Version 1.4",NA,"Passages du Nord-Ouest",5,10,4,1
+"sound","Queen Charlotte Sound",NA,"Version 1.4",NA,"Détroit de la Reine-Charlotte",7.6,10,7,20
+"sea","Ionian Sea",NA,"Version 1.4",NA,"Mer Ionienne",5.7,10,4,63
+"gulf","Gulf of St. Lawrence",NA,"Version 1.4",NA,"Golfe du Saint-Laurent",5.7,10,4,20
+"sea","Molucca Sea",NA,"Version 1.4",NA,"Mer des Moluques",5.7,10,4,58
+"sea","Bismarck Sea",NA,"Version 1.4",NA,"Mer de Bismarck",5.7,10,4,56
+"sea","Solomon Sea",NA,"Version 1.4",NA,"Mer des Salomon",5.7,10,4,64
+"gulf","Gulf of Tonkin",NA,"Version 1.4",NA,"Golfe du Tonkin",5.7,10,4,94
+"bay","Bay of Fundy",NA,"Version 1.4",NA,"Baie de Fundy",5.7,10,4,20
+"gulf","Río de la Plata",NA,NA,NA,NA,5.7,10,4,56
+"strait","Strait of Malacca",NA,"Version 1.4",NA,"Détroit de Malacca",5.7,10,4,86
+"strait","Strait of Singapore",NA,"Version 1.4",NA,"Détroit de Singapour",5.7,10,4,77
+"strait","Makassar Strait",NA,"Version 1.4",NA,"Détroit de Macassar",5.7,10,4,80
+"sea","Ceram Sea",NA,"Version 1.4",NA,"Mer de Seram",5.7,10,4,67
+"strait","Korea Strait",NA,"Version 1.4",NA,"Détroit de Corée",5.7,10,4,0
+"sea","Inner Sea",NA,"Version 1.4",NA,"Mer des Hébrides",5.7,10,4,110
+"strait","Taiwan Strait",NA,"Version 1.4",NA,"Golfe de Taiwan",5.7,10,4,118
+"bay","Cook Inlet",NA,"Version 1.4",NA,"Golfe de Cook",5.7,10,4,15
+"bay","Bristol Bay",NA,"Version 1.4",NA,"Baie de Bristol",5.7,10,4,7
+"bay","Melville Bay",NA,"Version 1.4",NA,"Baie de Melville",5.7,10,4,1
+"gulf","Gulf of Maine",NA,"Version 1.4",NA,"Golfe du Maine",5.7,10,4,35
+"bay","Chesapeake Bay",NA,"Version 1.4",NA,"Baie de Chesapeake",5.7,10,4,12
+"strait","Strait of Gibraltar",NA,"Version 1.4",NA,"Détroit de Gibraltar",5.7,10,4,0
+"gulf","Golfo San Jorge",NA,"Version 1.4",NA,"Golfe de San Jorge",5.7,10,4,30
+"sea","Balearic Sea",NA,"Version 1.4",NA,"Mer des Baléares",5.7,10,4,65
+"sea","Aegean Sea",NA,"Version 1.4",NA,"Mer Égée",5.7,10,4,47
+"gulf","Gulf of Mannar",NA,"Version 1.4",NA,"Golfe de Mannar",5.7,10,4,85
+"gulf","Shelikhova Gulf",NA,"Version 1.4",NA,"Golfe de Chelikhov",5.7,10,4,4
+"sea","Bo Hai",NA,"Version 1.4",NA,"Mer de Bohai",5.7,10,4,42
+"gulf","Gulf of Kutch",NA,"Version 1.4",NA,"Golfe de Kutch",5.7,10,4,69
+"gulf","Golfo de Panamá",NA,NA,NA,NA,5.7,10,4,68
+"gulf","Amundsen Gulf",NA,"Version 1.4",NA,"Golfe d'Admunsen",5,10,4,0
+"sound","Viscount Melville Sound",NA,"Version 1.4",NA,"Détroit du Vicomte Melville",5,10,4,0
+"bay","Ungava Bay",NA,"Version 1.4",NA,"Baie d'Ungava",5.7,10,4,1
+"reef","Great Barrier Reef",NA,"Version 1.4",NA,"Grande Barrière de Corail",5.7,10,4,0
+"channel","Yucatan Channel",NA,"Version 1.4",NA,"Détroit du Yucatan",6,10,5,0
+"sea","Bering Sea",NA,"Version 1.4",NA,"Mer de Béring",4,8.5,2,23
+"sea","East Siberian Sea",NA,"Version 1.4",NA,"Mer de Sibérie orientale",5,10,5,0
+"sea","Lincoln Sea",NA,"Version 1.4",NA,"Mer de Lincoln",5,10,5,1
+"strait","Bass Strait",NA,"Version 1.4",NA,"Détroit de Bass",6,10,5,78
+"bay","Franklin Bay",NA,"Version 1.4",NA,"Baie de Franklin",7.6,10,7,0
+"channel","Dixon Entrance",NA,"Version 1.4",NA,"Entrée de Dixon",6,10,5,16
+"strait","M'Clure Strait",NA,"Version 1.4",NA,"Détroit de McClure",5.7,10,5,0
+"bay","Boca Grande",NA,"Version 1.4",NA,"Boca Grande",6,10,5,49
+"bay","Baía de Marajó",NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,7.6,10,7,45
+"gulf","Golfo San Mat’as",NA,NA,NA,NA,6,10,5,42
+"gulf","Golfo Corcovado",NA,"Version 1.4",NA,"Golfe de Corcovado",6,10,5,20
+"gulf","Wrigley Gulf",NA,"Version 1.4",NA,"Golfe de Wrigley",6,10,5,0
+"bay","Sulzberger Bay",NA,"Version 1.4",NA,"Baie de Sulzberger",6,10,5,0
+"channel","Ronne Entrance",NA,"Version 1.4",NA,"Entrée de Ronne",6,10,5,0
+"strait","Bransfield Str.",NA,"Version 1.4",NA,"Détroit de Bransfield",5.7,10,5,3
+"sound","McMurdo Sound",NA,"Version 1.4",NA,"Détroit de McMurdo",5.7,10,5,1
+"bay","Baía de São Marcos",NA,NA,NA,NA,7.6,10,7,48
+"sound","Cumberland Sd.",NA,"Version 1.4",NA,"Baie de Cumberland",5.7,10,5,2
+"bay","Frobisher Bay",NA,"Version 1.4",NA,"Baie de Frobisher",6,10,5,1
+"bay","Disko Bay",NA,"Version 1.4",NA,"Baie de Disko",6,10,5,3
+"bay","Hamilton Inlet",NA,"Version 1.4",NA,"Hamilton Inlet",7.6,10,7,3
+"fjord","Storfjorden",NA,"Version 1.4",NA,"Storfjorden",6,10,5,1
+"fjord","Vestfjorden",NA,"Version 1.4",NA,"Vestfjorden",6,10,5,14
+"fjord","Skagerrak",NA,"Version 1.4",NA,"Skagerrak",6,10,5,24
+"strait","Karskiye Strait",NA,"Version 1.4",NA,NA,7.6,10,7,0
+"strait","Vil'kitskogo Strait",NA,"Version 1.4",NA,"Détroit de Vil'kitskogo",5.7,10,5,0
+"fjord","Sognefjorden",NA,"Version 1.4",NA,"Sognefjorden",7.6,10,7,0
+"fjord","Trondheimsfjorden",NA,"Version 1.4",NA,"Trondheimsfjorden",7.6,10,7,17
+"sea","Kattegat",NA,"Version 1.4",NA,"Kattegat",6,10,5,13
+"gulf","Gulf of Khambhät",NA,NA,NA,NA,6,10,5,72
+"strait","Palk Strait",NA,"Version 1.4",NA,"Détroit de Palk",7.6,10,7,84
+"gulf","Kronotskiy Gulf",NA,"Version 1.4",NA,"Golfe de Kronotsky",6,10,5,9
+"bay","Uda Bay",NA,"Version 1.4",NA,"Baie d'Uda",6,10,5,4
+"bay","Uchiura Bay",NA,"Version 1.4",NA,"Golfe d'Uchiura",6,10,5,45
+"strait","Tsugaru Strait",NA,"Version 1.4",NA,"Détroit de Tsugaru",7.6,10,7,23
+"strait","Tatar Strait",NA,"Version 1.4",NA,"Détroit de Tartarie",7.6,10,7,6
+"bay","Shark Bay",NA,"Version 1.4",NA,"Shark Bay",6,10,5,78
+"gulf","Gulf of Gabès",NA,NA,NA,NA,6,10,5,62
+"bay","Mackenzie Bay",NA,"Version 1.4",NA,"Baie Mackenzie",6,10,5,0
+"sound","Norton Sound",NA,"Version 1.4",NA,"Golfe de Norton",6,10,5,5
+"sound","Kotzebue Sound",NA,"Version 1.4",NA,"Golfe de Kotzebue",6,10,5,1
+"gulf","Gulf of Boothia",NA,"Version 1.4",NA,"Golfe de Boothia",5.7,10,5,0
+"bay","Kane Basin",NA,"Version 1.4",NA,"Bassin de Kane",5.7,10,5,1
+"bay","Foxe Basin",NA,"Version 1.4",NA,"Bassin de Foxe",5.7,10,5,0
+"gulf","Golfo de Tehuantepec",NA,"Version 1.4",NA,"Golfe de Tehuantepec",6,10,5,51
+"gulf","Golfo de Guayaquil",NA,"Version 1.4",NA,"Golfe de Guayaquil",6,10,5,51
+"gulf","Gulf of Masira",NA,"Version 1.4",NA,"Golfe de Masira",6,10,5,34
+"gulf","Gulf of Yana",NA,"Version 1.4",NA,"Golfe de Yana",5.7,10,5,0
+"strait","Dmitriy Laptev Strait",NA,"Version 1.4",NA,"Détroit de Dimitri-Laptev",7.6,10,7,0
+"strait","La Perouse Strait",NA,"Version 1.4",NA,"Détroit de La Pérouse",6,10,5,0
+"bay","East Korea Bay",NA,"Version 1.4",NA,"Golfe de Corée Orientale",6,10,5,18
+"strait","Qiongzhou Strait","Hainan Strait","Version 1.4",NA,"Détroit de Qiongzhou",7.6,10,7,88
+"strait","Cook Strait",NA,"Version 1.4",NA,"Détroit de Cook",7.6,10,7,45
+"strait","Torres Strait",NA,"Version 1.4",NA,"Détroit de Torres",6,10,5,81
+"bay","Geographe Bay",NA,"Version 1.4",NA,"Baie du Géographe",6,10,5,27
+"gulf","Gulf of Papua",NA,"Version 1.4",NA,"Golfe de Papouasie",6,10,5,70
+"gulf","Gulf of Olen‘k",NA,NA,NA,NA,6,10,5,0
+"gulf","Gulf of Riga",NA,"Version 1.4",NA,"Golfe de Riga",6,10,5,2
+"lagoon","Waddenzee",NA,"Version 1.3",NA,NA,7.6,10,7,19
+"gulf","Gulf of Sidra",NA,"Version 1.4",NA,"Golfe de Sidra",6,10,5,55
+"sea","Sea of Crete",NA,"Version 1.4",NA,"Mer de Crète",6,10,5,50
+"sea","Ligurian Sea",NA,"Version 1.4",NA,"Mer de Ligurie",6,10,5,62
+"sea","Alboran Sea",NA,"Version 1.4",NA,"Mer d'Alboran",7.6,10,7,68
+"bay","Bight of Benin",NA,"Version 1.4",NA,"Golfe du Bénin",6,10,5,85
+"bay","Bight of Biafra",NA,"Version 1.4",NA,"Golfe du Biafra",6,10,5,81
+"strait","Strait of Belle Isle",NA,"Version 1.4",NA,"Détroit de Belle Isle",7.6,10,7,8
+"sound","Prince William Sound",NA,"Version 1.4",NA,"Baie du Prince-William",7.6,10,7,14
+"strait","Estrecho de Magellanes",NA,"Version 1.4","Strait of Magellan","Détroit de Magellan",7,10,6,14
+"bay","Bahía Blanca",NA,NA,NA,NA,6,10,5,0
+"gulf","Golfo de Penas",NA,"Version 1.4",NA,"Golfe de Penas",6,10,5,5
+"bay","Bahía Grande",NA,NA,NA,NA,6,10,5,20
+"bay","Marguerite Bay",NA,"Version 1.4",NA,"Baie de Marguerite",5.7,10,5,0
+"bay","Prydz Bay",NA,"Version 1.4",NA,"Baie de Prydz",5.7,10,5,1
+"bay","Vincennes Bay",NA,"Version 1.4",NA,"Baie de Vincennes",6,10,5,0
+"bay","Porpoise Bay",NA,"Version 1.4",NA,"Baie de Porpoise",6,10,5,0
+"sea","Davis Sea",NA,"Version 1.4",NA,"Mer de Davis",5.7,10,5,1
+"bay","Lützow-Holm Bay",NA,"Version 1.4",NA,"Baie de Lützow-Holm",6,10,5,0
+"bay","Antongila Bay",NA,"Version 1.4",NA,NA,7.6,10,7,0
+"bay","Hangzhou Bay",NA,"Version 1.4",NA,"Baie de Hangzhou",6,10,5,70
+"gulf","Karaginskiy Gulf",NA,"Version 1.4",NA,"Golfe Karaguinski",6,10,5,8
+"gulf","Gulf of Kamchatka",NA,"Version 1.4",NA,"Golfe du Kamchatka",6,10,5,5
+"strait","Bosporus",NA,"Version 1.4",NA,"Détroit du Bosphore",6,10,5,0
+"strait","Bab el Mandeb",NA,"Version 1.4",NA,"Bab el Mandeb",7.6,10,7,0
+"gulf","Gulf St. Vincent",NA,"Version 1.4",NA,"Golfe Saint-Vincent",6,10,5,54
+"gulf","Golfo de Urabá",NA,NA,NA,NA,7.6,10,7,0
+"bay","Baia de Maputo",NA,"Version 1.4",NA,"Baie de Maputo",6,10,5,0
+"bay","St. Helena Bay",NA,"Version 1.4",NA,"Baie de Sainte-Hélène",6,10,5,0
+"fjord","Boknafjorden",NA,"Version 1.4",NA,"Boknafjorden",6,10,5,0
+"gulf","Joseph Bonaparte Gulf",NA,"Version 1.4",NA,"Golfe Joseph-Bonaparte",6,10,5,84
+"gulf","Gulf of Martaban",NA,"Version 1.4",NA,"Golfe de Martaban",6,10,5,70
+"gulf","Gulf of Sakhalin",NA,"Version 1.4",NA,"Golfe de Sakhaline",6,10,5,5
+"fjord","Kangertittivaq","Scoresbysund","Version 1.4",NA,"Kangertittivaq",6,10,5,1
+"channel","St. Lawrence River",NA,"Version 1.4",NA,"Saint-Laurent",7,10,6,0
+"bay","Chaun Bay",NA,"Version 1.4",NA,"baie de Tchaoun",7,10,6,0
+"gulf","Khatanga Gulf",NA,"Version 1.4",NA,"Golfe de Khatanga",7,10,6,0
+"bay","Garabogaz Bay",NA,"Version 1.4",NA,"Golfe de Kara-Bogaz",7,10,6,0
+"gulf","Gulf of  Suez",NA,"Version 1.4",NA,"Golfe de Suez",7,10,6,47
+"gulf","Gulf of Ob",NA,"Version 1.4",NA,"Golfe de l'Ob",7,10,6,0
+"gulf","Yenisey Gulf",NA,"Version 1.4",NA,"Golfe de l'Ienisseï",7,10,6,0
+"channel","Dardanelles",NA,"Version 1.4",NA,"Détroit des Dardanelles",7.6,10,7,39
+"sea","Sea of Marmara",NA,"Version 1.4",NA,"Mer de Marmara",7,10,6,18
+"gulf","Gulf of Aqaba",NA,"Version 1.4",NA,"Golfe d'Aqaba",7.6,10,7,46
+"lagoon","Lago de Maracaibo",NA,"Version 1.4",NA,"Lac Maracaibo",7,10,6,40
+"strait","Denmark  Strait",NA,"Version 1.4",NA,"Détroit du Danemark",7,10,6,21
+"bay","Massachusetts Bay",NA,"Version 1.4",NA,"Golfe du Massachusetts",7.6,10,7,21
+"bay","Delaware Bay",NA,"Version 1.4",NA,"Golfe du Delaware",7.6,10,7,0
+"sound","Long Island Sound",NA,"Version 1.4",NA,"Détroit de Long Island",7.6,10,7,4
+"sound","Albemarle Sound",NA,"Version 1.4",NA,"Baie d'Albemarle",7.6,10,7,0
+"sound","Pamlico Sound",NA,"Version 1.4",NA,"Baie de Pamlico",7.6,10,7,51
+"generic",NA,NA,"Version 1.3","Internal Canada (B.C.) Waters",NA,7.7,10,8,15
+"sound","Smith Sound",NA,"Version 1.3","_untitled_1",NA,7.7,10,8,0
+"generic",NA,NA,"Version 1.3","Internal U.S. (Alaska) Waters",NA,7.7,10,8,14
+"strait","Queen Charlotte Strait",NA,"Version 1.3","_untitled_3",NA,7.7,10,8,15
+"inlet","Baird Inlet",NA,"Version 1.3","_untitled_5",NA,7.7,10,8,0
+"generic",NA,NA,"Version 1.3","Internal Canada (B.C.) Waters",NA,7.7,10,8,0
+"lagoon","Eskimo Lakes",NA,"Version 1.3","_untitled_7",NA,7.7,10,8,0
+"lagoon","Lake Pontchartrain",NA,"Version 1.3","_untitled_8",NA,7.7,10,8,0
+"lagoon","Stettiner Haff","Zalew Szczecinski","Version 1.3","_untitled_10",NA,7.7,10,8,2
+"bay","Darnley Bay",NA,"Version 1.3","_untitled_11",NA,7.6,10,7,0
+"generic",NA,NA,"Version 1.3","Internal Canada Arctic Waters",NA,7.7,10,8,0
+"strait","Prince of Wales Strait",NA,"Version 1.3","_untitled_13",NA,7.6,10,7,0
+"sound","Minto Inlet",NA,"Version 1.3","_untitled_14",NA,7.7,10,8,0
+"bay","Richard Collinson Inlet",NA,"Version 1.3","_untitled_16",NA,7.7,10,8,0
+"sound","Prince ALbert Sound",NA,"Version 1.3","_untitled_17",NA,7.6,10,7,0
+"gulf","Liddon Gulf",NA,"Version 1.3","_untitled_18",NA,7.6,10,7,0
+"bay","Wynniat Bay",NA,"Version 1.3","_untitled_19",NA,7.7,10,8,0
+"bay","Hadley Bay",NA,"Version 1.3","_untitled_20",NA,7.6,10,7,0
+"bay","Bathurst Inlet",NA,"Version 1.3","_untitled_21",NA,7.7,10,8,0
+"generic",NA,NA,"Version 1.3","Internal Canada Arctic Waters",NA,7.7,10,8,0
+"channel","Goldsmith Channel",NA,"Version 1.3","_untitled_23",NA,7.7,10,8,0
+"bay","Sherman Basin",NA,"Version 1.3","_untitled_24",NA,7.7,10,8,0
+"bay","Wager Bay",NA,"Version 1.3","_untitled_25",NA,7.7,10,8,0
+"strait","Fury and Hecla Strait",NA,"Version 1.3","_untitled_26",NA,7.6,10,7,0
+"generic",NA,NA,"Version 1.3","Internal Canada Arctic Waters",NA,7.7,10,8,0
+"sound","Jones Sound",NA,"Version 1.3","_untitled_29",NA,7,10,6,1
+"sound","Eclipse Sound",NA,"Version 1.3","_untitled_30",NA,7.6,10,7,0
+"gulf","Hall Basin",NA,"Version 1.3","_untitled_32",NA,7.6,10,7,1
+"fjord","Uummannaq Fjord",NA,"Version 1.3","_untitled_33",NA,7.6,10,7,2
+"sound","Peacock Sound",NA,"Version 1.3","_untitled_34",NA,7.6,10,7,0
+"sound","George VI Sound",NA,"Version 1.3","_untitled_35",NA,7.6,10,7,0
+"sound","Seno de Skyring",NA,"Version 1.3","_untitled_36",NA,7.7,10,8,2
+"sound","Seno Otway",NA,"Version 1.3","_untitled_37",NA,7.7,10,8,0
+"bay","B. Inutil",NA,"Version 1.3","_untitled_38",NA,7.7,10,8,0
+"lagoon","Lagoa dos Patos",NA,"Version 1.3","_untitled_42",NA,7.6,10,7,4
+"river","Amazon River",NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,5.7,10,4,3
+"lagoon","Bras d'Or Lake",NA,"Version 1.3","_untitled_46",NA,7.8,10,9,0
+"lagoon","Kaliningrad",NA,"Version 1.3","_untitled_51",NA,7.7,10,8,0
+"strait","Matochkin Shar Strait",NA,"Version 1.3","_untitled_52",NA,7.7,10,8,0
+"lagoon","Ozero Mogotoyevo","Lake Mogotoyevo","Version 1.3","_untitled_55",NA,7.7,10,8,0
+"bay","Guba Gusinaya",NA,"Version 1.3","_untitled_56",NA,7.7,10,8,0
+"sea","Bali Sea",NA,"Version 1.3","_untitled_57",NA,7.6,10,7,87
+"gulf","Davao Gulf",NA,"Version 1.3","_untitled_58",NA,7.6,10,7,2
+"sea","Halmahera Sea",NA,"Version 1.3","_untitled_59",NA,7.6,10,7,58
+"strait","Selat Bali",NA,NA,"_untitled_60",NA,7.8,10,9,0
+"gulf","Gulf of Tomini",NA,"Version 1.3","_untitled_62",NA,7.6,10,7,53
+"sea","Flores Sea",NA,"Version 1.3","_untitled_63",NA,7.6,10,7,67
+"sea","Sibuyan Sea",NA,"Version 1.3","_untitled_64",NA,7.6,10,7,83
+"strait","Selat Dampier",NA,"Version 1.3",NA,NA,7.7,10,8,55
+"gulf","Gulf of Buli",NA,"Version 1.3","_untitled_59",NA,7.6,10,7,42
+"gulf","Gulf of Kau",NA,"Version 1.3","_untitled_59",NA,7.7,10,8,41
+"sea","Bohol Sea",NA,"Version 1.3","_untitled_64",NA,7.6,10,7,85
+"generic",NA,NA,"Version 1.3","Internal Philippines Waters",NA,7.8,10,9,0
+"strait","Surigao Strait",NA,"Version 1.3","_untitled_64",NA,7.8,10,9,75
+"generic",NA,NA,"Version 1.3","Internal Philippines Waters",NA,7.8,10,9,80
+"gulf","Ragay Gulf",NA,"Version 1.3","_untitled_64",NA,7.8,10,9,0
+"sea","Samar Sea",NA,"Version 1.3","_untitled_64",NA,7.7,10,8,81
+"bay","Tayabas Bay",NA,"Version 1.3","_untitled_64",NA,7.7,10,8,83
+"gulf","Leyte Gulf",NA,"Version 1.3","_untitled_64",NA,7.8,10,9,77
+"sea","Visayan Sea",NA,"Version 1.3","_untitled_64",NA,7.7,10,8,80
+"sea","Savu Sea",NA,"Version 1.3","_untitled_63",NA,7.6,10,7,57
+"strait","Hecate Strait",NA,"Version 1.3","_untitled_2",NA,7.6,10,7,18
+"bay","Cordova Bay",NA,"Version 1.3","_untitled_2",NA,7.7,10,8,14
+"generic",NA,NA,"Version 1.3","Internal Canada (B.C.) Waters",NA,7.7,10,8,3
+"sound","Murchison Sound",NA,"Version 1.3","_untitled_1010",NA,7.6,10,7,1
+"channel","Robeson Channel",NA,"Version 1.3","_untitled_32",NA,7.7,10,8,1
+"channel","Kennedy Channel",NA,"Version 1.3","_untitled_32",NA,7.6,10,7,1
+"generic",NA,NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,7.8,10,9,0
+"channel","Canal Perigoso",NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,7.8,10,9,0
+"channel","Canal do Sul",NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,7.7,10,8,0
+"channel","Canal do Norte",NA,"Version 1.3","Internal Brazil Amazon River Waters",NA,7.8,10,9,0
+"sound","Øresund","The Sound","Version 1.3",NA,NA,7.6,10,7,0
+"generic",NA,NA,"Version 1.3","Internal Denmark Waters",NA,7.6,10,7,10
+"bay","Mecklenburger Bucht",NA,"Version 1.3",NA,NA,7.6,10,7,5
+"sea","Sargasso Sea",NA,"Version 1.3",NA,NA,4,8.5,2,22
+"bay","San Francisco Bay",NA,"Version 1.3",NA,NA,7.6,10,7,0
+"bay","Monterey Bay",NA,"Version 1.3",NA,NA,7.6,10,7,0
+"river","Yangtze River",NA,"Version 1.3",NA,NA,5.7,10,4,58
+"river","Columbia River",NA,"Version 1.3",NA,NA,5.7,10,4,16
+"sea","Salish Sea",NA,"Version 2.1",NA,NA,7,10,6,16
+"gulf","Gulf of Anadyr'",NA,"Version 1.4",NA,"Golfe d'Anadyr",5.7,10,6,7

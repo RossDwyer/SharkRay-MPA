@@ -3,13 +3,12 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "10-Jan-2018" ## Date last updated
+DateUpdated <-  "15-Jan-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here: http://shiny.rstudio.com/
 
+# Find out more about building applications with Shiny here: http://shiny.rstudio.com/
 
 # Load required packages
 library(shiny)
@@ -18,13 +17,31 @@ library(sp)
 library(rgdal)
 library(raster)
 library(RColorBrewer)
+library(plotly)
+library(DT)
 
-# Load data ----
+# Load data tables ----
 sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")#[1:dim(specrast)[3],] # limited by the number of sharks loaded into the raster 
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 
-load("myMPA.RData") ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast
+#library(RCurl)
+#sharkdat <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/datatable%20containing%20species%20names%20and%20IUCN%20categories.csv"),header=T)
+#EEZ_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20EEZs.csv"),header=T)
+#Oceans_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20Oceans.csv"),header=T)
+
+##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast ----
+
+# Works only on Windows!
+##load('myMPA.RData') ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast
+
+#Works on Mac though had to sort errors on the loaded rasters
+#library(repmis)
+#source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
+orderrast <- brick("GIS/ordersum_specrast.tif")
+iucnrast <- brick("GIS/IUCNsum_specrast.tif")
+allspecrast <- brick("GIS/multilayerspecrast.tif")
+reduced.MPAs <- readOGR(dsn="GIS",layer="simplifiedMPA")
 
 # tab 1 lookup table
 order.name <- c("CARCHARHINIFORMES",
@@ -64,8 +81,12 @@ iVU <- iucnrast[[5]]
 iLC <- iucnrast[[6]]
 iDD <- iucnrast[[7]]
 
+# Colour scale for the category maps
+scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
+scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
+
 # tab 4
-ivis <- 40 # No EEZ/Oceans to visualise in the table
+ivis <- 10 # No EEZ/Oceans to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
@@ -79,7 +100,7 @@ noSpecies <- length(species.name) # number of species considered
 
 # User interface ----
 
-ui <- navbarPage("GPSR shark MPA project", 
+ui <- navbarPage("GPSR MPA project", 
                  id="nav",
                  
                  
@@ -114,8 +135,6 @@ ui <- navbarPage("GPSR shark MPA project",
                                    )
                             )
                           ),
-                                   
-                          
                           hr(),
                           DT::dataTableOutput("mytable")
                  ),
@@ -142,7 +161,7 @@ ui <- navbarPage("GPSR shark MPA project",
                               
                               
                               #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-                              leafletOutput("map2", width = "100%", height = "100%")
+                              leafletOutput("map2", width = "100%", height = 700)
                               
                               #DT::dataTableOutput("mytable")
                           )
@@ -161,7 +180,7 @@ ui <- navbarPage("GPSR shark MPA project",
                               ),
                               
                               #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-                              leafletOutput("map", width = "100%", height = "100%"),
+                              leafletOutput("map", width = "100%", height = 700),
                               
                               absolutePanel(top = 10, left = 50,
                                             
@@ -228,20 +247,22 @@ ui <- navbarPage("GPSR shark MPA project",
                  ## TAB 5
                  tabPanel(title="About",
                           tags$body(
-                            h4('This Shiny App was built to help visualise shark and ray distribution information across the globe.'),
-                            #br(),
+                            h4('This Shiny App was built to help visualise shark and ray distribution information across the globe'),
                             p(paste0("Our application contains range distribution information of ",noSpecies," shark and ray species downloaded from...")),
                             a(href = "http://www.iucnredlist.org","The IUCN Red List of Threatened Species"),
-                           #a(href = "https://scholar.google.com.au/citations?user=kPWHdWsAAAAJ&hl=en", "Click Here for more information about the author"),
                             br(),
                             br(),
-                            p("Our application is powered by")),
-                          tags$img(src = "Rstudio_shiny.png", width = "80px", height = "80px"),
-                          tags$img(src = "Rstudio-Ball.png", width = "80px", height = "80px"),
+                            p("Our application is powered by...")),
+                          tags$img(src = "https://www.rstudio.com/wp-content/uploads/2014/07/RStudio-Logo-Blue-Gradient.png", width = "180px", height = "60px"),
+                          tags$img(src = "http://www.mcclellandlegge.com/img/shiny-logo.png", width = "100px", height = "100px"),
+                          tags$img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Leaflet_logo.svg/2000px-Leaflet_logo.svg.png", width = "180px", height = "60px"),
                           br(),
                           br(),
                           br(),
                           p("This application was built by Dr Ross Dwyer as part of the Global Partnership for Sharks and Rays project"),
+                          a(href = "https://github.com/RossDwyer","Our project is on GitHub"),
+                          br(),
+                          br(),
                           p(paste0("Date last updated: ",DateUpdated))
                           )
           
@@ -249,6 +270,7 @@ ui <- navbarPage("GPSR shark MPA project",
 
 
 # server logic required to draw the map ----
+
 server <- function(input, output, session) {
   
   #### TAB 1: Data Explorer #### 
@@ -319,7 +341,8 @@ server <- function(input, output, session) {
     
   })
 
-    observeEvent(input$var2, { # update the map markers and view on map clicks
+    #eventReactive(input$var2, { 
+    observeEvent(input$var2, { 
     
     x <- which(sharkdat$binomial == input$var2)     # Set which species to display
     newdata <- allspecrast[[x]]
@@ -340,96 +363,98 @@ server <- function(input, output, session) {
   })
   
   
-  
-  ####TAB 3: Interactive Map containing order AND iucn category #### 
-  
-  output$map <- renderLeaflet({
+    ####TAB 3: Interactive map containing order AND iucn category #### 
     
-    # select what order to visualise
-    if (input$layerOverlap == 'order'){
-      data <- switch(input$var.order, 
-                     "all"= iorder,
-                     "CARCHARHINIFORMES" = iCARCHARHINIFORMES,
-                     "CHIMAERIFORMES" = iCHIMAERIFORMES,
-                     "HETERODONTIFORMES" = iHETERODONTIFORMES,
-                     "HEXANCHIFORMES" = iHEXANCHIFORMES,
-                     "LAMNIFORMES" = iLAMNIFORMES,
-                     "ORECTOLOBIFORMES" = iORECTOLOBIFORMES,
-                     "PRISTIOPHORIFORMES"= iPRISTIOPHORIFORMES,
-                     "RAJIFORMES"= iRAJIFORMES,
-                     "SQUALIFORMES" = iSQUALIFORMES,
-                     "SQUATINIFORMES" = iSQUATINIFORMES)
+    output$map <- renderLeaflet({
       
-      scolours1 <- c("#e5f5e0", "#a1d99b", "#31a354")
-      
-      # Standardise the display slider 
-      maxVal <- maxValue(data)
-      minDisplay <- ((100-input$range1)/100) * maxVal   
-      
-      specrast_sel_sum <- data
-      specrast_sel_sum[specrast_sel_sum < minDisplay] <- NA 
-      
-      pal <- colorNumeric(scolours1, 
-                          values(specrast_sel_sum),
-                          na.color = "transparent")
-      
-    }
+      leaflet() %>% 
+        setView(lng = 0, lat = 0,  zoom = 2) %>% 
+        addTiles(group = "OSM (default)")
+    })
     
-    # alternatively select what iucn category to visualise   
-    if (input$layerOverlap == 'iucn'){
-      data <- switch(input$var.iucn, 
-                     "all"= istatus,
-                     "CR" = iCR,
-                     "EN" = iEN,
-                     "NT" = iNT,
-                     "VU" = iVU,
-                     "LC" = iLC,
-                     "DD" = iDD)
-      
-      scolours2 <- c("#fee0d2", "#fc9272", "#de2d26")
+    proxy <- leafletProxy("map") 
     
-      # Standardise the display slider 
-      maxVal <- maxValue(data)
-      minDisplay <- ((100-input$range2)/100) * maxVal   
-      
-      specrast_sel_sum <- data
-      specrast_sel_sum[specrast_sel_sum < minDisplay] <- NA 
-      
-      pal <- colorNumeric(scolours2, 
-                          values(specrast_sel_sum),
-                          na.color = "transparent")
-      
+    observe({
+      # select what order to visualise
+      if (input$layerOverlap == 'order'){
+        data1 <- switch(input$var.order, 
+                        "all"= iorder,
+                        "CARCHARHINIFORMES" = iCARCHARHINIFORMES,
+                        "CHIMAERIFORMES" = iCHIMAERIFORMES,
+                        "HETERODONTIFORMES" = iHETERODONTIFORMES,
+                        "HEXANCHIFORMES" = iHEXANCHIFORMES,
+                        "LAMNIFORMES" = iLAMNIFORMES,
+                        "ORECTOLOBIFORMES" = iORECTOLOBIFORMES,
+                        "PRISTIOPHORIFORMES"= iPRISTIOPHORIFORMES,
+                        "RAJIFORMES"= iRAJIFORMES,
+                        "SQUALIFORMES" = iSQUALIFORMES,
+                        "SQUATINIFORMES" = iSQUATINIFORMES)
+        
+        # Standardise the display slider 
+        maxVal <- maxValue(data1)
+        minDisplay <- ((100-input$range1)/100) * maxVal   
+        
+        rast_sel_sum <- data1
+        rast_sel_sum[rast_sel_sum < minDisplay] <- NA 
+        
+        pal1 <- colorNumeric(scolours.ord, 
+                             values(rast_sel_sum),
+                             na.color = "transparent")
+        
+        proxy %>% 
+          clearImages() %>% # removes earlier rasters
+          clearControls() %>% # # removes earlier legends
+          addRasterImage(layerId = "layer3",
+                         rast_sel_sum, 
+                         colors = pal1, 
+                         opacity = 0.5,
+                         group="order") %>%
+          addLegend(pal = pal1, 
+                    values = values(data1),
+                    position = "topright",
+                    title = "No. species") 
+        
+      }else
+      {
+        # alternatively select what iucn category to visualise   
+        if (input$layerOverlap == 'iucn'){
+          data1 <- switch(input$var.iucn, 
+                          "all"= istatus,
+                          "CR" = iCR,
+                          "EN" = iEN,
+                          "NT" = iNT,
+                          "VU" = iVU,
+                          "LC" = iLC,
+                          "DD" = iDD)
+          
+          # Standardise the display slider 
+          maxVal <- maxValue(data1)
+          minDisplay <- ((100-input$range2)/100) * maxVal   
+          
+          rast_sel_sum <- data1
+          rast_sel_sum[rast_sel_sum < minDisplay] <- NA 
+          
+          pal1 <- colorNumeric(palette = scolours.iucn, 
+                               domain = values(rast_sel_sum),
+                               na.color = "transparent")
+          
+          proxy %>% 
+            clearImages() %>% # removes earlier rasters
+            clearControls() %>% # # removes earlier legends
+            addRasterImage(layerId = "layer4",
+                           rast_sel_sum, 
+                           colors = pal1, 
+                           opacity = 0.5,
+                           group="IUCN") %>%
+            addLegend(pal = pal1, 
+                      values = values(data1),
+                      position = "topright",
+                      title = "No. species") 
+        }
       }
-      
-      
-    leafletProxy("map", data= specrast_sel_sum) %>% 
-      addTiles() %>%
-      setView(lng = 0, lat = 0,  zoom = 2) %>%
-      addRasterImage(specrast_sel_sum, colors = pal, opacity = 0.7) %>%
-      addLegend(pal = pal, 
-                values = values(data),
-                #                position = "bottomright",
-                title = "No. species")#%>%
-    #addPolygons(data=reduced.MPAs,
-    #            fill = TRUE, stroke = TRUE, weight=3,
-    #            color = "#f93")    
-  
-  })
-  
-  # Use a separate observer to recreate the legend as needed.
-  # observe({
-  #    proxy <- leafletProxy("map", data = data)
-  
-  # Remove any existing legend, and only if the legend is
-  # enabled, create a new one.
-  #    proxy %>% clearControls()
-  #    if (input$legend) {
-  
-  #     proxy %>% addLegend(position = "bottomright",
-  #                        pal = pal, values = ~specrast_sel_sum
-  #)}
-  #})
-  
+    })
+    
+    
   ####TAB 4:  Interactive Plot containing species counts ####
     
   #v <- reactiveValues(data = NULL)

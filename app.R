@@ -488,7 +488,7 @@ server <- function(input, output, session) {
                           #showticklabels = FALSE,
                           showgrid = FALSE),
              yaxis = list(title = "Number of Species"),
-             margin = list(l = 50, r = 50, b = 150, t = 50, pad = 4))
+             margin = list(l = 50, r = 50, b = 180, t = 50, pad = 4))
   })
   
   

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1515644559387.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "106676930",
+    "id" : "53F4E6B8",
+    "lastKnownWriteTime" : 1515977020,
+    "last_content_update" : 1515977020578,
+    "path" : "~/Documents/github files/SharkRay MPA/Publish application.R",
+    "project_path" : "Publish application.R",
+    "properties" : {
+        "cursorPosition" : "10,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

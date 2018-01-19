@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1516318485584.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1352744340",
+    "id" : "DA5C838A",
+    "lastKnownWriteTime" : 1516320541,
+    "last_content_update" : 1516320541234,
+    "path" : "~/Documents/github files/SharkRay MPA/app.R",
+    "project_path" : "app.R",
+    "properties" : {
+        "cursorPosition" : "1,96",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

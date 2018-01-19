@@ -7,7 +7,7 @@ Prerequisites:
 A list of r packages required are listed at the top of the app.R file
 
 Deployment: 
-To deploy this on a live system, we need to upload the app to a shiny server
+This app has been deployed at https://rossdwyer.shinyapps.io/sharkray_mpa/
 
 Built With: 
 RStudio

@@ -206,7 +206,7 @@ ui <- navbarPage("GPSR MPA project",
                                                                          "SQUATINIFORMES"),
                                                           selected = "all"),
                                               sliderInput("range1",
-                                                          "% species displayed :",
+                                                          "Upper % species displayed :",
                                                           min = 0, max = 100, step = 10,  value = 90)
                                             ),
                                             
@@ -223,7 +223,7 @@ ui <- navbarPage("GPSR MPA project",
                                                                          "DD"),
                                                           selected = "all"),
                                               sliderInput("range2",
-                                                          "% species displayed :",
+                                                          "Upper % species displayed :",
                                                           min = 0, max = 100, step = 10,  value = 90)
                                               #checkboxInput("legend", "Show legend", TRUE)
                                             )

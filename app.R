@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "15-Jan-2018" ## Date last updated
+DateUpdated <-  "19-Jan-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -86,7 +86,7 @@ scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
 scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 # tab 4
-ivis <- 10 # No EEZ/Oceans to visualise in the table
+ivis <- 15 # No EEZ/Oceans to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
@@ -126,12 +126,12 @@ ui <- navbarPage("GPSR MPA project",
                                    checkboxGroupInput("code", "Show IUCN listing",
                                                       choices = c(
                                                         CR = "CR",
-                                                        EN = "EN", 
-                                                        NT = "NT",
+                                                        EN = "EN",
                                                         VU = "VU",
+                                                        NT = "NT",
                                                         LC = "LC",
                                                         DD = "DD"),
-                                                      selected = c("CR","EN","NT","VU","LC","DD")
+                                                      selected = c("CR","EN","VU","NT","LC","DD")
                                    )
                             )
                           ),
@@ -217,8 +217,8 @@ ui <- navbarPage("GPSR MPA project",
                                                           choices = list("all",
                                                                          "CR",
                                                                          "EN",
-                                                                         "NT",
                                                                          "VU",
+                                                                         "NT",
                                                                          "LC",
                                                                          "DD"),
                                                           selected = "all"),
@@ -248,7 +248,9 @@ ui <- navbarPage("GPSR MPA project",
                  tabPanel(title="About",
                           tags$body(
                             h4('This Shiny App was built to help visualise shark and ray distribution information across the globe'),
-                            p(paste0("Our application contains range distribution information of ",noSpecies," shark and ray species downloaded from...")),
+                            p('The purpose of the tool is to help identify priority areas on a global scale where spatial protection would provide the greatest benefit to shark and ray conservation efforts.'),
+                            br(),
+                            p('The app was built by Dr Ross Dwyer as part of the Global Partnership for Sharks and Rays project and contains range distribution information of 1083 shark and ray species downloaded from...'),
                             a(href = "http://www.iucnredlist.org","The IUCN Red List of Threatened Species"),
                             br(),
                             br(),
@@ -257,9 +259,6 @@ ui <- navbarPage("GPSR MPA project",
                           tags$img(src = "http://www.mcclellandlegge.com/img/shiny-logo.png", width = "100px", height = "100px"),
                           tags$img(src = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Leaflet_logo.svg/2000px-Leaflet_logo.svg.png", width = "180px", height = "60px"),
                           br(),
-                          br(),
-                          br(),
-                          p("This application was built by Dr Ross Dwyer as part of the Global Partnership for Sharks and Rays project"),
                           a(href = "https://github.com/RossDwyer","Our project is on GitHub"),
                           br(),
                           br(),
@@ -422,8 +421,8 @@ server <- function(input, output, session) {
                           "all"= istatus,
                           "CR" = iCR,
                           "EN" = iEN,
-                          "NT" = iNT,
                           "VU" = iVU,
+                          "NT" = iNT,
                           "LC" = iLC,
                           "DD" = iDD)
           
@@ -496,4 +495,3 @@ server <- function(input, output, session) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-

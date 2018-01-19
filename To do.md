@@ -10,7 +10,7 @@ Species maps
 - [ ] Improve reactivity
 
 Interactive map
-- [ ] reorder the IUCN categories as CR, EN, VU, NT, LC, DD. I think VU is out of place
+- [X] reorder the IUCN categories as CR, EN, VU, NT, LC, DD. I think VU is out of place
 - [ ] add categories CR + EN + VU, CR + EN 
 - [ ] Add help  text to the "% of species displayed" to explain how species are dropped out as the slider moves down from 100%. 
 

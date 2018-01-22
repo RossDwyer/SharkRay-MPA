@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "19-Jan-2018" ## Date last updated
+DateUpdated <-  "22-Jan-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -80,6 +80,8 @@ iNT <- iucnrast[[4]]
 iVU <- iucnrast[[5]]
 iLC <- iucnrast[[6]]
 iDD <- iucnrast[[7]]
+iCREN <- iucnrast[[8]]
+iCRENVU <- iucnrast[[9]]
 
 # Colour scale for the category maps
 scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
@@ -220,7 +222,9 @@ ui <- navbarPage("GPSR MPA project",
                                                                          "VU",
                                                                          "NT",
                                                                          "LC",
-                                                                         "DD"),
+                                                                         "DD",
+                                                                         "CR+EN",
+                                                                         "CR+EN+VU"),
                                                           selected = "all"),
                                               sliderInput("range2",
                                                           "Upper % species displayed :",
@@ -406,7 +410,7 @@ server <- function(input, output, session) {
           addRasterImage(layerId = "layer3",
                          rast_sel_sum, 
                          colors = pal1, 
-                         opacity = 0.5,
+                         opacity = 0.7,
                          group="order") %>%
           addLegend(pal = pal1, 
                     values = values(data1),
@@ -424,7 +428,9 @@ server <- function(input, output, session) {
                           "VU" = iVU,
                           "NT" = iNT,
                           "LC" = iLC,
-                          "DD" = iDD)
+                          "DD" = iDD,
+                          "CR+EN" = iCREN,
+                          "CR+EN+VU" = iCRENVU)
           
           # Standardise the display slider 
           maxVal <- maxValue(data1)
@@ -443,7 +449,7 @@ server <- function(input, output, session) {
             addRasterImage(layerId = "layer4",
                            rast_sel_sum, 
                            colors = pal1, 
-                           opacity = 0.5,
+                           opacity = 0.7,
                            group="IUCN") %>%
             addLegend(pal = pal1, 
                       values = values(data1),

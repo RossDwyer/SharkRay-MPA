@@ -15,9 +15,10 @@ Interactive map
 - [ ] Add help  text to the "% of species displayed" to explain how species are dropped out as the slider moves down from 100%. 
 
 Interactive chart
-- [ ] Add capacity to show all regions (not only <=15). Note: Need to remove duplicates
 - [X] add FAO Major Fishing areas
-- [ ] add Large Marine Ecosystems
+- [X] add Large Marine Ecosystems
+- [ ] Add capacity to show all regions (not only <=15). Note: Need to melt duplicate areas
+- [ ] Add data source links
 - [ ] Add help icons
 
 

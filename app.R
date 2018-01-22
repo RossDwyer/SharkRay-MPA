@@ -24,6 +24,7 @@ library(DT)
 sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")#[1:dim(specrast)[3],] # limited by the number of sharks loaded into the raster 
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
+FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
 
 #library(RCurl)
 #sharkdat <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/datatable%20containing%20species%20names%20and%20IUCN%20categories.csv"),header=T)
@@ -92,9 +93,13 @@ ivis <- 15 # No EEZ/Oceans to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 
-sEEZ_count <- data.frame(x=EEZ_spec1$Territory1,y=EEZ_spec1$Nospecies)
-sOceans_count <- data.frame(x=Oceans_spec1$name,y=Oceans_spec1$Nospecies)
+
+sEEZ_count <- data.frame(x=EEZ_spec1$Territory1,y=EEZ_spec1$Nospecies,x1=EEZ_spec1$Territory1)
+sOceans_count <- data.frame(x=Oceans_spec1$name,y=Oceans_spec1$Nospecies,x1=Oceans_spec1$name)
+sFAO_count <- data.frame(x=FAO_spec1$F_CODE,y=FAO_spec1$Nospecies,x1=FAO_spec1$Name_en)
+#FAO_count also like Name_en
 
 # tab 5 (About page)
 noSpecies <- length(species.name) # number of species considered
@@ -241,7 +246,8 @@ ui <- navbarPage("GPSR MPA project",
                           fluidPage(
                             radioButtons("sAreaPolygons", "Choose which areas to visualise:",
                                          c("Exclusive Economic Zones"= "sEEZ_count",
-                                           "Oceans" = "sOceans_count"),
+                                           "Oceans" = "sOceans_count",
+                                           "FAO Regions" = "sFAO_count"),
                                          inline = TRUE),
                             hr(),
                             plotlyOutput("plot", width = "100%", height = "100%"),
@@ -473,6 +479,9 @@ server <- function(input, output, session) {
     if (input$sAreaPolygons == 'sOceans_count')
       data1 <- sOceans_count
     
+    if (input$sAreaPolygons == 'sFAO_count')
+      data1 <- sFAO_count
+    
     #data1 <- v$data 
     data1$x <- factor(data1$x, levels = data1$x[order(data1$y,decreasing =TRUE)])
     row.names(data1) <- NULL
@@ -483,7 +492,7 @@ server <- function(input, output, session) {
             marker = list(color = sbarchart_colours),
             height = 600, width = 900,
             hoverinfo = 'text',
-            text = ~paste('<b>',x,'</b>',
+            text = ~paste('<b>',x1,'</b>',
                           '<br> Species number: ', y)) %>%
       layout(title = "Number of Shark and Ray Species Present",
              xaxis = list(title = "",

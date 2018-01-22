@@ -23,7 +23,7 @@ library(DT)
 # Load data tables ----
 sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")#[1:dim(specrast)[3],] # limited by the number of sharks loaded into the raster 
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
-Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
+#Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
 LME_spec <- read.csv("Data/Sharks and rays in Large Marine Ecosystems.csv")
 
@@ -93,13 +93,13 @@ scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 ivis <- 15 # No EEZ/Oceans to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+#Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 
 
 sEEZ_count <- data.frame(x=EEZ_spec1$Territory1,y=EEZ_spec1$Nospecies,x1=EEZ_spec1$Territory1)
-sOceans_count <- data.frame(x=Oceans_spec1$name,y=Oceans_spec1$Nospecies,x1=Oceans_spec1$name)
+#sOceans_count <- data.frame(x=Oceans_spec1$name,y=Oceans_spec1$Nospecies,x1=Oceans_spec1$name)
 sFAO_count <- data.frame(x=FAO_spec1$F_CODE,y=FAO_spec1$Nospecies,x1=FAO_spec1$Name_en)
 sLME_count <- data.frame(x=LME_spec1$LME_NAME,y=LME_spec1$Nospecies,x1=LME_spec1$LME_NAME)
 
@@ -247,15 +247,26 @@ ui <- navbarPage("GPSR MPA project",
                  ## TAB 4
                  tabPanel(title="Interactive chart",
                           fluidPage(
-                            radioButtons("sAreaPolygons", "Choose which areas to visualise:",
+                            tags$div(class="header", checked=NA,
+                                     tags$strong("This plot displays the number of shark and ray species present in marine and coastal regions across the globe.")
+                                     ),
+                            radioButtons("sAreaPolygons", "Select which areas to visualise:",
                                          c("Exclusive Economic Zones"= "sEEZ_count",
-                                           "Oceans" = "sOceans_count",
+                                           #"Oceans" = "sOceans_count",
                                            "FAO Regions" = "sFAO_count",
                                            "Large Marine Ecosystems" = "sLME_count"),
                                          inline = TRUE),
-                            hr(),
+                            #hr(),
                             plotlyOutput("plot", width = "100%", height = "100%"),
-                            verbatimTextOutput("event"))),
+                            verbatimTextOutput("event"),
+                            
+                            tags$div(class="header", checked=NA,
+                                     tags$p("For more information about the regions, click the links below..."),
+                                     tags$a(href="https://www.arcgis.com/home/item.html?id=5433d0112fc8448e96f61594c90011c6", "Exclusive Economic Zones"),
+                                     #tags$a(href="shiny.rstudio.com/tutorial", "Click Here!"),
+                                     tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions"),
+                                     tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
+                            ))),
                  
 
                  ## TAB 5
@@ -480,8 +491,8 @@ server <- function(input, output, session) {
     if (input$sAreaPolygons == 'sEEZ_count')
       data1 <- sEEZ_count
     
-    if (input$sAreaPolygons == 'sOceans_count')
-      data1 <- sOceans_count
+    #if (input$sAreaPolygons == 'sOceans_count')
+    #  data1 <- sOceans_count
     
     if (input$sAreaPolygons == 'sFAO_count')
       data1 <- sFAO_count
@@ -501,15 +512,15 @@ server <- function(input, output, session) {
             hoverinfo = 'text',
             text = ~paste('<b>',x1,'</b>',
                           '<br> Species number: ', y)) %>%
-      layout(title = "Number of Shark and Ray Species Present",
+      layout(title = "",
              xaxis = list(title = "",
                           tickangle = 45,
                           zeroline = FALSE,
                           showline = FALSE,
                           #showticklabels = FALSE,
                           showgrid = FALSE),
-             yaxis = list(title = "Number of Species"),
-             margin = list(l = 50, r = 50, b = 180, t = 50, pad = 4))
+             yaxis = list(title = "Number of Species Present"),
+             margin = list(l = 50, r = 50, b = 200, t = 50, pad = 4))
   })
   
   

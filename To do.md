@@ -3,14 +3,16 @@ Data explorer
 - [ ] Add a text box to the data explorer to explain what the variables are
 
 Species maps
+- [X] Add data source links
+- [X] Add loading bar
 - [ ] Add PEW shark sanctuaries
 - [ ] Add higher resolution species rasters
 - [ ] Add help icons
-- [ ] Add data source links
 - [ ] Improve reactivity
 
 Interactive map
 - [X] reorder the IUCN categories as CR, EN, VU, NT, LC, DD. I think VU is out of place
+- [X] Add loading bar
 - [X] add categories CR + EN + VU, CR + EN 
 - [ ] Add help  text to the "% of species displayed" to explain how species are dropped out as the slider moves down from 100%. 
 

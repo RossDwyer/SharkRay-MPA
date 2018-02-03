@@ -19,6 +19,9 @@ library(raster)
 library(RColorBrewer)
 library(plotly)
 library(DT)
+library(shinycssloaders)
+library(highcharter)
+
 
 # Load data tables ----
 sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")#[1:dim(specrast)[3],] # limited by the number of sharks loaded into the raster 
@@ -99,7 +102,6 @@ LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:i
 
 
 sEEZ_count <- data.frame(x=EEZ_spec1$Territory1,y=EEZ_spec1$Nospecies,x1=EEZ_spec1$Territory1)
-#sOceans_count <- data.frame(x=Oceans_spec1$name,y=Oceans_spec1$Nospecies,x1=Oceans_spec1$name)
 sFAO_count <- data.frame(x=FAO_spec1$F_CODE,y=FAO_spec1$Nospecies,x1=FAO_spec1$Name_en)
 sLME_count <- data.frame(x=LME_spec1$LME_NAME,y=LME_spec1$Nospecies,x1=LME_spec1$LME_NAME)
 
@@ -110,12 +112,12 @@ noSpecies <- length(species.name) # number of species considered
 
 # User interface ----
 
-ui <- navbarPage("GPSR MPA project", 
-                 id="nav",
+ui <- navbarPage(title ="GPSR MPA project", 
+                 id = "nav",
                  
                  
                  ## TAB 1
-                 tabPanel("Data explorer", 
+                 tabPanel(title="Data explorer", 
                           fluidRow(
                             column(3,
                                    selectInput("order_name", "Order name", c("Select order"="", structure(order.name, names=order.name)), multiple=TRUE)
@@ -151,7 +153,7 @@ ui <- navbarPage("GPSR MPA project",
                  
                  
                  ## TAB 2
-                 tabPanel("Species map",
+                 tabPanel(title="Species map",
                           fluidRow(
                             column(3,
                                    selectInput(inputId ="var2", 
@@ -171,7 +173,8 @@ ui <- navbarPage("GPSR MPA project",
                               
                               
                               #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-                              leafletOutput("map2", width = "100%", height = 700)
+                              leafletOutput("map2", width = "100%", height = 700) %>% 
+                                withSpinner(color="#3182bd")
                               
                               #DT::dataTableOutput("mytable")
                           )
@@ -179,7 +182,7 @@ ui <- navbarPage("GPSR MPA project",
                  
                  
                  ## TAB 3
-                 tabPanel("Interactive map",
+                 tabPanel(title="Interactive map",
                           div(class="outer",
                               
                               # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
@@ -190,7 +193,8 @@ ui <- navbarPage("GPSR MPA project",
                               ),
                               
                               #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-                              leafletOutput("map", width = "100%", height = 700),
+                              leafletOutput("map", width = "100%", height = 700) %>% 
+                                withSpinner(color="#3182bd"),
                               
                               absolutePanel(top = 10, left = 50,
                                             
@@ -248,7 +252,7 @@ ui <- navbarPage("GPSR MPA project",
                  tabPanel(title="Interactive chart",
                           fluidPage(
                             tags$div(class="header", checked=NA,
-                                     tags$strong("This plot displays the number of shark and ray species present in marine and coastal regions across the globe.")
+                                     tags$strong("This plot displays the number of shark and ray species present in marine and coastal regions")
                                      ),
                             radioButtons("sAreaPolygons", "Select which areas to visualise:",
                                          c("Exclusive Economic Zones"= "sEEZ_count",
@@ -262,9 +266,9 @@ ui <- navbarPage("GPSR MPA project",
                             
                             tags$div(class="header", checked=NA,
                                      tags$p("For more information about the regions, click the links below..."),
-                                     tags$a(href="https://www.arcgis.com/home/item.html?id=5433d0112fc8448e96f61594c90011c6", "Exclusive Economic Zones"),
+                                     tags$a(href="https://www.arcgis.com/home/item.html?id=5433d0112fc8448e96f61594c90011c6", "Exclusive Economic Zones | "),
                                      #tags$a(href="shiny.rstudio.com/tutorial", "Click Here!"),
-                                     tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions"),
+                                     tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions | "),
                                      tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
                             ))),
                  

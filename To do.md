@@ -20,7 +20,7 @@ Interactive chart
 - [X] add FAO Major Fishing areas
 - [X] add Large Marine Ecosystems
 - [ ] Add capacity to show all regions (not only <=15). Note: Need to melt duplicate areas
-- [ ] Add data source links
+- [X] Add data source links
 - [ ] Add help icons
 
 

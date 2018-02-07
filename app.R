@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "22-Jan-2018" ## Date last updated
+DateUpdated <-  "07-Feb-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -24,7 +24,11 @@ library(highcharter)
 
 
 # Load data tables ----
-sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")#[1:dim(specrast)[3],] # limited by the number of sharks loaded into the raster 
+#sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")
+sharkdat <- read.csv("Data/IUCNStatWeb.csv") # limited by the number of sharks loaded into the raster 
+names(sharkdat)[1] <- 'binomial'
+#sharkdat <- sharkdat[,c(1,3:5)]
+
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 #Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
@@ -60,6 +64,15 @@ order.name <- c("CARCHARHINIFORMES",
                 "SQUALIFORMES",
                 "SQUATINIFORMES")
 cleantable <- sharkdat
+
+# Links for the IUCN websites
+createLink1 <- function(val) {
+  sprintf(paste0('<a href="',val,'" target="_blank" class="btn btn-primary">Info</a>'),val)
+}
+createLink2 <- function(val) {
+  sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',val)
+}
+
 
 # tab 2
 species.name <- sharkdat$binomial # Names of Species for the species range maps  
@@ -99,7 +112,6 @@ EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:i
 #Oceans_spec1 <- data.frame(Oceans_spec[order(Oceans_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-
 
 sEEZ_count <- data.frame(x=EEZ_spec1$Territory1,y=EEZ_spec1$Nospecies,x1=EEZ_spec1$Territory1)
 sFAO_count <- data.frame(x=FAO_spec1$F_CODE,y=FAO_spec1$Nospecies,x1=FAO_spec1$Name_en)
@@ -336,13 +348,31 @@ server <- function(input, output, session) {
         is.null(input$order_name) | order_name %in% input$order_name,
         is.null(input$family_nam) | family_nam %in% input$family_nam,
         is.null(input$binomial) | binomial %in% input$binomial,
-        is.null(input$code)  | code %in% input$code
+        is.null(input$code)  | code %in% input$code) %>% 
+      mutate(
+        web_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_redlist),
+        assessment_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Info</a>',assessment_redlist)
+        )
+    #'<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>'
+      #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
+      df <- datatable(df, 
+                      colnames=c("Species name", "Common names",
+                                 'Order', 'Family',
+                                 'IUCN code', 'redlist web',
+                                 'PDF'),
+      escape = FALSE)}, # This bit is to stop the links from rendering literally (i.e. text only)
 
-      ) #%>%
-      #mutate(Action = paste('<a class="go-map" href="" data-lat="', Lat, '" data-long="', Long, '" data-zip="', 
-      #                      Zipcode, '"><i class="fa fa-crosshairs"></i></a>', sep=""))
-    #action <- DT::dataTableAjax(session, df)
-  })
+   
+  # Format the interactive table specifying pages  
+  options = list(orderClasses = TRUE,
+                   lengthMenu = list(c(5,10,50,100,-1), c('5','10','50','100','All')),
+                   pageLength = 5)
+  )
+
+  #mutate(Action = paste('<a class="go-map" href="" data-lat="', Lat, '" data-long="', Long, '" data-zip="', 
+  #                      Zipcode, '"><i class="fa fa-crosshairs"></i></a>', sep=""))
+  #action <- DT::dataTableAjax(session, df)
+  
   
   #DT::datatable(df, options = list(ajax = list(url = action)), escape = FALSE)
   

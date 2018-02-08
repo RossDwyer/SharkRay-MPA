@@ -26,12 +26,13 @@ library(highcharter)
 # Load data tables ----
 sharkdat <- read.csv("Data/IUCNStatWeb.csv")
 names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
+
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
 LME_spec <- read.csv("Data/Sharks and rays in Large Marine Ecosystems.csv")
 #Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 #library(RCurl)
-#sharkdat <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/datatable%20containing%20species%20names%20and%20IUCN%20categories.csv"),header=T)
+#sharkdat2 <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/datatable%20containing%20species%20names%20and%20IUCN%20categories.csv"),header=T)
 #EEZ_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20EEZs.csv"),header=T)
 #Oceans_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20Oceans.csv"),header=T)
 

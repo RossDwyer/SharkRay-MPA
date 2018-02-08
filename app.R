@@ -58,14 +58,6 @@ order.name <- c("CARCHARHINIFORMES",
                 "SQUALIFORMES",
                 "SQUATINIFORMES")
 
-# Links for the IUCN websites
-createLink1 <- function(val) {
-  sprintf(paste0('<a href="',val,'" target="_blank" class="btn btn-primary">Info</a>'),val)
-}
-createLink2 <- function(val) {
-  sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',val)
-}
-
 sharkdat <- sharkdat %>% 
   mutate(
     #web_redlist = sprintf('<a href=',web_redlist,'" target="_blank" class="btn btn-link">Link</a>',web_redlist),
@@ -74,8 +66,16 @@ sharkdat <- sharkdat %>%
     web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
   ) %>% 
   select(-id_no)
-  
 
+iucnimg <- paste0('img/DD.png')
+iucnlink <- paste0("https://github.com/RossDwyer/SharkRay-MPA/blob/master/img/DD.png")
+sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
+                        ifelse(sharkdat$code=='EN','<img src=img/EN.png> </img>',
+                               ifelse(sharkdat$code=='VU','<img src=img/VU.png> </img>',
+                                      ifelse(sharkdat$code=='NT','<img src=img/NT.png> </img>',
+                                             ifelse(sharkdat$code=='LC','<img src=img/LC.png> </img>',
+                                                    '<img src=img/DD.png> </img>')))))
+  
 cleantable <- sharkdat
 
 # tab 2
@@ -363,11 +363,11 @@ server <- function(input, output, session) {
                     colnames=c("Species name", "Common names",
                                'Order name', 'Family name',
                                'IUCN threat category', 'IUCN Red List',
-                               'Download IUCN assessment', 'Fishbase'),
+                               'Download IUCN assessment', 'Fishbase' , 'logo'),
                     escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
-  }, 
+  }#, 
 
-   
+  ## Removed options() setting here as it didnt cantrol anything  
 
   )
 

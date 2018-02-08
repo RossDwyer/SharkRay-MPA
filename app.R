@@ -24,9 +24,8 @@ library(highcharter)
 
 
 # Load data tables ----
-#sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")
-sharkdat <- read.csv("Data/IUCNStatWeb.csv") # limited by the number of sharks loaded into the raster 
-names(sharkdat)[1] <- 'binomial'
+sharkdat <- read.csv("Data/IUCNStatWeb.csv")
+names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
 LME_spec <- read.csv("Data/Sharks and rays in Large Marine Ecosystems.csv")

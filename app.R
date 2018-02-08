@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "07-Feb-2018" ## Date last updated
+DateUpdated <-  "08-Feb-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -27,30 +27,25 @@ library(highcharter)
 #sharkdat <- read.csv("Data/datatable containing species names and IUCN categories.csv")
 sharkdat <- read.csv("Data/IUCNStatWeb.csv") # limited by the number of sharks loaded into the raster 
 names(sharkdat)[1] <- 'binomial'
-#sharkdat <- sharkdat[,c(1,3:5)]
-
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
-#Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
 LME_spec <- read.csv("Data/Sharks and rays in Large Marine Ecosystems.csv")
-
+#Oceans_spec <- read.csv("Data/Sharks and rays in Oceans.csv")
 #library(RCurl)
 #sharkdat <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/datatable%20containing%20species%20names%20and%20IUCN%20categories.csv"),header=T)
 #EEZ_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20EEZs.csv"),header=T)
 #Oceans_spec <- read.csv(text = getURL("https://raw.githubusercontent.com/RossDwyer/SharkRay-MPA/master/Data/Sharks%20and%20rays%20in%20Oceans.csv"),header=T)
 
 ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast ----
-
-# Works only on Windows!
-##load('myMPA.RData') ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast
-
-#Works on Mac though had to sort errors on the loaded rasters
-#library(repmis)
-#source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
 orderrast <- brick("GIS/ordersum_specrast.tif")
 iucnrast <- brick("GIS/IUCNsum_specrast.tif")
 allspecrast <- brick("GIS/multilayerspecrast.tif")
 reduced.MPAs <- readOGR(dsn="GIS",layer="simplifiedMPA")
+# Works only on Windows!
+##load('myMPA.RData') ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast
+#Works on Mac though had to sort errors on the loaded rasters
+#library(repmis)
+#source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
 
 # tab 1 lookup table
 order.name <- c("CARCHARHINIFORMES",
@@ -63,7 +58,6 @@ order.name <- c("CARCHARHINIFORMES",
                 "RAJIFORMES",
                 "SQUALIFORMES",
                 "SQUATINIFORMES")
-cleantable <- sharkdat
 
 # Links for the IUCN websites
 createLink1 <- function(val) {
@@ -73,10 +67,21 @@ createLink2 <- function(val) {
   sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',val)
 }
 
+sharkdat <- sharkdat %>% 
+  mutate(
+    #web_redlist = sprintf('<a href=',web_redlist,'" target="_blank" class="btn btn-link">Link</a>',web_redlist),
+    web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
+    assessment_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
+    web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
+  ) %>% 
+  select(-id_no)
+  
+
+cleantable <- sharkdat
 
 # tab 2
-species.name <- sharkdat$binomial # Names of Species for the species range maps  
-pal <- c("#253494","#f93") # HEX code for the colour of the raster and the MPAs
+species.name <- sharkdat$binomial # Names of species for the species range maps  
+pal <- c("#253494","#f93") # HEX code for the colour of the raster [1] and the MPAs [2]
 
 #  tab 3 - For the order/IUCN category maps
 iorder <- orderrast[[1]]
@@ -160,7 +165,10 @@ ui <- navbarPage(title ="GPSR MPA project",
                             )
                           ),
                           hr(),
-                          DT::dataTableOutput("mytable")
+                          DT::dataTableOutput("mytable"),
+                          tags$div(class="header", checked=NA,
+                                   tags$p("Species common names sourced from..."),
+                                   tags$a(href="http://eol.org/", "the Encyclopedia of Life"))
                  ),
                  
                  
@@ -342,31 +350,26 @@ server <- function(input, output, session) {
   })
   
   ## Generated data explorer table
-  output$mytable <- DT::renderDataTable({
+  output$mytable <- DT::renderDataTable(
+    {
     df <- cleantable %>%
       filter(
         is.null(input$order_name) | order_name %in% input$order_name,
         is.null(input$family_nam) | family_nam %in% input$family_nam,
         is.null(input$binomial) | binomial %in% input$binomial,
-        is.null(input$code)  | code %in% input$code) %>% 
-      mutate(
-        web_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_redlist),
-        assessment_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Info</a>',assessment_redlist)
-        )
-    #'<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>'
-      #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-      df <- datatable(df, 
-                      colnames=c("Species name", "Common names",
-                                 'Order', 'Family',
-                                 'IUCN code', 'redlist web',
-                                 'PDF'),
-      escape = FALSE)}, # This bit is to stop the links from rendering literally (i.e. text only)
+        is.null(input$code)  | code %in% input$code)
+    
+    #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
+    df <- datatable(df, 
+                    colnames=c("Species name", "Common names",
+                               'Order name', 'Family name',
+                               'IUCN threat category', 'IUCN Red List',
+                               'Download IUCN assessment', 'Fishbase'),
+                    escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
+  }, 
 
    
-  # Format the interactive table specifying pages  
-  options = list(orderClasses = TRUE,
-                   lengthMenu = list(c(5,10,50,100,-1), c('5','10','50','100','All')),
-                   pageLength = 5)
+
   )
 
   #mutate(Action = paste('<a class="go-map" href="" data-lat="', Lat, '" data-long="', Long, '" data-zip="', 

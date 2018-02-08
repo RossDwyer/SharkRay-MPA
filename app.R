@@ -58,24 +58,27 @@ order.name <- c("CARCHARHINIFORMES",
                 "SQUALIFORMES",
                 "SQUATINIFORMES")
 
-# Links for the IUCN websites
-createLink1 <- function(val) {
-  sprintf(paste0('<a href="',val,'" target="_blank" class="btn btn-primary">Info</a>'),val)
-}
-createLink2 <- function(val) {
-  sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',val)
-}
-
+# Edit dataframe to include web links - note: target="_blank" ensures links opened in a new tab
 sharkdat <- sharkdat %>% 
   mutate(
-    #web_redlist = sprintf('<a href=',web_redlist,'" target="_blank" class="btn btn-link">Link</a>',web_redlist),
-    web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
-    assessment_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
-    web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
+    web_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-link">iucn</a>',web_redlist),
+    assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
+    web_fishbase = sprintf('<a href="%s" target="_blank" class="btn btn-link">fishbase</a>',web_fishbase)
+    #web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
+    #assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
+    #web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
   ) %>% 
   select(-id_no)
-  
 
+iucnimg <- paste0('img/DD.png')
+iucnlink <- paste0("https://github.com/RossDwyer/SharkRay-MPA/blob/master/img/DD.png")
+sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
+                        ifelse(sharkdat$code=='EN','<img src=img/EN.png> </img>',
+                               ifelse(sharkdat$code=='VU','<img src=img/VU.png> </img>',
+                                      ifelse(sharkdat$code=='NT','<img src=img/NT.png> </img>',
+                                             ifelse(sharkdat$code=='LC','<img src=img/LC.png> </img>',
+                                                    '<img src=img/DD.png> </img>')))))
+  
 cleantable <- sharkdat
 
 # tab 2
@@ -164,10 +167,11 @@ ui <- navbarPage(title ="GPSR MPA project",
                             )
                           ),
                           hr(),
-                          DT::dataTableOutput("mytable"),
+                          DT::dataTableOutput("mytable")  %>% 
+                            withSpinner(color="#3182bd"),
                           tags$div(class="header", checked=NA,
                                    tags$p("Species common names sourced from..."),
-                                   tags$a(href="http://eol.org/", "the Encyclopedia of Life"))
+                                   tags$a("the Encyclopedia of Life", href="http://eol.org/", target="_blank"))
                  ),
                  
                  
@@ -363,11 +367,11 @@ server <- function(input, output, session) {
                     colnames=c("Species name", "Common names",
                                'Order name', 'Family name',
                                'IUCN threat category', 'IUCN Red List',
-                               'Download IUCN assessment', 'Fishbase'),
+                               'Download IUCN assessment', 'Fishbase' , 'logo'),
                     escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
-  }, 
+  }#, 
 
-   
+  ## Removed options() setting here as it didnt cantrol anything  
 
   )
 

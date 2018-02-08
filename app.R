@@ -61,9 +61,9 @@ order.name <- c("CARCHARHINIFORMES",
 # Edit dataframe to include web links - note: target="_blank" ensures links opened in a new tab
 sharkdat <- sharkdat %>% 
   mutate(
-    web_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-link">iucn</a>',web_redlist),
-    assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
-    web_fishbase = sprintf('<a href="%s" target="_blank" class="btn btn-link">fishbase</a>',web_fishbase)
+    web_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-link">iucnredlist.org</a>',web_redlist),
+    assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">PDF</a>',assessment_redlist),
+    web_fishbase = sprintf('<a href="%s" target="_blank" class="btn btn-link">fishbase.org</a>',web_fishbase)
     #web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
     #assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
     #web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
@@ -360,14 +360,16 @@ server <- function(input, output, session) {
         is.null(input$order_name) | order_name %in% input$order_name,
         is.null(input$family_nam) | family_nam %in% input$family_nam,
         is.null(input$binomial) | binomial %in% input$binomial,
-        is.null(input$code)  | code %in% input$code)
+        is.null(input$code)  | code %in% input$code)  %>%
+      select(binomial,CommonName,order_name,family_nam,flag,web_redlist,assessment_redlist,web_fishbase)
     
     #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
     df <- datatable(df, 
                     colnames=c("Species name", "Common names",
                                'Order name', 'Family name',
-                               'IUCN threat category', 'IUCN Red List',
-                               'Download IUCN assessment', 'Fishbase' , 'logo'),
+                               'IUCN threat category', 
+                               'IUCN Red List',
+                               'Download IUCN assessment', 'Fishbase'),
                     escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
   }#, 
 

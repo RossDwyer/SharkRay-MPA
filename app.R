@@ -24,7 +24,8 @@ library(highcharter)
 
 
 # Load data tables ----
-sharkdat <- read.csv("Data/IUCNStatWeb.csv")
+#sharkdat <- read.csv("Data/IUCNStatWeb.csv")
+sharkdat <- read.csv("Data/IUCNFishbaseWeb.csv")
 names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
 EEZ_spec <- read.csv("Data/Sharks and rays in EEZs.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in FAO regions.csv")
@@ -68,7 +69,9 @@ sharkdat <- sharkdat %>%
     #assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
     #web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
   ) %>% 
-  select(-id_no)
+  select(binomial,CommonName,order_name,family_nam,
+         DemersPelag,Vulnerability,Resilience,
+         code,web_redlist,web_fishbase)
 
 iucnimg <- paste0('img/DD.png')
 iucnlink <- paste0("https://github.com/RossDwyer/SharkRay-MPA/blob/master/img/DD.png")
@@ -361,15 +364,22 @@ server <- function(input, output, session) {
         is.null(input$family_nam) | family_nam %in% input$family_nam,
         is.null(input$binomial) | binomial %in% input$binomial,
         is.null(input$code)  | code %in% input$code)  %>%
-      select(binomial,CommonName,order_name,family_nam,flag,web_redlist,assessment_redlist,web_fishbase)
+      select(binomial, CommonName,
+             order_name, family_nam,
+             DemersPelag,Vulnerability,Resilience,
+             flag,web_redlist,
+             #assessment_redlist,
+             web_fishbase)
     
     #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
     df <- datatable(df, 
                     colnames=c("Species name", "Common names",
                                'Order name', 'Family name',
+                               'Habitat', 'Vulnerability index', 'Resilience',
                                'IUCN threat category', 
                                'IUCN Red List',
-                               'Download IUCN assessment', 'Fishbase'),
+                               #'Download IUCN assessment',
+                               'Fishbase'),
                     escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
   }#, 
 

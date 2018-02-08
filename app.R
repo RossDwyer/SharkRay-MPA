@@ -58,12 +58,15 @@ order.name <- c("CARCHARHINIFORMES",
                 "SQUALIFORMES",
                 "SQUATINIFORMES")
 
+# Edit dataframe to include web links - note: target="_blank" ensures links opened in a new tab
 sharkdat <- sharkdat %>% 
   mutate(
-    #web_redlist = sprintf('<a href=',web_redlist,'" target="_blank" class="btn btn-link">Link</a>',web_redlist),
-    web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
-    assessment_redlist = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
-    web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
+    web_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-link">iucn</a>',web_redlist),
+    assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
+    web_fishbase = sprintf('<a href="%s" target="_blank" class="btn btn-link">fishbase</a>',web_fishbase)
+    #web_redlist = paste0('<a href=',web_redlist,'>RedList</a>'),
+    #assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">Download</a>',assessment_redlist),
+    #web_fishbase = sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-link">Link</a>',web_fishbase)
   ) %>% 
   select(-id_no)
 
@@ -164,10 +167,11 @@ ui <- navbarPage(title ="GPSR MPA project",
                             )
                           ),
                           hr(),
-                          DT::dataTableOutput("mytable"),
+                          DT::dataTableOutput("mytable")  %>% 
+                            withSpinner(color="#3182bd"),
                           tags$div(class="header", checked=NA,
                                    tags$p("Species common names sourced from..."),
-                                   tags$a(href="http://eol.org/", "the Encyclopedia of Life"))
+                                   tags$a("the Encyclopedia of Life", href="http://eol.org/", target="_blank"))
                  ),
                  
                  

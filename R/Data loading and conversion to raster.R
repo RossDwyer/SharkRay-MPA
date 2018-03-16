@@ -28,17 +28,28 @@ sharkdat <- sharkdistIUCN@data # Extract the dataframe and save to disk
 write.csv(sharkdat,"Data/datatable containing species names and IUCN categories.csv", row.names=FALSE)
 
 ## Now convert all 1083 species distributions to a raster stack object
-r <- raster(ncol=740, nrow=360) # Change this value to alter resolution of species distribution rasters
+## 
+r <- raster(ncol=720, nrow=360) # Change this value to alter resolution of species distribution rasters
 species1 <- 1
 species2 <- 1083 # all of them
 
 specrast <- stack()
 for(species in species1:species2){
+  
+  #species = 50
+  
   sp11 <- sharkdist[species,] # extracts one species
-  r.polys1 <- rasterize(sp11, r)
-  r.polys2 <- rasterize(as(sp11, 'SpatialLines'), r, field=1:3) # Apply rasterize so that it includes ALL cells touching a polygon
-  r3 <- cover(r.polys1, r.polys2) # combine these rasters
-  specrast <- stack(specrast ,r.polys, quick=TRUE)
+  r.polys1 <- rasterize(sp11, r) # # Apply rasterize so that it includes cells with >50 falling within a polygon
+  r.polys2 <- rasterize(as(sp11, 'SpatialLines'), r, field=1:3) # Apply rasterize so that it includes ALL cells touching a polygon boundary
+  r.polys3 <- cover(r.polys1, r.polys2) # Combine rasters by replacing NA values in the first Raster object with the values of the second
+  
+  #leaflet() %>% 
+   # setView(lng = 0, lat = 0,  zoom = 2) %>% 
+    #addTiles(group = "OSM (default)") %>%
+    #addRasterImage(layerId ="layer2",
+    #               r.polys3)
+  
+  specrast <- stack(specrast, r.polys3, quick=TRUE)
   print(species)
 }
 names(specrast) <- sharkdat$binomial[species1:species2]
@@ -114,3 +125,4 @@ writeRaster(specrast_order_brick_sum, filename="GIS/ordersum_specrast.tif", opti
 
 
 ################
+

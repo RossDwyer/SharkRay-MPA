@@ -1,0 +1,67 @@
+"FID_1","F_LEVEL","F_CODE","F_SUBAREA","Name_en","F_LEVEL.1","OCEAN","SURFACE","Nospecies","CR","EN","VU","rest"
+91,"SUBAREA","21.1","21.1","Atlantic, Northwest Subarea 21.1","SUBAREA","Atlantic",999281603000.911,14,0,0,4,10
+92,"SUBAREA","21.2","21.2","Atlantic, Northwest Subarea 21.2","SUBAREA","Atlantic",641944307685.118,19,0,1,5,13
+93,"SUBAREA","21.3","21.3","Atlantic, Northwest Subarea 21.3","SUBAREA","Atlantic",1450426121918.82,33,0,3,9,21
+99,"SUBAREA","21.4","21.4","Atlantic, Northwest Subarea 21.4","SUBAREA","Atlantic",997597908665.965,41,0,4,13,24
+100,"SUBAREA","21.5","21.5","Atlantic, Northwest Subarea 21.5","SUBAREA","Atlantic",233480170980.611,65,0,4,18,43
+101,"SUBAREA","21.6","21.6","Atlantic, Northwest Subarea 21.6","SUBAREA","Atlantic",1395999975425.22,78,1,5,19,53
+102,"SUBAREA","21.0","21.0","Atlantic, Northwest Subarea 21.0","SUBAREA","Atlantic",582045959869.029,9,0,0,2,7
+22,"SUBAREA","27.12","27.12","Atlantic, Northeast Subarea 27.12","SUBAREA","Atlantic",2148033151326.89,29,0,1,6,22
+71,"SUBAREA","27.10","27.10","Atlantic, Northeast Subarea 27.10","SUBAREA","Atlantic",2642810622882.62,37,0,0,13,24
+72,"SUBAREA","27.9","27.9","Atlantic, Northeast Subarea 27.9","SUBAREA","Atlantic",635608202902.848,86,3,7,21,55
+98,"SUBAREA","27.8","27.8","Atlantic, Northeast Subarea 27.8","SUBAREA","Atlantic",676230626888.788,79,1,4,19,55
+104,"SUBAREA","27.7","27.7","Atlantic, Northeast Subarea 27.7","SUBAREA","Atlantic",702026934533.921,75,1,3,15,56
+105,"SUBAREA","27.4","27.4","Atlantic, Northeast Subarea 27.4","SUBAREA","Atlantic",615587468614.012,44,1,1,10,32
+106,"SUBAREA","27.3","27.3","Atlantic, Northeast Subarea 27.3","SUBAREA","Atlantic",455591771166.558,28,1,1,7,19
+107,"SUBAREA","27.6","27.6","Atlantic, Northeast Subarea 27.6","SUBAREA","Atlantic",458645539476.206,64,1,1,12,50
+108,"SUBAREA","27.5","27.5","Atlantic, Northeast Subarea 27.5","SUBAREA","Atlantic",570965720767.964,52,1,1,9,41
+109,"SUBAREA","27.14","27.14","Atlantic, Northeast Subarea 27.14","SUBAREA","Atlantic",1333962065224.2,24,1,0,4,19
+110,"SUBAREA","27.2","27.2","Atlantic, Northeast Subarea 27.2","SUBAREA","Atlantic",2558079375337.35,40,1,1,9,29
+111,"SUBAREA","27.1","27.1","Atlantic, Northeast Subarea 27.1","SUBAREA","Atlantic",1623998512490.36,12,1,0,6,5
+26,"SUBAREA","34.2","34.2","Atlantic, Eastern Central Subarea 34.2","SUBAREA","Atlantic",3476765375247.99,27,0,0,12,15
+27,"SUBAREA","34.1","34.1","Atlantic, Eastern Central Subarea 34.1","SUBAREA","Atlantic",1383347033256.44,139,6,9,26,98
+35,"SUBAREA","34.4","34.4","Atlantic, Eastern Central Subarea 34.4","SUBAREA","Atlantic",4719250487141.57,23,0,0,10,13
+36,"SUBAREA","34.3","34.3","Atlantic, Eastern Central Subarea 34.3","SUBAREA","Atlantic",4496884916478.78,128,5,9,24,90
+20,"SUBAREA","37.4","37.4","Mediterranean and Black Sea Subarea 37.4","SUBAREA","Atlantic",475396678200.509,40,0,6,13,21
+21,"SUBAREA","37.1","37.1","Mediterranean and Black Sea Subarea 37.1","SUBAREA","Atlantic",844632955740.409,76,4,9,20,43
+23,"SUBAREA","37.2","37.2","Mediterranean and Black Sea Subarea 37.2","SUBAREA","Atlantic",945010331956.399,68,4,8,18,38
+24,"SUBAREA","37.3","37.3","Mediterranean and Black Sea Subarea 37.3","SUBAREA","Atlantic",730390941737.714,60,2,8,17,33
+57,"SUBAREA","41.2","41.2","Atlantic, Southwest Subarea 41.2","SUBAREA","Atlantic",6664626356834.14,131,4,9,33,85
+70,"SUBAREA","41.3","41.3","Atlantic, Southwest Subarea 41.3","SUBAREA","Atlantic",5047523955500.72,63,2,4,18,39
+46,"SUBAREA","41.1","41.1","Atlantic, Southwest Subarea 41.1","SUBAREA","Atlantic",5825792979689.91,89,3,2,18,66
+90,"SUBAREA","47.A","47.A","Atlantic, Southeast Subarea 47.A","SUBAREA","Atlantic",4908631862396.99,19,0,0,9,10
+94,"SUBAREA","47.1","47.1","Atlantic, Southeast Subarea 47.1","SUBAREA","Atlantic",1431111493021.9,134,4,6,22,102
+95,"SUBAREA","47.C","47.C","Atlantic, Southeast Subarea 47.C","SUBAREA","Atlantic",4481857768526.84,22,0,0,10,12
+96,"SUBAREA","47.D","47.D","Atlantic, Southeast Subarea 47.D","SUBAREA","Atlantic",4375519391720.04,9,0,0,4,5
+97,"SUBAREA","47.2","47.2","Atlantic, Southeast Subarea 47.2","SUBAREA","Atlantic",373766032892.439,110,1,2,26,81
+103,"SUBAREA","47.B","47.B","Atlantic, Southeast Subarea 47.B","SUBAREA","Atlantic",2771491142259.39,30,0,0,9,21
+87,"SUBAREA","48.6","48.6","Atlantic, Antarctic Subarea 48.6","SUBAREA","Atlantic",6423317525295.55,2,0,0,1,1
+88,"SUBAREA","48.5","48.5","Atlantic, Antarctic Subarea 48.5","SUBAREA","Atlantic",2626282939566.87,1,0,0,0,1
+73,"SUBAREA","48.3","48.3","Atlantic, Antarctic Subarea 48.3","SUBAREA","Atlantic",1029730102656.6,5,0,0,3,2
+74,"SUBAREA","48.4","48.4","Atlantic, Antarctic Subarea 48.4","SUBAREA","Atlantic",944872479638.008,1,0,0,1,0
+76,"SUBAREA","48.2","48.2","Atlantic, Antarctic Subarea 48.2","SUBAREA","Atlantic",856054420234.396,3,0,0,1,2
+79,"SUBAREA","48.1","48.1","Atlantic, Antarctic Subarea 48.1","SUBAREA","Atlantic",672393238326.294,3,0,0,1,2
+29,"SUBAREA","51.2","51.2","Indian Ocean, Western Subarea 51.2","SUBAREA","Indian",241833704914.95,57,3,4,20,30
+51,"SUBAREA","51.7","51.7","Indian Ocean, Western Subarea 51.7","SUBAREA","Indian",11630169165672.2,50,1,2,17,30
+53,"SUBAREA","51.8","51.8","Indian Ocean, Western Subarea 51.8","SUBAREA","Indian",2273067395554.84,141,4,6,33,98
+85,"SUBAREA","51.4","51.4","Indian Ocean, Western Subarea 51.4","SUBAREA","Indian",4896310961249.07,115,4,6,32,73
+80,"SUBAREA","51.3","51.3","Indian Ocean, Western Subarea 51.3","SUBAREA","Indian",1855577405259.46,100,3,4,26,67
+81,"SUBAREA","51.1","51.1","Indian Ocean, Western Subarea 51.1","SUBAREA","Indian",460284511328.477,59,2,4,22,31
+43,"SUBAREA","51.5","51.5","Indian Ocean, Western Subarea 51.5","SUBAREA","Indian",5194450830092.38,98,2,2,26,68
+50,"SUBAREA","51.6","51.6","Indian Ocean, Western Subarea 51.6","SUBAREA","Indian",2797224142033.91,99,2,3,28,66
+30,"SUBAREA","57.1","57.1","Indian Ocean, Eastern Subarea 57.1","SUBAREA","Indian",3557084030815.17,131,5,8,41,77
+54,"SUBAREA","57.5","57.5","Indian Ocean, Eastern Subarea 57.5","SUBAREA","Indian",3849615794779.89,254,4,7,42,201
+55,"SUBAREA","57.3","57.3","Indian Ocean, Eastern Subarea 57.3","SUBAREA","Indian",6675822009636.72,21,0,0,11,10
+62,"SUBAREA","57.4","57.4","Indian Ocean, Eastern Subarea 57.4","SUBAREA","Indian",9556462240616.21,30,0,1,5,24
+84,"SUBAREA","57.6","57.6","Indian Ocean, Eastern Subarea 57.6","SUBAREA","Indian",1515949882158.49,111,0,3,16,92
+47,"SUBAREA","57.2","57.2","Indian Ocean, Eastern Subarea 57.2","SUBAREA","Indian",6023824260128.21,93,3,7,34,49
+66,"SUBAREA","58.7","58.7","Indian Ocean, Antarctic Subarea 58.7","SUBAREA","Indian",586186085934.547,3,0,0,1,2
+67,"SUBAREA","58.6","58.6","Indian Ocean, Antarctic Subarea 58.6","SUBAREA","Indian",669632660330.872,3,0,0,1,2
+68,"SUBAREA","58.5","58.5","Indian Ocean, Antarctic Subarea 58.5","SUBAREA","Indian",1738077451528.89,5,0,0,1,4
+75,"SUBAREA","58.4","58.4","Indian Ocean, Antarctic Subarea 58.4","SUBAREA","Indian",9824788034309.74,5,0,0,1,4
+56,"SUBAREA","87.2","87.2","Pacific, Southeast Subarea 87.2","SUBAREA","Pacific",10996382898277,79,0,1,18,60
+64,"SUBAREA","87.3","87.3","Pacific, Southeast Subarea 87.3","SUBAREA","Pacific",7853116729222.12,38,0,1,11,26
+44,"SUBAREA","87.1","87.1","Pacific, Southeast Subarea 87.1","SUBAREA","Pacific",11919797917111.7,108,1,3,19,85
+89,"SUBAREA","88.2","88.2","Pacific, Antarctic Subarea 88.2","SUBAREA","Pacific",5018152913465.22,1,0,0,1,0
+77,"SUBAREA","88.1","88.1","Pacific, Antarctic Subarea 88.1","SUBAREA","Pacific",3031030744827.14,3,0,0,1,2
+78,"SUBAREA","88.3","88.3","Pacific, Antarctic Subarea 88.3","SUBAREA","Pacific",2258049036554.68,1,0,0,1,0

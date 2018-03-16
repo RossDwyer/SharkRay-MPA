@@ -1,0 +1,282 @@
+"PolygonID","MRGID","GeoName","MRGID_Ter1","Territory1","Sovereign1","ISO_Ter1","Area_km2","Nospecies","CR","EN","VU","rest"
+1,8444,"American Samoa Exclusive Economic Zone",8670,"American Samoa","United States","ASM",405844.21967,21,0,0,10,11
+2,8379,"Ascension Exclusive Economic Zone",8620,"Ascension","United Kingdom","ASC",446005.325434,15,0,0,8,7
+3,8446,"Cook Islands Exclusive Economic Zone",8672,"Cook Islands","New Zealand","COK",1969507.12039,21,0,0,10,11
+4,8389,"Disputed area Falkland Islands Exclusive Economic Zone: UK / Argentina",8623,"Falkland Islands","United Kingdom","FLK",549931.724317,32,0,1,10,21
+5,8440,"French Polynesian Exclusive Economic Zone",8656,"French Polynesia","France","PYF",4766884.32996,32,0,2,13,17
+6,8439,"Pitcairn Islands Exclusive Economic Zone",2259,"Pitcairn","United Kingdom","PCN",842344.756396,16,0,0,8,8
+7,8380,"St. Helena Exclusive Economic Zone",8619,"Saint Helena","United Kingdom","SHN",449214.734358,16,0,0,9,7
+8,8445,"Samoan Exclusive Economic Zone",8671,"Samoa","Samoa","WSM",130473.54685,21,0,0,10,11
+9,8448,"Tongan Exclusive Economic Zone",8674,"Tonga","Tonga","TON",666078.527932,20,0,0,9,11
+10,8382,"Tristan Da Cunha Exclusive Economic Zone",8621,"Tristan da Cunha","United Kingdom","TAA",817104.430557,11,0,0,6,5
+11,8465,"Chilean Exclusive Economic Zone",2165,"Chile","Chile","CHL",2465054.67659,77,0,2,16,59
+12,8447,"Niue Exclusive Economic Zone",8673,"Niue","New Zealand","NIU",318143.64148,18,0,0,9,9
+14,8383,"Disputed area South Georgia and South Sandwich Exclusive Economic Zone: UK / Argentina",8624,"South Georgia and the South Sandwich Islands","United Kingdom","SGS",1287582.613,3,0,0,1,2
+15,48961,"Joint regime area Argentina / Uruguay",2216,"Uruguay","Uruguay","URY",41412.483948,81,4,7,22,48
+16,48962,"Joint regime area Peru / Ecuador",2257,"Peru","Peru","PER",16123.8786382,67,1,3,12,51
+17,8467,"Uruguayan Exclusive Economic Zone",2216,"Uruguay","Uruguay","URY",143090.710488,97,4,8,24,61
+18,8386,"Amsterdam Island & St. Paul Island Exclusive Economic Zone",48979,"Amsterdam and Saint Paul Islands","France","ATF",512187.835173,5,0,0,3,2
+20,8344,"Disputed area Chagos Archipelago Exclusive Economic Zone: UK / Mauritius",8616,"Chagos Archipelago","United Kingdom","IOT",638107.764246,18,0,0,12,6
+21,8309,"Christmas Island Exclusive Economic Zone",8590,"Christmas Island","Australia","CXR",327994.30766,21,0,0,11,10
+22,8308,"Cocos Islands Exclusive Economic Zone",8589,"Cocos Islands","Australia","CCK",467439.781112,17,0,0,10,7
+23,8334,"Comoran Exclusive Economic Zone",2163,"Comores","Comores","COM",164777.450393,33,0,1,12,20
+24,8385,"Crozet Islands Exclusive Economic Zone",8627,"Crozet Islands","France","ATF",575374.872768,3,0,0,1,2
+25,48944,"Disputed area Mayotte: France / Comoros",8606,"Mayotte","France","MYT",66620.6279949,40,0,1,13,26
+26,48946,"Disputed area Ile Tromelin: Reunion / Mauritus",8609,"Reunion","France","REU",274437.628544,17,0,0,10,7
+27,8388,"Heard and McDonald Islands Exclusive Economic Zone",8631,"Heard and McDonald Islands","Australia","HMD",417353.385682,3,0,0,1,2
+28,8387,"Kerguelen Exclusive Economic Zone",8630,"Kerguelen","France","ATF",550720.881404,5,0,0,1,4
+29,8348,"Madagascan Exclusive Economic Zone",7963,"Madagascar","Madagascar","MDG",1196333.81237,72,1,1,24,46
+30,8396,"South African Exclusive Economic Zone",2176,"South Africa","South Africa","ZAF",1072718.43265,168,4,5,35,124
+31,8312,"New Caledonian Exclusive Economic Zone",2261,"New Caledonia","France","NCL",1175906.30347,66,0,4,17,45
+32,8310,"Norfolk Island Exclusive Economic Zone",8591,"Norfolk Island","Australia","NFK",430746.502762,35,0,1,10,24
+33,8343,"Mauritian Exclusive Economic Zone",8614,"Republic of Mauritius","Republic of Mauritius","MUS",1278112.77102,38,1,1,16,20
+34,8338,"Réunion Exclusive Economic Zone",8609,"Reunion","France","REU",315408.212326,35,1,2,14,18
+35,8313,"Vanuatu Exclusive Economic Zone",2202,"Vanuatu","Vanuatu","VUT",623417.068474,45,0,2,13,30
+36,8395,"Namibian Exclusive Economic Zone",2218,"Namibia","Namibia","NAM",562210.160942,104,4,2,16,82
+37,21791,"Oecussi Ambeno Exclusive Economic Zone",26234,"Oecusse","East Timor","TLS",1826.50002327,0,0,0,0,0
+38,8394,"Congolese Exclusive Economic Zone",8633,"Republic of the Congo","Republic of the Congo","COG",33806.6828524,80,4,7,17,52
+39,8478,"Angolan Exclusive Economic Zone",2150,"Angola","Angola","AGO",495861.858053,83,4,6,19,54
+40,8347,"Mozambican Exclusive Economic Zone",2220,"Mozambique","Mozambique","MOZ",566107.319809,112,2,6,29,75
+41,8349,"Kenyan Exclusive Economic Zone",2118,"Kenya","Kenya","KEN",113818.646103,62,2,2,20,38
+42,8758,"East Timorian Exclusive Economic Zone",8757,"East Timor","East Timor","TLS",72174.8295001,84,3,4,28,49
+43,21795,"Joint regime area Australia / East Timor",2147,"Australia","Australia","AUS",35039.0162075,75,3,4,23,45
+44,21798,"Protected Zone established under the Torres Strait Treaty",2237,"Papua New Guinea","Papua New Guinea","PNG",3716.58035339,73,3,4,25,41
+45,8384,"South African Exclusive Economic Zone (Prince Edward Islands)",22598,"Prince Edward Islands","South Africa","ZAF",474896.777438,3,0,0,1,2
+46,8479,"Tanzanian Exclusive Economic Zone",2205,"Tanzania","Tanzania","TZA",241452.798387,74,2,2,23,47
+47,8314,"Solomon Islands Exclusive Economic Zone",8593,"Solomon Islands","Solomon Islands","SLB",1605255.91456,37,0,1,15,21
+48,8412,"Anguilla Exclusive Economic Zone",8643,"Anguilla","United Kingdom","AIA",90154.3649636,51,3,1,9,38
+49,8414,"Antigua and Barbuda Exclusive Economic Zone",8645,"Antigua and Barbuda","Antigua and Barbuda","ATG",111560.086278,52,3,1,9,39
+50,26519,"Aruban Exclusive Economic Zone",8652,"Aruba","Netherlands","ABW",29950.1260655,70,2,2,14,52
+51,8361,"Portuguese Exclusive Economic Zone (Azores)",2454,"Azores","Portugal","PRT",960420.584331,36,0,0,13,23
+52,8404,"Bahamas Exclusive Economic Zone",2144,"Bahamas","Bahamas","BHS",618667.242186,97,2,2,15,78
+53,8418,"Barbados Exclusive Economic Zone",8649,"Barbados","Barbados","BRB",185006.191263,44,2,1,10,31
+54,8429,"Mexican Exclusive Economic Zone",2224,"Mexico","Mexico","MEX",3186924.40663,166,3,2,18,143
+55,8402,"Bermudian Exclusive Economic Zone",8636,"Bermuda","United Kingdom","BMU",453160.413003,21,0,0,11,10
+56,26520,"Bonaire Exclusive Economic Zone",15074,"Bonaire","Netherlands","BES",12980.2477467,68,3,2,14,49
+57,8411,"British Virgin Islands Exclusive Economic Zone",8653,"British Virgin Islands","United Kingdom","VGB",81583.1247953,44,2,2,9,31
+58,8362,"Cape Verdean Exclusive Economic Zone",2168,"Cape Verde","Cape Verde","CPV",801936.702842,38,0,0,15,23
+59,8364,"Spanish Exclusive Economic Zone (Canary Islands)",3743,"Canary Islands","Spain","ESP",445893.382119,95,4,5,21,65
+60,8407,"Cayman Islands Exclusive Economic Zone",8638,"Cayman Islands","United Kingdom","CYM",118398.433806,43,1,2,9,31
+61,8401,"Clipperton Exclusive Economic Zone",8635,"Clipperton Island","France","CPT",435657.049626,17,0,0,9,8
+62,8423,"Panamanian Exclusive Economic Zone",2249,"Panama","Panama","PAN",331242.370352,111,3,2,15,91
+63,8424,"Costa Rican Exclusive Economic Zone",2162,"Costa Rica","Costa Rica","CRI",567365.437993,105,3,2,14,86
+64,26517,"Curaçaoan Exclusive Economic Zone",19143,"Curacao","Netherlands","CUW",25397.0379826,72,3,2,14,53
+65,8417,"Dominican Exclusive Economic Zone",8648,"Dominica","Dominica","DMA",28589.5552507,45,3,1,9,32
+66,8409,"Dominican Republic Exclusive Economic Zone",8640,"Dominican Republic","Dominican Republic","DOM",350697.677696,53,2,2,11,38
+67,8430,"Guatemalan Exclusive Economic Zone",2097,"Guatemala","Guatemala","GTM",110643.131743,63,1,2,10,50
+68,8435,"Faeroe Exclusive Economic Zone",3297,"Faeroe","Denmark","FRO",264369.642022,44,1,1,9,33
+69,8370,"Gambian Exclusive Economic Zone",2113,"Gambia","Gambia","GMB",22956.7941229,91,5,7,19,60
+70,8365,"Disputed area Gibraltarian Exclusive Economic Zone",3344,"Gibraltar","United Kingdom","GIB",388.29707089,0,0,0,0,0
+71,8419,"Grenadian Exclusive Economic Zone",8650,"Grenada","Grenada","GRD",25576.6292954,66,4,2,11,49
+72,33177,"Guadeloupean Exclusive Economic Zone",8654,"Guadeloupe","France","GLP",90858.9144169,52,3,1,9,39
+73,8390,"Sierra Leonian Exclusive Economic Zone",2191,"Sierra Leone","Sierra Leone","SLE",160578.277588,82,4,7,16,55
+74,5680,"Icelandic Exclusive Economic Zone",2129,"Iceland","Iceland","ISL",763172.764242,36,1,1,7,27
+75,8459,"Jamaican Exclusive Economic Zone",8682,"Jamaica","Jamaica","JAM",257049.4206,47,3,2,9,33
+77,8363,"Portuguese Exclusive Economic Zone (Madeira)",4956,"Madeira","Portugal","PRT",452810.174016,88,4,5,23,56
+78,8369,"Mauritanian Exclusive Economic Zone",2236,"Mauritania","Mauritania","MRT",173189.736645,111,5,8,20,78
+79,8415,"Montserrat Exclusive Economic Zone",8646,"Montserrat","United Kingdom","MSR",7190.1181674,52,3,1,9,39
+81,48951,"Disputed area Navassa Island: USA / Haiti / Jamaica",8639,"Haiti","Haiti","HTI",13890.8022545,42,2,2,9,29
+82,8443,"Palmyra Atoll Exclusive Economic Zone",8669,"Palmyra Atoll","United States","UMI",353739.677389,20,0,0,10,10
+83,33179,"Puerto Rican Exclusive Economic Zone",8641,"Puerto Rico","United States","PRI",154652.244219,48,2,2,10,34
+84,26518,"Saba Exclusive Economic Zone",19095,"Saba","Netherlands","BES",9487.86004099,52,3,1,9,39
+85,48952,"Saint-Barthélemy Exclusive Economic Zone",19099,"Saint-Barthélemy","France","BLM",4179.01620913,51,3,1,9,38
+86,26526,"Sint-Eustatius Exclusive Economic Zone",26525,"Sint-Eustatius","Netherlands","BES",2175.3949696,0,0,0,0,0
+87,8413,"Saint Kitts and Nevis Exclusive Economic Zone",8644,"Saint Kitts and Nevis","Saint Kitts and Nevis","KNA",9501.83433544,52,3,1,9,39
+88,8416,"Saint Lucia Exclusive Economic Zone",8647,"Saint Lucia","Saint Lucia","LCA",15412.9352272,43,3,1,9,30
+89,8495,"Saint-Martin Exclusive Economic Zone",8688,"Collectivity of Saint Martin","France","MAF",1099.39449847,0,0,0,0,0
+90,8494,"Saint-Pierre and Miquelon Exclusive Economic Zone",8686,"Saint-Pierre and Miquelon","France","SPM",12413.8016754,21,0,3,6,12
+91,8421,"Saint Vincent and the Grenadines Exclusive Economic Zone",8651,"Saint Vincent and the Grenadines","Saint Vincent and the Grenadines","VCT",36243.1925939,50,4,1,11,34
+92,21803,"Sint-Maarten Exclusive Economic Zone",21802,"Sint-Maarten","Netherlands","SXM",465.987614666,0,0,0,0,0
+93,8420,"Trinidad and Tobago Exclusive Economic Zone",2186,"Trinidad and Tobago","Trinidad and Tobago","TTO",76575.0360158,67,4,2,12,49
+94,8405,"Turks and Caicos Exclusive Economic Zone",2211,"Turks and Caicos Islands","United Kingdom","TCA",91028.3310066,47,2,2,11,32
+95,33180,"Virgin Islander Exclusive Economic Zone",8642,"United States Virgin Islands","United States","VIR",38290.0629235,52,3,2,9,38
+96,5688,"Portuguese Exclusive Economic Zone",2243,"Portugal","Portugal","PRT",315475.133682,84,3,7,21,53
+97,8428,"El Salvador Exclusive Economic Zone",2135,"El Salvador","El Salvador","SLV",95098.9801233,60,1,2,10,47
+98,8457,"Belizean Exclusive Economic Zone",8681,"Belize","Belize","BLZ",34310.002032,54,3,2,9,40
+99,8406,"Cuban Exclusive Economic Zone",8637,"Cuba","Cuba","CUB",352265.987352,94,3,2,16,73
+100,8408,"Haitian Exclusive Economic Zone",8639,"Haiti","Haiti","HTI",103497.883331,55,2,2,11,40
+101,33178,"Martinican Exclusive Economic Zone",8655,"Martinique","France","MTQ",47599.5553363,44,3,1,9,31
+102,48964,"Joint regime area Senegal / Guinea Bissau",2225,"Senegal","Senegal","SEN",63504.9930222,84,4,6,18,56
+103,48965,"Disputed area: Venezuela / Aruba / Dominican Republic",2201,"Venezuela","Venezuela","VEN",1114.61161769,0,0,0,0,0
+104,48966,"Joint regime area Spain / France",17,"France","France","FRA",2859.50870608,26,0,0,8,18
+105,48967,"Joint regime area United Kingdom / Denmark (Faeroe Islands)",2208,"United Kingdom","United Kingdom","GBR",7935.63728108,28,1,1,7,19
+106,48943,"Disputed area: Canada / USA",2169,"Canada","Canada","CAN",23372.5712709,0,0,0,0,0
+107,48968,"Joint regime area Costa Rica / Ecuador (Galapagos)",2162,"Costa Rica","Costa Rica","CRI",17337.2348417,16,0,0,10,6
+108,8425,"Nicaraguan Exclusive Economic Zone",2255,"Nicaragua","Nicaragua","NIC",228251.857132,109,2,2,12,93
+109,8460,"Guyanese Exclusive Economic Zone",2124,"Guyana","Guyana","GUY",135053.148853,70,3,2,13,52
+110,48969,"Joint regime area Guyana / Barbados",8649,"Barbados","Barbados","BRB",67.1575217265,0,0,0,0,0
+111,48970,"Joint regime area Colombia / Dominican Republic",8640,"Dominican Republic","Dominican Republic","DOM",13110.2397339,13,0,0,8,5
+112,48971,"Disputed area: Venezuela / Colombia / Dominican Republic",2175,"Colombia","Colombia","COL",863.049826952,0,0,0,0,0
+113,5681,"Irish Exclusive Economic Zone",2114,"Ireland","Ireland","IRL",426997.656893,71,1,3,13,54
+114,21788,"Guernsey Exclusive Economic Zone",4377,"Guernsey","United Kingdom","GGY",6526.09735102,34,1,1,9,23
+115,21789,"Jersey Exclusive Economic Zone",4378,"Jersey","United Kingdom","JEY",2276.9611741,34,1,1,9,23
+116,8371,"Senegalese Exclusive Economic Zone",2225,"Senegal","Senegal","SEN",158604.115529,105,5,8,23,69
+117,8471,"Guinea Bissau Exclusive Economic Zone",8685,"Guinea-Bissau","Guinea-Bissau","GNB",106745.931659,91,5,7,21,58
+118,8472,"Guinean Exclusive Economic Zone",2122,"Guinea","Guinea","GIN",102165.349909,89,4,7,19,59
+119,8473,"Ivory Coast Exclusive Economic Zone",2161,"Ivory Coast","Ivory Coast","CIV",172015.188351,86,4,7,19,56
+120,33185,"Disputed area: Trinidad and Tobago / Venezuela / Guyana",2124,"Guyana","Guyana","GUY",3590.78552744,24,0,1,9,14
+121,8391,"Liberian Exclusive Economic Zone",2105,"Liberia","Liberia","LBR",251776.275286,85,4,7,17,57
+122,21792,"Joint regime area Colombia / Jamaica",8682,"Jamaica","Jamaica","JAM",15251.3689556,34,0,1,9,24
+123,48972,"Joint regime area Honduras / Cayman Islands",2103,"Honduras","Honduras","HND",2075.80842569,19,0,1,9,9
+124,48973,"Joint regime area Iceland / Denmark (Faeroe Islands)",3297,"Faeroe","Denmark","FRO",1282.12335338,15,0,1,2,12
+125,8433,"Venezuelan Exclusive Economic Zone",2201,"Venezuela","Venezuela","VEN",472616.003707,97,4,2,15,76
+126,8427,"Honduran Exclusive Economic Zone",2103,"Honduras","Honduras","HND",208534.450393,61,2,2,10,47
+127,48974,"Joint regime area Ecuador / Colombia",2166,"Ecuador","Ecuador","ECU",18639.6879249,0,0,0,0,0
+129,48975,"Joint regime area Iceland / Norway (Jan Mayen)",2129,"Iceland","Iceland","ISL",45504.5354559,3,0,0,1,2
+131,8360,"United Arab Emirates Exclusive Economic Zone",2206,"United Arab Emirates","United Arab Emirates","ARE",52580.3217567,58,1,4,21,32
+132,8376,"Cypriote Exclusive Economic Zone",2159,"Cyprus","Cyprus","CYP",98453.3205103,47,1,4,15,27
+133,48947,"Disputed area: Iran / United Arab Emirates",2206,"United Arab Emirates","United Arab Emirates","ARE",6173.22489162,40,1,3,17,19
+134,48956,"Disputed area Doumeira Islands: Djibouti / Eritrea",2111,"Eritrea","Eritrea","ERI",244.983278024,0,0,0,0,0
+135,8490,"Egyptian Exclusive Economic Zone",3868,"Egypt","Egypt","EGY",243230.486587,96,2,9,33,52
+136,8351,"Eritrean Exclusive Economic Zone",2111,"Eritrea","Eritrea","ERI",78108.5928819,55,2,4,22,27
+137,5678,"Georgian Exclusive Economic Zone",2102,"Georgia","Georgia","GEO",22951.8826179,2,0,0,1,1
+138,8469,"Iranian Exclusive Economic Zone",2126,"Iran","Iran","IRN",215347.604482,68,3,4,22,39
+139,8374,"Lebanese Exclusive Economic Zone",2098,"Lebanon","Lebanon","LBN",20185.6097866,49,1,5,15,28
+140,8372,"Libyan Exclusive Economic Zone",2194,"Libya","Libya","LBY",364446.950274,64,3,8,17,36
+141,5685,"Maltese Exclusive Economic Zone",2217,"Malta","Malta","MLT",52913.4248289,54,4,5,17,28
+142,8354,"Omani Exclusive Economic Zone",2251,"Oman","Oman","OMN",556485.906171,81,2,4,24,51
+143,8356,"Saudi Arabian Exclusive Economic Zone",2215,"Saudi Arabia","Saudi Arabia","SAU",224137.855448,66,1,4,25,36
+144,8346,"Sri Lankan Exclusive Economic Zone",2195,"Sri Lanka","Sri Lanka","LKA",533545.991412,97,3,7,30,57
+145,8355,"Sudanese Exclusive Economic Zone",2183,"Sudan","Sudan","SDN",62825.9412341,52,1,4,22,25
+146,8373,"Syrian Exclusive Economic Zone",3384,"Syria","Syria","SYR",10270.2553582,44,1,5,14,24
+147,8392,"Togolese Exclusive Economic Zone",8632,"Togo","Togo","TGO",15439.2618032,80,4,7,18,51
+148,5679,"Greek Exclusive Economic Zone",2099,"Greece","Greece","GRC",482874.187763,60,2,8,17,33
+149,5697,"Turkish Exclusive Economic Zone",2213,"Turkey","Turkey","TUR",262134.62716,47,1,6,14,26
+150,21790,"Monégasque Exclusive Economic Zone",2222,"Monaco","Monaco","MCO",287.610932884,0,0,0,0,0
+151,8366,"Tunisian Exclusive Economic Zone",2214,"Tunisia","Tunisia","TUN",99763.7373247,68,3,9,19,37
+152,5691,"Montenegrin Exclusive economic Zone",17831,"Montenegro","Montenegro","MNE",6382.36937715,50,2,7,17,24
+153,5670,"Albanian Exclusive Economic Zone",2153,"Albania","Albania","ALB",12165.6105921,53,2,7,17,27
+154,5672,"Bulgarian Exclusive Economic Zone",2174,"Bulgaria","Bulgaria","BGR",34752.8122073,3,0,0,1,2
+155,48953,"Disputed area: Palestinian Exclusive Economic Zone",15525,"Palestine","Palestine","PSE",2329.73147998,46,1,4,16,25
+156,8357,"Kuwaiti Exclusive Economic Zone",2115,"Kuwait","Kuwait","KWT",11182.5360034,43,2,3,17,21
+157,8470,"Iraqi Exclusive Economic Zone",2125,"Iraq","Iraq","IRQ",1187.50111346,0,0,0,0,0
+158,8358,"Bahraini Exclusive Economic Zone",2154,"Bahrain","Bahrain","BHR",7515.05531597,41,1,3,16,21
+159,8468,"Qatari Exclusive Economic Zone",2242,"Qatar","Qatar","QAT",30648.8431247,42,1,3,16,22
+160,8353,"Yemeni Exclusive Economic Zone",2199,"Yemen","Yemen","YEM",527382.733788,82,2,4,25,51
+161,8375,"Israeli Exclusive Economic Zone",2123,"Israel","Israel","ISR",23511.4177216,53,1,5,17,30
+162,8491,"Jordanian Exclusive Economic Zone",2120,"Jordan","Jordan","JOR",97.0835220622,0,0,0,0,0
+163,8352,"Djiboutian Exclusive Economic Zone",2131,"Djibouti","Djibouti","DJI",7223.43334664,54,1,3,21,29
+164,8481,"Bangladeshi Exclusive Economic Zone",2142,"Bangladesh","Bangladesh","BGD",112302.620749,83,4,6,26,47
+166,8474,"Nigerian Exclusive Economic Zone",2253,"Nigeria","Nigeria","NGA",179050.962041,89,4,7,21,57
+167,8475,"Cameroonian Exclusive Economic Zone",2170,"Cameroon","Cameroon","CMR",15140.979128,86,4,7,21,54
+168,8397,"Sao Tome and Principe Exclusive Economic Zone",2238,"Sao Tome and Principe","Sao Tome and Principe","STP",130840.024661,63,2,3,16,42
+169,21797,"Joint regime area Nigeria / Sao Tome and Principe",2238,"Sao Tome and Principe","Sao Tome and Principe","STP",34536.3549382,62,2,3,16,41
+170,48976,"Joint regime area Italy / France",17,"France","France","FRA",67.0413063769,0,0,0,0,0
+171,22491,"Bosnian and Herzegovinian Exclusive Economic Zone",2136,"Bosnia and Herzegovina","Bosnia and Herzegovina","BIH",12.9796793791,0,0,0,0,0
+172,48957,"Guam Exclusive Economic Zone",8599,"Guam","United States","GUM",208211.490668,22,0,0,10,12
+173,48955,"Disputed area Liancourt Rocks: Japan / South Korea",2121,"Japan","Japan","JPN",60573.9623814,37,0,0,10,27
+174,8318,"Marshall Islands Exclusive Economic Zone",2226,"Marshall Islands","Marshall Islands","MHL",2001385.96498,27,0,0,14,13
+175,8316,"Micronesian Exclusive Economic Zone",8595,"Micronesia","Micronesia","FSM",3010627.5342,28,0,0,14,14
+176,8327,"South Korean Exclusive Economic Zone",8600,"South Korea","South Korea","KOR",310220.953983,90,0,4,22,64
+177,48980,"Northern Mariana Exclusive Economic Zone",8598,"Northern Mariana Islands","United States","MNP",763555.008407,23,0,0,10,13
+178,8315,"Palau Exclusive Economic Zone",8594,"Palau","Palau","PLW",614805.248533,29,0,1,14,14
+179,8322,"Philippines Exclusive Economic Zone",2245,"Philippines","Philippines","PHL",1971039.86154,167,2,9,40,116
+180,48954,"Disputed area Senkaku Islands: Japan / China / Taiwan",2177,"Taiwan","Taiwan","TWN",73777.0441761,118,1,2,26,89
+181,8485,"Singaporean Exclusive Economic Zone",2190,"Singapore","Singapore","SGP",721.555202966,90,2,8,37,43
+183,8332,"Thailand Exclusive Economic Zone",2207,"Thailand","Thailand","THA",298685.971043,105,3,9,38,55
+184,8319,"Wake Island Exclusive Economic Zone",8597,"Wake Island","United States","UMI",407153.960988,18,0,0,10,8
+185,8484,"Vietnamese Exclusive Economic Zone",2200,"Vietnam","Vietnam","VNM",750997.838971,121,3,8,35,75
+186,21796,"Joint regime area Japan / Korea",8600,"South Korea","South Korea","KOR",82702.3311195,103,0,3,21,79
+187,26521,"Bruneian Exclusive Economic Zone",2145,"Brunei","Brunei","BRN",43137.5920732,92,2,9,31,50
+188,8321,"Taiwanese Exclusive Economic Zone",2177,"Taiwan","Taiwan","TWN",355471.949988,182,2,6,37,137
+189,8328,"North Korean Exclusive Economic Zone",8601,"North Korea","North Korea","PRK",114165.514473,55,0,1,18,36
+191,8331,"Cambodian Exclusive Economic Zone",2171,"Cambodia","Cambodia","KHM",48697.2172266,85,3,6,30,46
+192,8486,"Chinese Exclusive Economic Zone",8603,"China","China","CHN",963547.862843,180,3,9,37,131
+193,5675,"Estonian Exclusive Economic Zone",2110,"Estonia","Estonia","EST",36442.3364254,2,0,0,2,0
+194,5676,"Finnish Exclusive Economic Zone",2106,"Finland","Finland","FIN",81003.6348989,2,0,0,2,0
+195,5694,"Swedish Exclusive Economic Zone",2180,"Sweden","Sweden","SWE",155951.836705,21,1,1,7,12
+196,5684,"Lithuanian Exclusive Economic Zone",2156,"Lithuania","Lithuania","LTU",6830.53928988,2,0,0,2,0
+197,48977,"Joint regime area Sweden / Norway",2252,"Norway","Norway","NOR",139.943003003,0,0,0,0,0
+198,3293,"Belgian Exclusive Economic Zone",14,"Belgium","Belgium","BEL",3491.7011964,27,1,0,8,18
+199,5668,"Dutch Exclusive Economic Zone",15,"Netherlands","Netherlands","NLD",64444.3368919,27,1,0,7,19
+200,5669,"German Exclusive Economic Zone",2101,"Germany","Germany","DEU",56597.6543338,25,1,0,6,18
+201,5674,"Danish Exclusive Economic Zone",2157,"Denmark","Denmark","DNK",104884.788693,27,1,0,7,19
+202,5683,"Latvian Exclusive Economic Zone",2132,"Latvia","Latvia","LVA",28355.9762185,2,0,0,2,0
+203,8455,"New Zealand Exclusive Economic Zone",2227,"New Zealand","New Zealand","NZL",4104579.03432,92,0,1,15,76
+204,8399,"Bouvet Exclusive Economic Zone",8634,"Bouvet","Norway","BVT",441841.102452,1,0,0,1,0
+207,8442,"Jarvis Island Exclusive Economic Zone",8668,"Jarvis Island","United States","UMI",323173.119683,20,0,0,10,10
+209,8489,"Antarctic 200NM zone beyond the coastline",1926,"Antarctica","Antarctica","ATA",9618928.14224,5,0,0,2,3
+210,8326,"Tuvaluan Exclusive Economic Zone",2210,"Tuvalu","Tuvalu","TUV",753126.434715,27,0,1,12,14
+211,8454,"Wallis and Futuna Exclusive Economic Zone",8680,"Wallis and Futuna","France","WLF",262750.561412,21,0,0,10,11
+212,8451,"Howland and Baker Islands Exclusive Economic Zone",48684,"Howland and Baker islands","United States","UMI",434885.338532,20,0,0,10,10
+213,8325,"Fijian Exclusive Economic Zone",2108,"Fiji","Fiji","FJI",1283243.50985,25,0,0,11,14
+214,8337,"Seychellois Exclusive Economic Zone",2192,"Seychelles","Seychelles","SYC",1341497.0288,49,1,1,18,29
+215,8398,"Equatorial Guinean Exclusive Economic Zone",2112,"Equatorial Guinea","Equatorial Guinea","GNQ",304131.929643,91,4,7,21,59
+216,8345,"Maldives Exclusive Economic Zone",2229,"Maldives","Maldives","MDV",925222.836017,43,1,3,19,20
+217,8324,"Papua New Guinean Exclusive Economic Zone",2237,"Papua New Guinea","Papua New Guinea","PNG",2399610.72138,101,4,6,30,61
+218,8350,"Somali Exclusive Economic Zone",2187,"Federal Republic of Somalia","Federal Republic of Somalia","SOM",781835.626833,76,2,3,22,49
+219,8317,"Nauruan Exclusive Economic Zone",8596,"Nauru","Nauru","NRU",309260.512828,21,0,0,10,11
+220,8492,"Indonesian Exclusive Economic Zone",2127,"Indonesia","Indonesia","IDN",6025109.71458,194,4,12,52,126
+222,48978,"Joint regime area United States / Russia",2204,"United States","United States","USA",8462.82034165,12,0,0,1,11
+224,5677,"French Exclusive Economic Zone",17,"France","France","FRA",344795.437503,97,3,8,21,65
+225,8378,"Algerian Exclusive Economic Zone",2152,"Algeria","Algeria","DZA",131184.423485,70,4,9,19,38
+226,8400,"Ghanaian Exclusive Economic Zone",2100,"Ghana","Ghana","GHA",227218.059083,87,4,7,19,57
+227,8438,"Greenlandic Exclusive Economic Zone",2260,"Greenland","Denmark","GRL",2270601.239,20,0,0,3,17
+228,5696,"United Kingdom Exclusive Economic Zone",2208,"United Kingdom","United Kingdom","GBR",732922.625801,73,1,3,13,56
+229,8453,"United States Exclusive Economic Zone (Hawaii)",8679,"Hawaii","United States","USA",2474713.60519,49,0,1,15,33
+230,33181,"Svalvard Exclusive Economic Zone",5334,"Svalbard","Norway","SJM",796621.045326,5,0,0,2,3
+231,5686,"Norwegian Exclusive Economic Zone",2252,"Norway","Norway","NOR",933667.554218,34,1,1,8,24
+232,5690,"Russian Exclusive economic Zone",2240,"Russia","Russia","RUS",7734475.08159,56,0,0,12,44
+233,5673,"Croatian Exclusive Economic Zone",2160,"Croatia","Croatia","HRV",55428.4849722,50,2,7,16,25
+235,5682,"Italian Exclusive Economic Zone",2133,"Italy","Italy","ITA",536727.544683,70,4,9,19,38
+236,5695,"Disputed area Ukrainian Exclusive Economic Zone",2196,"Ukraine","Ukraine","UKR",136252.734661,3,0,0,1,2
+237,5689,"Romanian Exclusive economic Zone",2241,"Romania","Romania","ROU",29604.783396,3,0,0,1,2
+238,8487,"Japanese Exclusive Economic Zone",2121,"Japan","Japan","JPN",4043057.35049,212,0,5,37,170
+239,48950,"Disputed area Kuril Islands: Japan / Russia",2121,"Japan","Japan","JPN",213385.537199,35,0,0,6,29
+240,8437,"Jan Mayen Exclusive Economic Zone",5343,"Jan Mayen","Norway","SJM",291637.563172,3,0,0,1,2
+241,8333,"Indian Exclusive Economic Zone (Andaman and Nicobar Islands)",8605,"Andaman and Nicobar","India","IND",664340.490167,53,2,3,20,28
+242,8359,"Pakistani Exclusive Economic Zone",2250,"Pakistan","Pakistan","PAK",224387.832462,80,4,4,26,46
+243,26523,"Turkmen Exclusive Economic Zone",2212,"Turkmenistan","Turkmenistan","TKM",61222.8609384,0,0,0,0,0
+244,26524,"Azerbaijanis Exclusive Economic Zone",2134,"Azerbaijan","Azerbaijan","AZE",80576.1964994,0,0,0,0,0
+245,26522,"Kazakh Exclusive Economic Zone",2119,"Kazakhstan","Kazakhstan","KAZ",114381.001862,0,0,0,0,0
+246,8493,"Canadian Exclusive Economic Zone",2169,"Canada","Canada","CAN",5769849.28296,64,0,4,14,46
+247,8482,"Myanmar Exclusive Economic Zone",2219,"Myanmar","Myanmar","MMR",497442.180134,93,5,5,31,52
+248,8449,"Tokelau Exclusive Economic Zone",8675,"Tokelau","New Zealand","TKL",320617.268168,20,0,0,10,10
+249,48945,"Disputed area Glorioso Islands: France / Madagascar",7963,"Madagascar","Madagascar","MDG",43559.8317675,39,0,1,12,26
+250,8341,"Ile Europa Exclusive Economic Zone",8612,"Europa Island","France","ATF",127945.997412,31,0,2,12,17
+252,8368,"Disputed area Western Saharan Exclusive Economic Zone",8617,"Western Sahara","Western Sahara","ESH",284066.375395,112,5,7,21,79
+253,8461,"Surinamese Exclusive Economic Zone",2182,"Suriname","Suriname","SUR",133316.418383,74,3,2,13,56
+254,48948,"Disputed area Matthew and Hunter Islands: New Caledonia / Vanuatu",2261,"New Caledonia","France","NCL",187985.096385,20,0,0,9,11
+255,5687,"Polish Exclusive Economic Zone",2244,"Poland","Poland","POL",29970.7399095,4,0,0,2,2
+256,8462,"French Guiana Exclusive Economic Zone",8683,"French Guiana","France","GUF",131542.056553,69,3,2,12,52
+257,8477,"Democratic Republic of the Congo Exclusive Economic Zone",2198,"Democratic Republic of the Congo","Democratic Republic of the Congo","COD",13360.665776,61,3,4,15,39
+258,8476,"Gabonese Exclusive Economic Zone",2104,"Gabon","Gabon","GAB",201753.746636,89,4,8,19,58
+259,8480,"Indian Exclusive Economic Zone",2128,"India","India","IND",1659486.57465,122,4,8,34,76
+260,8432,"Peruvian Exclusive Economic Zone",2257,"Peru","Peru","PER",855322.284264,81,1,3,15,62
+130,26582,"Disputed area: Sudan / Egypt",2183,"Sudan","Sudan","SDN",19733.5118706,53,1,4,22,26
+165,8393,"Beninese Exclusive Economic Zone",2139,"Benin","Benin","BEN",35528.368644,83,4,7,18,54
+234,5692,"Slovenian Exclusive Economic Zone",2188,"Slovenia","Slovenia","SVN",149.46070435,0,0,0,0,0
+261,22756,"Chilean Exclusive Economic Zone (San Felix and San Ambrosio islands)",25135,"Isla San Felix and San Ambrosio","Chile","CHL",450960.402638,13,0,0,5,8
+262,21787,"Chilean Exclusive Economic Zone (Easter Island)",15120,"Easter Island","Chile","CHL",729763.366364,12,0,0,6,6
+263,48982,"Disputed area: Puerto Rico / Dominican Republic",8641,"Puerto Rico","United States","PRI",18298.6504434,27,0,1,9,17
+76,8452,"Johnston Atoll Exclusive Economic Zone",8678,"Johnston Atoll","United States","UMI",442442.946973,22,0,0,11,11
+19,8323,"Australian Exclusive Economic Zone",2147,"Australia","Australia","AUS",6870741.53364,327,4,11,46,266
+264,8311,"Australian Exclusive Economic Zone (Macquarie Island)",8592,"Macquarie Island","Australia","AUS",475737.98177,6,0,0,3,3
+265,8339,"Juan de Nova Exclusive Economic Zone",8610,"Juan de Nova Island","France","ATF",62770.4657039,47,0,1,19,27
+266,8340,"Bassas da India Exclusive Economic Zone",31136,"Bassas da India","France","ATF",120689.515135,29,0,2,12,15
+205,8464,"Brazilian Exclusive Economic Zone",2143,"Brazil","Brazil","BRA",3205100.30771,146,5,8,34,99
+267,8381,"Brazilian Exclusive Economic Zone (Trindade)",8622,"Trindade","Brazil","BRA",472480.840469,16,0,0,8,8
+221,8456,"United States Exclusive Economic Zone",2204,"United States","United States","USA",2451978.73855,195,3,5,21,166
+268,8463,"United States Exclusive Economic Zone (Alaska)",8684,"Alaska","United States","USA",3682949.91893,30,0,0,5,25
+208,8450,"Kiribati Exclusive Economic Zone (Phoenix Islands)",8658,"Phoenix Group","Kiribati","KIR",745700.775566,21,0,0,10,11
+269,8441,"Kiribati Exclusive Economic Zone (Line Islands)",8657,"Line Group","Kiribati","KIR",1640932.58762,22,0,0,11,11
+270,8488,"Kiribati Exclusive Economic Zone (Gilbert Islands)",17597,"Gilbert Islands","Kiribati","KIR",1053239.66469,25,0,0,12,13
+128,8426,"Colombian Exclusive Economic Zone",2175,"Colombia","Colombia","COL",718163.16433,133,3,3,19,108
+271,33183,"Colombian Exclusive Economic Zone (Quitasueño)",5765,"Quitasueno Bank","Colombia","COL",2838.08187939,30,2,2,9,17
+272,33184,"Colombian Exclusive Economic Zone (Serrana)",5770,"Serrana Bank","Colombia","COL",3689.41076274,28,2,1,10,15
+273,48984,"Colombian Exclusive Economic Zone (Serranilla)",5772,"Serranilla Bank","Colombia","COL",1552.47584257,36,2,1,9,24
+274,48985,"Colombian Exclusive Economic Zone (Bajo Nuevo)",48983,"Bajo Nuevo Bank","Colombia","COL",1550.45737245,33,0,1,9,23
+206,8403,"Ecuadorian Exclusive Economic Zone (Galapagos)",5660,"Galapagos","Ecuador","ECU",841431.77571,44,0,0,14,30
+275,8431,"Ecuadorian Exclusive Economic Zone",2166,"Ecuador","Ecuador","ECU",236289.144622,75,1,3,12,59
+80,8367,"Moroccan Exclusive Economic Zone",2221,"Morocco","Morocco","MAR",280453.136651,102,3,9,21,69
+13,8466,"Argentinean Exclusive Economic Zone",2149,"Argentina","Argentina","ARG",1072785.76611,88,4,5,22,57
+251,8483,"Malaysian Exclusive Economic Zone",2230,"Malaysia","Malaysia","MYS",510822.838776,125,3,9,40,73
+881,49000,"Disputed area Melilla: Spain / Morocco",36288,"Melilla","Spain","ESP",27.0578785361,0,0,0,0,0
+223,5693,"Spanish Exclusive Economic Zone",2185,"Spain","Spain","ESP",561681.917973,96,3,9,22,62
+878,49001,"Disputed area Alhucemas Islands: Spain / Morocco",48995,"Alhucemas Islands","Spain","ESP",14.0577120537,0,0,0,0,0
+876,48998,"Disputed area Perejil Island: Spain / Morocco",48994,"Perejil Island","Spain","ESP",0.641232913734,0,0,0,0,0
+880,49002,"Disputed area Ceuta: Spain / Morocco",14864,"Ceuta","Spain","ESP",32.7176357482,0,0,0,0,0
+877,48999,"Disputed area Peñón de Vélez de la Gomera: Spain / Morocco",48996,"La Gomera","Spain","ESP",3.68515325559,0,0,0,0,0
+879,48997,"Disputed area Chafarinas Islands: Spain / Morocco",5363,"Chafarinas Islands","Spain","ESP",25.5080981045,0,0,0,0,0
+882,49003,"Disputed area South China Sea",8603,"China",NA,"CHN",338839.158301,51,2,5,17,27
+883,33176,"Disputed area: Kenya / Somalia",2118,"Kenya","Kenya","KEN",50229.5785767,52,0,2,20,30

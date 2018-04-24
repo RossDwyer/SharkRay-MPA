@@ -20,4 +20,10 @@ Interactive chart
 - [ ] Add capacity to show all regions (not only <=15). Note: Need to melt duplicate areas
 - [ ] Add help icons
 
+Fisheries management and conservation needs beyond MPAs.
+- [ ] Add Number of imperilled endemics in each country per cell and within the entire EEZ (black).  (David Dulv NEE Fig3)
+- [ ] Add Presence and strength of each of the fisheries management and conservation measures (David Dulv NEE Fig3)
+- [ ] Add Reported chondrichthyan landings (kilotonnes) from the Sea Around Us project(David Dulv NEE Fig3)
 
+Quandrant plot
+- [ ] Add Priority countries, conservation likelihood, and the presence and strength of the chondrichthyan management (David Dulv NEE Fig4)

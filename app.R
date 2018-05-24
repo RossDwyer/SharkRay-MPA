@@ -43,7 +43,7 @@ reduced.MPAs <- readOGR(dsn="GIS",layer="simplifiedMPA")
 #library(repmis)
 #source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
 
-# tab 1 lookup table
+# tab 1 species lookup table
 order.name <- c("CARCHARHINIFORMES",
                 "CHIMAERIFORMES",
                 "HETERODONTIFORMES",
@@ -77,11 +77,11 @@ sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
 
 cleantable <- sharkdat
 
-# tab 2
+# tab 2 - species distribution maps
 species.name <- sharkdat$binomial # Names of species for the species range maps  
 pal <- c("#253494","#f93") # HEX code for the colour of the raster [1] and the MPAs [2]
 
-#  tab 3 - For the order/IUCN category maps
+#  tab 3 - For the order/IUCN hotspot maps
 iorder <- orderrast[[1]]
 iCARCHARHINIFORMES <- orderrast[[2]]
 iCHIMAERIFORMES <- orderrast[[3]]
@@ -109,7 +109,7 @@ scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
 scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 # tab 4
-ivis <- 255 # No species in EEZ/FAOs/LMEs to visualise in the table
+ivis <- 50 # No species in EEZ/FAOs/LMEs to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
@@ -131,8 +131,43 @@ sFAO_count <- sFAO_count %>% mutate(y5 = y1 + y2 + y3)
 sFAOsub_count <- sFAOsub_count %>% mutate(y5 = y1 + y2 + y3) 
 sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3) 
 
-# tab 5 (About page)
+
+# tab 5 (Shark MPA page)
+SharkMPAs_coords <- read.csv("Data/Table 1 Shark MPA draft with coords.csv")
+
+# legend html generator:
+markerLegendHTML <- function(IconSet) {
+  # container div:
+  legendHtml <- "<div style='padding: 10px; padding-bottom: 10px;'><h4 style='padding-top:0; padding-bottom:10px; margin: 0;'> Shark MPA </h4>"
+  
+  n <- 1
+  # add each icon for font-awesome icons icons:
+  for (Icon in IconSet) {
+    if (Icon[["library"]] == "fa") {
+      legendHtml<- paste0(legendHtml, "<div style='width: auto; height: 45px'>",
+                          "<div style='position: relative; display: inline-block; width: 36px; height: 45px' class='awesome-marker-icon-",Icon[["markerColor"]]," awesome-marker'>",
+                          "<i style='margin-left: 8px; margin-top: 11px; 'class= 'fa fa-",Icon[["icon"]]," fa-inverse'></i>",
+                          "</div>",
+                          "<p style='position: relative; top: -20px; display: inline-block; ' >", names(IconSet)[n] ,"</p>",
+                          "</div>")    
+    }
+    n<- n + 1
+  }
+  paste0(legendHtml, "</div>")
+}
+
+createLink <- function(val) {
+  sprintf('<a href="https://www.google.com/#q=%s" target="_blank" class="btn btn-primary">Info</a>',val)
+}
+
+IconSet <- awesomeIconList(
+  "Entire EEZ"   = makeAwesomeIcon(icon= 'star', markerColor = 'green', library = "fa"),
+  "Part EEZ" = makeAwesomeIcon(icon= 'star', markerColor = 'blue', library = "fa")
+)
+
+# tab 6 (About page)
 noSpecies <- length(species.name) # number of species considered
+
 
 # User interface ----
 PageTitle <- "App for Conservation status of Sharks and Rays"
@@ -158,7 +193,7 @@ ui <- navbarPage(
   
   
   ## TAB 1
-  tabPanel(title="Data explorer", 
+  tabPanel(title="Species explorer", 
            fluidRow(
              column(3,
                     selectInput("order_name", "Order name", c("Select order"="", structure(order.name, names=order.name)), multiple=TRUE)
@@ -224,7 +259,15 @@ ui <- navbarPage(
   
   
   ## TAB 3
-  tabPanel(title="Interactive map",
+  tabPanel(title="Shark MPA explorer",
+           fluidPage(
+             leafletOutput("SharkMPAMap"),
+             DT::dataTableOutput('ranksDT')
+           )
+  ),
+  
+  ## TAB 4
+  tabPanel(title="Hotspot map",
            div(class="outer",
                
                # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
@@ -290,7 +333,7 @@ ui <- navbarPage(
   ),
   
   
-  ## TAB 4
+  ## TAB 5
   tabPanel(title="Interactive chart",
            fluidPage(
              tags$div(class="header", checked=NA,
@@ -320,7 +363,7 @@ ui <- navbarPage(
              ))),
   
   
-  ## TAB 5
+  ## TAB 6
   tabPanel(title="About",
            tags$body(
              h4('This Shiny App was built to help visualise shark and ray distribution information across the globe'),
@@ -354,7 +397,7 @@ ui <- navbarPage(
 
 server <- function(input, output, session) {
   
-  #### TAB 1: Data Explorer #### 
+  #### TAB 1: Species Explorer #### 
   
   observe({
     family_nam <- if (is.null(input$order_name)) character(0) else {
@@ -394,7 +437,8 @@ server <- function(input, output, session) {
         select(binomial, CommonName,
                order_name, family_nam,
                DemersPelag,Vulnerability,Resilience,
-               flag,web_redlist,
+               flag,
+               web_redlist,
                #assessment_redlist,
                web_fishbase)
       
@@ -462,8 +506,98 @@ server <- function(input, output, session) {
     
   })
   
+  ####TAB 3:  Interactive Chart and map containing shark MPA details ####
+  lats <- SharkMPAs_coords[,"Lat"]
+  longs <- SharkMPAs_coords[,"Long"]
+  popups <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
+  layerids <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
+  iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
+  iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
   
-  ####TAB 3: Interactive map containing order AND iucn category #### 
+  # Reactive expression for the data subsetted to what the user selected
+  #sampleData <- reactive({
+  #  sampleData <- data_frame(lats,longs, popups,layerids,iconNames,iconColors)
+  #  iconColors[a] <- 'red'
+  #})
+  
+  #type <- factor(
+  #  ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "Entire EEZ", "Part EEZ"),
+  #  c("Regular Ship", "Pirate Ship"))
+  
+  # old code not reactive
+  sampleData <- data_frame(lats,longs, popups,layerids,iconNames,iconColors)
+  
+  Area.km2 <- SharkMPAs_coords[,"Area..km2."]
+  
+  locationRanks <- data_frame(Name = popups,
+                              Date=SharkMPAs_coords[,"Date"],
+                              Area.km2,
+                              Territory.name=SharkMPAs_coords[,"Territory.name"],
+                              Sovereign=SharkMPAs_coords[,"Sovereign"],
+                              Entire.EEZ=SharkMPAs_coords[,"Entire.EEZ"],
+                              #Comments = SharkMPAs_coords[,"Comment..map.source.when.not.entire.EEZ"],
+                              Source=createLink(SharkMPAs_coords[,"Source"]))
+  
+  # The name of our Map
+  output$SharkMPAMap <- renderLeaflet({
+    
+    leaflet() %>%
+      addTiles() %>% 
+      addAwesomeMarkers(lat = sampleData$lats, 
+                        lng = sampleData$longs, 
+                        popup = sampleData$popups, 
+                        layerId = sampleData$layerids,
+                        icon = makeAwesomeIcon(icon=sampleData$iconNames, 
+                                               markerColor=sampleData$iconColors)) %>% 
+      addControl(html = markerLegendHTML(IconSet = IconSet), position = "bottomleft")
+  })
+  
+  output$ranksDT <- DT::renderDataTable({
+    d1 <- datatable(locationRanks,
+                    selection = 'single',
+                    rownames=FALSE,
+                    options = list(dom = 'tpi',
+                                   pageLength =5,
+                                   paging=FALSE,
+                                   searching=FALSE,
+                                   columnDefs = list(list(className = 'dt-left', 
+                                                          targets = 0:4))))
+    d1 %>% 
+      formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
+  })
+  
+  # create a reactive value that will store the click position
+  mapClick <- reactiveValues(clickedMarker=NULL)
+  mapClick <- reactiveValues(clickedGroup=NULL)
+  
+  # create a reactive for the DT  table
+  locationClick <- reactiveValues(clickedRow = NULL)
+  
+  # observe click events
+  observe({
+    mapClick$clickedMarker <- paste(input$SharkMPAMap_marker_click$id)
+    mapClick$clickedGroup <- paste(input$SharkMPAMap_marker_click$group)
+    locationClick$clickedRow <- input$ranksDT_rows_selected
+  })
+  
+  # define a proxy variable for the table
+  proxy1 = dataTableProxy('ranksDT')
+  
+  # when map is clicked, make the same table row selection - need row number
+  observeEvent(input$SharkMPAMap_marker_click$id, {
+    a <- which(locationRanks[1] == input$SharkMPAMap_marker_click$id)
+    proxy1 %>% selectRows(a)
+  })
+  
+  # Creates a map-like object that can be used to customize and control our SharkMPAMap that has already been rendered.  
+  proxy2 = leafletProxy('SharkMPAMap', session = shiny::getDefaultReactiveDomain())
+  # if table is clicked, select the same marker from the map
+  observeEvent(locationClick$clickedRow, {
+    a <- locationClick$clickedRow
+  })
+  
+  
+  ####TAB 4: Interactive hotspot map containing order AND iucn category #### 
   
   output$map <- renderLeaflet({
     
@@ -557,7 +691,7 @@ server <- function(input, output, session) {
   })
   
   
-  ####TAB 4:  Interactive Plot containing species counts ####
+  ####TAB 5:  Interactive Plot containing species counts in zones ####
   
   #v <- reactiveValues(data = NULL)
   
@@ -683,7 +817,6 @@ server <- function(input, output, session) {
     subplot(p2, p1, widths = c(0.3,0.7), shareY = TRUE, titleX = TRUE)
     
   })
-  
   
 }
 

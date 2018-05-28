@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "23-Apr-2018" ## Date last updated
+DateUpdated <-  "29-May-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -18,7 +18,8 @@ library(rgdal)
 library(raster)
 library(RColorBrewer)
 library(plotly)
-library(DT)
+library(dplyr)
+library(tibble)
 library(shinycssloaders)
 library(highcharter)
 

@@ -19,6 +19,7 @@ library(raster)
 library(RColorBrewer)
 library(plotly)
 library(dplyr)
+library(DT)
 library(tibble)
 library(shinycssloaders)
 library(highcharter)
@@ -194,67 +195,29 @@ ui <- navbarPage(
   
   
   ## TAB 1
-  tabPanel(title="Species explorer", 
-           fluidRow(
-             column(3,
-                    selectInput("order_name", "Order name", c("Select order"="", structure(order.name, names=order.name)), multiple=TRUE)
-             ),
-             column(3,
-                    conditionalPanel("input.order_name",
-                                     selectInput("family_nam", "Family name", c("All families"=""), multiple=TRUE)
-                    )
-             ),
-             column(3,
-                    conditionalPanel("input.order_name",
-                                     selectInput("binomial", "Species name", c("Select species"=""), multiple=TRUE)
-                    )
-             )
-           ),
-           fluidRow(
-             column(6,
-                    checkboxGroupInput("code", "Show IUCN listing",
-                                       choices = c(
-                                         CR = "CR",
-                                         EN = "EN",
-                                         VU = "VU",
-                                         NT = "NT",
-                                         LC = "LC",
-                                         DD = "DD"),
-                                       selected = c("CR","EN","VU","NT","LC","DD")
-                    )
-             )
-           ),
-           hr(),
-           DT::dataTableOutput("mytable")  %>% 
-             withSpinner(color="#3182bd"),
-           tags$div(class="header", checked=NA,
-                    tags$p("Species common names sourced from..."),
-                    tags$a("the Encyclopedia of Life", href="http://eol.org/", target="_blank"))
-  ),
-  
-  
-  ## TAB 2
-  tabPanel(title="Species map",
+  tabPanel(title="Species explorer",
            
-           div(class="outer",
-               
-               # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
-               tags$head(
-                 # Include our custom CSS
-                 includeCSS("styles.css"),
-                 includeScript("gomap.js")
-               ),
-               
-               leafletOutput("map2", width = "100%", height = 700) %>% 
-                 withSpinner(color="#3182bd"),
-               
-               absolutePanel(top = 10, left = 50,
-                             selectInput(inputId ="var2", 
-                                         label ="Choose a species to map its distribution", 
-                                         choices = species.name)
-               ),
-               absolutePanel(bottom = 20, left = 10,
-                             a(href = "http://www.iucnredlist.org","Species distribution layers sourced from The IUCN Red List of Threatened Species"))
+           #div(class="outer",
+           
+           # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
+           #   tags$head(
+           # Include our custom CSS
+           #     includeCSS("styles.css"),
+           #     includeScript("gomap.js")
+           #   ),
+           
+           fluidPage(
+             leafletOutput("map2", width = '100%',height=300) %>% 
+               withSpinner(color="#3182bd"),
+             
+             absolutePanel(top = 70, left = 70,
+                           selectInput(inputId ="var2", 
+                                       label ="Select species to map", 
+                                       choices = species.name)
+             ),
+             DT::dataTableOutput("mytable", width = '100%', height = 200)#,
+             #absolutePanel(bottom = 20, left = 10,
+             #               a(href = "http://www.iucnredlist.org","Species distribution layers sourced from The IUCN Red List of Threatened Species"))
            )
   ),
   
@@ -398,95 +361,34 @@ ui <- navbarPage(
 
 server <- function(input, output, session) {
   
-  #### TAB 1: Species Explorer #### 
+  #### TAB 1: Species Explorer map and table #### 
   
-  observe({
-    family_nam <- if (is.null(input$order_name)) character(0) else {
-      filter(cleantable, order_name %in% input$order_name) %>%
-        `$`('family_nam') %>%
-        unique() %>%
-        sort()
-    }
-    stillSelected <- isolate(input$family_nam[input$family_nam %in% family_nam])
-    updateSelectInput(session, "family_nam", choices = family_nam,
-                      selected = stillSelected)
-  })
-  
-  observe({
-    binomial <- if (is.null(input$order_name)) character(0) else {
-      cleantable %>%
-        filter(order_name %in% input$order_name,
-               is.null(input$family_nam) | family_nam %in% input$family_nam) %>%
-        `$`('binomial') %>%
-        unique() %>%
-        sort()
-    }
-    stillSelected <- isolate(input$binomial[input$binomial %in% binomial])
-    updateSelectInput(session, "binomial", choices = binomial,
-                      selected = stillSelected)
-  })
-  
-  ## Generated data explorer table
-  output$mytable <- DT::renderDataTable(
-    {
-      df <- cleantable %>%
-        filter(
-          is.null(input$order_name) | order_name %in% input$order_name,
-          is.null(input$family_nam) | family_nam %in% input$family_nam,
-          is.null(input$binomial) | binomial %in% input$binomial,
-          is.null(input$code)  | code %in% input$code)  %>%
-        select(binomial, CommonName,
-               order_name, family_nam,
-               DemersPelag,Vulnerability,Resilience,
-               flag,
-               web_redlist,
-               #assessment_redlist,
-               web_fishbase)
-      
-      #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-      df <- datatable(df, 
-                      colnames=c("Species name", "Common names",
-                                 'Order name', 'Family name',
-                                 'Habitat', 'Vulnerability index', 'Resilience',
-                                 'IUCN threat category', 
-                                 'IUCN Red List',
-                                 #'Download IUCN assessment',
-                                 'Fishbase'),
-                      escape = FALSE) # This bit is to stop the links from rendering literally (i.e. text only)
-    }
-  )
-  
-  #mutate(Action = paste('<a class="go-map" href="" data-lat="', Lat, '" data-long="', Long, '" data-zip="', 
-  #                      Zipcode, '"><i class="fa fa-crosshairs"></i></a>', sep=""))
-  #action <- DT::dataTableAjax(session, df)
-  
-  
-  #DT::datatable(df, options = list(ajax = list(url = action)), escape = FALSE)
-  
-  
-  
-  #### TAB 2: Interactive map containing species distributions ####
-  
+  # Top panel - PLot the map
   output$map2 <- renderLeaflet({
     
     leaflet() %>% 
       setView(lng = 0, lat = 0,  zoom = 2) %>% 
       addTiles(group = "OSM (default)") %>%
-      addPolygons(#layerId ="layer1",
-        data=reduced.MPAs,
-        fill = TRUE, stroke = TRUE, weight=3,
-        color = pal[2],
-        group = "MPAs") %>% 
-      addLegend(colors = pal, 
-                labels = c("Species distribution","MPAs")) %>%
-      # Layers control
-      addLayersControl(
-        overlayGroups = c("MPAs"),
-        options = layersControlOptions(collapsed = FALSE))
+      #addPolygons(#layerId ="layer1",
+      #  data=reduced.MPAs,
+      #  fill = TRUE, stroke = TRUE, weight=3,
+      #  color = pal[2],
+      #  group = "MPAs") %>% 
+      addLegend(colors = pal[1], 
+                labels = c("Species distribution")) #%>%
+    #labels = c("Species distribution","MPAs")) %>%
+    #addPolygons(#layerId ="layer1",
+    #  data=reduced.MPAs,
+    #  fill = TRUE, stroke = TRUE, weight=3,
+    #  color = pal[2],
+    #  group = "MPAs") %>% 
+    # Layers control
+    #addLayersControl(
+    #  overlayGroups = c("MPAs"),
+    #  options = layersControlOptions(collapsed = FALSE))
     
   })
   
-  #eventReactive(input$var2, { 
   observeEvent(input$var2, { 
     
     x <- which(sharkdat$binomial == input$var2)     # Set which species to display
@@ -507,7 +409,93 @@ server <- function(input, output, session) {
     
   })
   
-  ####TAB 3:  Interactive Chart and map containing shark MPA details ####
+  #bottom tab: Species Explorer #### 
+  observe({
+    family_nam <- if (is.null(input$order_name)) character(0) else {
+      filter(cleantable, order_name %in% input$order_name) %>%
+        `$`('family_nam') %>%
+        unique() %>%
+        sort()
+    }
+    stillSelected <- isolate(input$family_nam[input$family_nam %in% family_nam])
+    updateSelectInput(session, "family_nam", choices = family_nam,
+                      selected = stillSelected)
+  })
+  
+  observe({
+    binomial <- if (is.null(input$order_name)) character(0) else {
+      cleantable %>%
+        filter(order_name %in% input$order_name,
+               is.null(input$family_nam) | family_nam %in% input$family_nam) %>%
+        `$`('binomial') %>%
+        unique() %>%
+        sort()
+      
+    }
+    stillSelected <- isolate(input$binomial[input$binomial %in% binomial])
+    updateSelectInput(session, "binomial", choices = binomial,
+                      selected = stillSelected)
+    
+  })
+  
+  ## Generated data explorer table
+  output$mytable <- DT::renderDataTable(
+    {
+      df <- cleantable %>%
+        filter(
+          is.null(input$order_name) | order_name %in% input$order_name,
+          is.null(input$family_nam) | family_nam %in% input$family_nam,
+          is.null(input$binomial) | binomial %in% input$binomial,
+          is.null(input$code)  | code %in% input$code)  %>%
+        select(binomial, 
+               CommonName,
+               order_name, family_nam,
+               DemersPelag,Vulnerability,Resilience,
+               flag,
+               web_redlist,
+               #assessment_redlist,
+               web_fishbase)
+      
+      #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
+      df <- DT::datatable(df, 
+                          options=list(
+                            pageLength = 5, # number of rows per page
+                            scrollX = TRUE,
+                            autoWidth = TRUE,
+                            searchHighlight = TRUE, #Highlight searchesd text with yellow
+                            columnDefs = list(list(#width = '50px', 
+                              targets = 1,
+                              render = JS(
+                                "function(data, type, row, meta) {",
+                                "return type === 'display' && data.length > 30 ?",
+                                "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
+                                "}")
+                            ))), 
+                          caption = 'Search species information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
+                          filter = 'top', 
+                          rownames = FALSE,  # no row names
+                          colnames=c("Species name", 
+                                     "Common names",
+                                     'Order name', 'Family name',
+                                     'Habitat', 'Vulnerability index', 'Resilience',
+                                     'IUCN threat category', 
+                                     'IUCN Red List',
+                                     #'Download IUCN assessment',
+                                     'Fishbase'),
+                          callback = JS('table.page(3).draw(false);'),
+                          
+                          #initComplete = JS(
+                          #  "function(settings, json) {",
+                          #  "$(this.api().table().header()).css({'font-size': '90%'});",
+                          #  "}"),
+                          #class = 'white-space: nowrap', # stops wrapping of rows
+                          escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
+      )
+      #formatStyle(columns = c(1:10), fontSize = '80%')
+    }
+  )
+  
+  ####TAB 2:  Interactive Chart and map containing shark MPA details ####
   lats <- SharkMPAs_coords[,"Lat"]
   longs <- SharkMPAs_coords[,"Long"]
   popups <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
@@ -557,6 +545,11 @@ server <- function(input, output, session) {
     d1 <- datatable(locationRanks,
                     selection = 'single',
                     rownames=FALSE,
+                    colnames=c("Name", "Date installed",
+                               'Area (km2)', 'Territory',
+                               'Sovereign', 'Entire EEZ?', 
+                               'Source'),
+                    escape = FALSE,
                     options = list(dom = 'tpi',
                                    pageLength =5,
                                    paging=FALSE,
@@ -647,7 +640,17 @@ server <- function(input, output, session) {
         addLegend(pal = pal1, 
                   values = values(data1),
                   position = "topright",
-                  title = "No. species") 
+                  title = "No. species") #%>%
+      #labels = c("Species distribution","MPAs")) %>%
+      #addPolygons(#layerId ="layer1",
+      #  data=reduced.MPAs,
+      #  fill = TRUE, stroke = TRUE, weight=3,
+      #  color = pal[2],
+      #  group = "MPAs") #%>% 
+      # Layers control
+      #addLayersControl(
+       # overlayGroups = c("MPAs"),
+        #options = layersControlOptions(collapsed = FALSE))
       
     }else
     {
@@ -683,10 +686,15 @@ server <- function(input, output, session) {
                          colors = pal1, 
                          opacity = 0.7,
                          group="IUCN") %>%
-          addLegend(pal = pal1, 
-                    values = values(data1),
-                    position = "topright",
-                    title = "No. species") 
+        addLegend(pal = pal1, 
+                  values = values(data1),
+                  position = "topright",
+                  title = "No. species")  #%>%
+          #addPolygons(#layerId ="layer1",
+           # data=reduced.MPAs,
+           # fill = TRUE, stroke = TRUE, weight=3,
+           # color = pal[2],
+           # group = "MPAs")
       }
     }
   })

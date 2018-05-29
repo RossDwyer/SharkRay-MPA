@@ -23,6 +23,7 @@ library(DT)
 library(tibble)
 library(shinycssloaders)
 library(highcharter)
+library(ggplot2)
 
 # Load data tables ----
 #sharkdat <- read.csv("Data/IUCNStatWeb.csv")
@@ -77,7 +78,15 @@ sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
                                              ifelse(sharkdat$code=='LC','<img src=img/LC.png> </img>',
                                                     '<img src=img/DD.png> </img>')))))
 
-cleantable <- sharkdat
+cleantable <- sharkdat %>%
+  select(binomial, 
+         CommonName,
+         order_name, family_nam,
+         DemersPelag,Vulnerability,Resilience,
+         flag,
+         web_redlist,
+         #assessment_redlist,
+         web_fishbase)
 
 # tab 2 - species distribution maps
 species.name <- sharkdat$binomial # Names of species for the species range maps  
@@ -177,20 +186,20 @@ PageTitle <- "App for Conservation status of Sharks and Rays"
 ui <- navbarPage(
   ## Add the Shark Conservation Fund logo
   #  titlePanel(#windowTitle = PageTitle, # Failed attempt to 
-             #title =
-              # div(
-                 img( 
-                   src = "img/shark-conservation-fund-lock-up-blk-RGB.jpg",
-                   height = 50,
-                   width = 150,
-                   style = "margin:-15px 0px; padding-top:-10px",
-                   alt="Shark Conservation Fund"
-                   #style="float:right; padding-right:25px"
-               #  ))
-
-               #)
-                 
-   #              )            
+  #title =
+  # div(
+  img( 
+    src = "img/shark-conservation-fund-lock-up-blk-RGB.jpg",
+    height = 50,
+    width = 150,
+    style = "margin:-15px 0px; padding-top:-10px",
+    alt="Shark Conservation Fund"
+    #style="float:right; padding-right:25px"
+    #  ))
+    
+    #)
+    
+    #              )            
   ),
   
   
@@ -207,8 +216,10 @@ ui <- navbarPage(
            #   ),
            
            fluidPage(
-             leafletOutput("map2", width = '100%',height=300) %>% 
-               withSpinner(color="#3182bd"),
+             column(6,
+                    leafletOutput("map2", width = '100%',height=300) %>% 
+                      withSpinner(color="#3182bd")),
+             column(6, plotOutput('x2', height = 300)),
              
              absolutePanel(top = 70, left = 70,
                            selectInput(inputId ="var2", 
@@ -222,7 +233,7 @@ ui <- navbarPage(
   ),
   
   
-  ## TAB 3
+  ## TAB 2
   tabPanel(title="Shark MPA explorer",
            fluidPage(
              leafletOutput("SharkMPAMap"),
@@ -367,7 +378,7 @@ server <- function(input, output, session) {
   output$map2 <- renderLeaflet({
     
     leaflet() %>% 
-      setView(lng = 0, lat = 0,  zoom = 2) %>% 
+      setView(lng = 0, lat = 0,  zoom = 1) %>% 
       addTiles(group = "OSM (default)") %>%
       #addPolygons(#layerId ="layer1",
       #  data=reduced.MPAs,
@@ -389,9 +400,13 @@ server <- function(input, output, session) {
     
   })
   
-  observeEvent(input$var2, { 
+  
+  observeEvent(input$var2, {                       # Choose which species to visualise on the map using the dropdown
+    x <- which(sharkdat$binomial == input$var2)      # Assign the row number of the species to display
     
-    x <- which(sharkdat$binomial == input$var2)     # Set which species to display
+    #  observeEvent(input$x1_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
+    #    x <- input$x1_rows_selected           # Test: Assign the row number of the species to display
+    
     newdata <- allspecrast[[x]]
     newdata[newdata <= 0] <- NA 
     proxy <- leafletProxy("map2")
@@ -410,90 +425,65 @@ server <- function(input, output, session) {
   })
   
   #bottom tab: Species Explorer #### 
-  observe({
-    family_nam <- if (is.null(input$order_name)) character(0) else {
-      filter(cleantable, order_name %in% input$order_name) %>%
-        `$`('family_nam') %>%
-        unique() %>%
-        sort()
-    }
-    stillSelected <- isolate(input$family_nam[input$family_nam %in% family_nam])
-    updateSelectInput(session, "family_nam", choices = family_nam,
-                      selected = stillSelected)
-  })
-  
-  observe({
-    binomial <- if (is.null(input$order_name)) character(0) else {
-      cleantable %>%
-        filter(order_name %in% input$order_name,
-               is.null(input$family_nam) | family_nam %in% input$family_nam) %>%
-        `$`('binomial') %>%
-        unique() %>%
-        sort()
-      
-    }
-    stillSelected <- isolate(input$binomial[input$binomial %in% binomial])
-    updateSelectInput(session, "binomial", choices = binomial,
-                      selected = stillSelected)
-    
-  })
-  
-  ## Generated data explorer table
+  ## Generate data explorer table
   output$mytable <- DT::renderDataTable(
     {
-      df <- cleantable %>%
-        filter(
-          is.null(input$order_name) | order_name %in% input$order_name,
-          is.null(input$family_nam) | family_nam %in% input$family_nam,
-          is.null(input$binomial) | binomial %in% input$binomial,
-          is.null(input$code)  | code %in% input$code)  %>%
-        select(binomial, 
-               CommonName,
-               order_name, family_nam,
-               DemersPelag,Vulnerability,Resilience,
-               flag,
-               web_redlist,
-               #assessment_redlist,
-               web_fishbase)
-      
-      #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-      df <- DT::datatable(df, 
-                          options=list(
-                            pageLength = 5, # number of rows per page
-                            scrollX = TRUE,
-                            autoWidth = TRUE,
-                            searchHighlight = TRUE, #Highlight searchesd text with yellow
-                            columnDefs = list(list(#width = '50px', 
-                              targets = 1,
-                              render = JS(
-                                "function(data, type, row, meta) {",
-                                "return type === 'display' && data.length > 30 ?",
-                                "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
-                                "}")
-                            ))), 
-                          caption = 'Search species information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
-                          filter = 'top', 
-                          rownames = FALSE,  # no row names
-                          colnames=c("Species name", 
-                                     "Common names",
-                                     'Order name', 'Family name',
-                                     'Habitat', 'Vulnerability index', 'Resilience',
-                                     'IUCN threat category', 
-                                     'IUCN Red List',
-                                     #'Download IUCN assessment',
-                                     'Fishbase'),
-                          callback = JS('table.page(3).draw(false);'),
-                          
-                          #initComplete = JS(
-                          #  "function(settings, json) {",
-                          #  "$(this.api().table().header()).css({'font-size': '90%'});",
-                          #  "}"),
-                          #class = 'white-space: nowrap', # stops wrapping of rows
-                          escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
-      )
-      #formatStyle(columns = c(1:10), fontSize = '80%')
-    }
-  )
+      generateNewDT <- function(x){ 
+        
+        #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
+        output_dt <- DT::datatable(x, 
+                                   options=list(
+                                     pageLength = 5, # number of rows per page
+                                     scrollX = TRUE,
+                                     autoWidth = TRUE,
+                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
+                                     columnDefs = list(list(#width = '50px', 
+                                       targets = 1,
+                                       render = JS(
+                                         "function(data, type, row, meta) {",
+                                         "return type === 'display' && data.length > 30 ?",
+                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
+                                         "}")
+                                     ))), 
+                                   caption = 'Search species information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
+                                   filter = 'top', 
+                                   selection = 'single', # selects only one row at a time
+                                   rownames = FALSE,  # no row names
+                                   colnames=c("Species name", 
+                                              "Common names",
+                                              'Order name', 'Family name',
+                                              'Habitat', 'Vulnerability index', 'Resilience',
+                                              'IUCN threat category', 
+                                              'IUCN Red List',
+                                              #'Download IUCN assessment',
+                                              'Fishbase'),
+                                   callback = JS('table.page(3).draw(false);'),
+                                   
+                                   #initComplete = JS(
+                                   #  "function(settings, json) {",
+                                   #  "$(this.api().table().header()).css({'font-size': '90%'});",
+                                   #  "}"),
+                                   #class = 'white-space: nowrap', # stops wrapping of rows
+                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
+        )
+        #formatStyle(columns = c(1:10), fontSize = '80%')
+        
+        return(output_dt)
+      }
+      generateNewDT(cleantable)
+    })
+  
+  # highlight selected rows in the scatterplot
+  output$x2 <- renderPlot({
+    s <- input$x1_rows_selected
+    par(mar = c(4, 4, 1, .1))
+    par(font.axis = 2,font.lab = 2)  
+    plot(1:length(sharkdat$code),sharkdat$Vulnerability,cex=1)
+    #ggplot(mapping = aes(x = code, y = Vulnerability)) + 
+    #xlab("IUCN code") + ylab("Vulnerability index") +
+    if (length(s)) 
+      points(1:length(sharkdat$code)[s],sharkdat$Vulnerability[s], pch = 19, cex = 2,col='red')
+  })
   
   ####TAB 2:  Interactive Chart and map containing shark MPA details ####
   lats <- SharkMPAs_coords[,"Lat"]
@@ -649,8 +639,8 @@ server <- function(input, output, session) {
       #  group = "MPAs") #%>% 
       # Layers control
       #addLayersControl(
-       # overlayGroups = c("MPAs"),
-        #options = layersControlOptions(collapsed = FALSE))
+      # overlayGroups = c("MPAs"),
+      #options = layersControlOptions(collapsed = FALSE))
       
     }else
     {
@@ -686,15 +676,15 @@ server <- function(input, output, session) {
                          colors = pal1, 
                          opacity = 0.7,
                          group="IUCN") %>%
-        addLegend(pal = pal1, 
-                  values = values(data1),
-                  position = "topright",
-                  title = "No. species")  #%>%
-          #addPolygons(#layerId ="layer1",
-           # data=reduced.MPAs,
-           # fill = TRUE, stroke = TRUE, weight=3,
-           # color = pal[2],
-           # group = "MPAs")
+          addLegend(pal = pal1, 
+                    values = values(data1),
+                    position = "topright",
+                    title = "No. species")  #%>%
+        #addPolygons(#layerId ="layer1",
+        # data=reduced.MPAs,
+        # fill = TRUE, stroke = TRUE, weight=3,
+        # color = pal[2],
+        # group = "MPAs")
       }
     }
   })
@@ -727,13 +717,13 @@ server <- function(input, output, session) {
     #Set factor names in decreasing order so y axis always plotted in this order
     
     if(input$tab.order=="No Species")
-       data1$x <- factor(data1$x, levels = data1$x[order(data1$y,decreasing =FALSE)])
+      data1$x <- factor(data1$x, levels = data1$x[order(data1$y,decreasing =FALSE)])
     
     if(input$tab.order=="Threatened Species")
       data1$x <- factor(data1$x, levels = data1$x[order(data1$y5,decreasing =FALSE)])
-   
+    
     if(input$tab.order=="Area")
-       data1$x <- factor(data1$x, levels = data1$x[order(data1$Area,decreasing =FALSE)])
+      data1$x <- factor(data1$x, levels = data1$x[order(data1$Area,decreasing =FALSE)])
     
     row.names(data1) <- NULL
     

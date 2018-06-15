@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "11-June-2018" ## Date last updated
+DateUpdated <-  "31-May-2018" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -85,7 +85,7 @@ sharkdat$DispersalKernel <- "No"
 for (i in 1:nrow(Df)){
   inum <- which(as.character(sharkdat$binomial)==as.character(Df$ScientificName[i]))
   sharkdat$DispersalKernel[inum] <- "Yes"
-  }
+}
 
 # Function to make the empty dispersal plot
 makeDispersalplot <- function(xmax){
@@ -161,7 +161,7 @@ markerLegendHTML <- function(IconSet) {
                           "<p style='position: relative; top: -20px; display: inline-block; ' >", names(IconSet)[n] ,"</p>",
                           "</div>")    
     }
-    n <- n + 1
+    n<- n + 1
   }
   paste0(legendHtml, "</div>")
 }
@@ -178,7 +178,7 @@ IconSet <- awesomeIconList(
 
 ###
 
-#  tab 2 - For the order/IUCN hotspot maps
+#  tab 3 - For the order/IUCN hotspot maps
 iorder <- orderrast[[1]]
 iCARCHARHINIFORMES <- orderrast[[2]]
 iCHIMAERIFORMES <- orderrast[[3]]
@@ -207,7 +207,7 @@ scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 ###
 
-# tab 3
+# tab 4
 ivis <- 50 # No species in EEZ/FAOs/LMEs to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
 EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
@@ -230,42 +230,36 @@ sFAO_count <- sFAO_count %>% mutate(y5 = y1 + y2 + y3)
 sFAOsub_count <- sFAOsub_count %>% mutate(y5 = y1 + y2 + y3) 
 sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3) 
 
-### tab 5 - data for the county explorer
-# Load files
-CL <- read.csv("Data/data.Fig4_all.csv")
-reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
+###
 
-#Merge files together
-fake <- rep(0,length(CL$ISO))
-for(i in 1:length(CL$ISO)){
-  fake[i] <- which(as.character(reduced.countries@data$ISO3)==as.character(CL$ISO)[i])
-}
-CLsp <- sp::merge(reduced.countries, CL, by.x="ISO3",by.y= "ISO",all=F)
+# tab 5 
+
+CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
+
+# merge function with the duplicateGeoms argument set to TRUE 
+# if TRUE geometries in x are duplicated if there are multiple matches between records in x and y
+CL2sp <- sp::merge(reduced.countries, CI_FinalPCA_spec, by.x="ISO3",by.y= "ISO_Ter1",
+                   all=F,duplicateGeoms = TRUE)
 
 # Choose the columns and the orders. Note order needs to match renaming in DT
-CLsp@data <- CLsp@data[,c("NAME","ISO3",
-                          "nclsum","mmtsum","NuminEEZ",
-                          "finning","npoastrength2015","CMSMoUNov2015",
-                          "PMSA.Oct2015",
-                          "Median_speciescount",
-                          "colour2","marxanpercent")]
+CL2sp@data <- CL2sp@data[,c("GeoName","Territory1","ISO3","Sovereign1","Area_km2",
+                            "EconomicVulnerability","DependMarineResource","Education",
+                            "Tourism","Corruption","ChallengeIndex",
+                            "OpportunityIndex","CLI",
+                            "Nospecies","CR","EN","VU","Threatened","rest")]
 
-colour3 <- c("#78B7C5","#3B9AB2", "#E1AF00","#F21A00", "#EBCC2A")
-levels(CLsp@data$colour2)[1] <- colour3[1]
-levels(CLsp@data$colour2)[2] <- colour3[2]
-levels(CLsp@data$colour2)[3] <- colour3[3]
-levels(CLsp@data$colour2)[4] <- colour3[4]
-levels(CLsp@data$colour2)[5] <- colour3[5]
 
 # Round values to 2 Dec places
-CLsp@data$nclsum <- round(CLsp@data$nclsum , digits=2)
-CLsp@data$mmtsum <- round(CLsp@data$mmtsum , digits=2)
-CLsp@data$finning <- round(CLsp@data$finning , digits=2)
-CLsp@data$npoastrength2015 <- round(CLsp@data$npoastrength2015 , digits=2)
-CLsp@data$CMSMoUNov2015 <- round(CLsp@data$CMSMoUNov2015 , digits=2)
-CLsp@data$PMSA.Oct2015 <- round(CLsp@data$PMSA.Oct2015 , digits=2)
+CL2sp@data$EconomicVulnerability <- round(CL2sp@data$EconomicVulnerability, digits=2)
+CL2sp@data$DependMarineResource <- round(CL2sp@data$DependMarineResource, digits=2)
+CL2sp@data$Education <- round(CL2sp@data$Education, digits=2)
+CL2sp@data$Tourism <- round(CL2sp@data$Tourism, digits=2)
+CL2sp@data$Corruption <- round(CL2sp@data$Corruption, digits=2)
+CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
+CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
+CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
 
-###
+#
 
 # tab 6 (About page)
 noSpecies <- length(species.name) # number of species considered
@@ -327,108 +321,96 @@ ui <- navbarPage(
   
   ## TAB 2
   tabPanel(title="Shark MPA explorer",
-           #div(class="outer",
-           
-           # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
-           #   tags$head(
-           # Include our custom CSS
-           #    includeCSS("styles.css"),
-           #     includeScript("gomap.js")
-           #   ),
            
            fluidPage(
-             # Top panel
-             #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-             leafletOutput("map", width = "100%", height = 500) %>% 
-               withSpinner(color="#3182bd"),
+             #titlePanel("Visualization of Fiji Earthquake"),
              
-             absolutePanel(top = 10, left = 70,
-                           
-                           radioButtons("layerOverlap", "Choose which species layers to overlap:",
-                                        c("IUCN listing" = "iucn",
-                                          "Taxonomic order"= "order"),
-                                        inline = TRUE),
-                           
-                           conditionalPanel(
-                             condition = "input.layerOverlap == 'iucn'",
-                             selectInput("var.iucn", 
-                                         label = "Choose the IUCN code to display",
-                                         choices = list("all",
-                                                        "CR+EN+VU",
-                                                        "CR+EN",
-                                                        "CR",
-                                                        "EN",
-                                                        "VU",
-                                                        "NT",
-                                                        "LC",
-                                                        "DD"),
-                                         selected = "all"),
-                             sliderInput("range2",
-                                         "Upper % species displayed :",
-                                         min = 0, max = 100, step = 10,  value = 90)
-                           ),
-                           
-                           conditionalPanel(
-                             condition = "input.layerOverlap == 'order'",
-                             selectInput("var.order", 
-                                         label = "Choose the Taxonomic order to display",
-                                         choices = list("all",
-                                                        "CARCHARHINIFORMES",
-                                                        "CHIMAERIFORMES",
-                                                        "HETERODONTIFORMES",
-                                                        "HEXANCHIFORMES",
-                                                        "LAMNIFORMES",
-                                                        "ORECTOLOBIFORMES",
-                                                        "PRISTIOPHORIFORMES",
-                                                        "RAJIFORMES",
-                                                        "SQUALIFORMES",
-                                                        "SQUATINIFORMES")),#,selected = "all"),
-                             sliderInput("range1",
-                                         "Upper % species displayed :",
-                                         min = 0, max = 100, step = 10,  value = 90)
-                           )
+             # side panel
+             sidebarPanel(
+               sliderInput(
+                 inputId = "sld01_Mag",
+                 label="Show Shark MPAs of size:", 
+                 min=min(SharkMPAs_coords$Area..km2.), max=max(SharkMPAs_coords$Area..km2.),
+                 value=c(min(SharkMPAs_coords$Area..km2.),max(SharkMPAs_coords$Area..km2.), step=1000)
+               ),
+               
+               plotlyOutput('hist01')
              ),
              
-             DT::dataTableOutput('ranksDT')
+             # main panel
+             mainPanel(
+               leafletOutput("SharkMPAMap"),
+               DT::dataTableOutput('ranksDT')
+             )
            )
   ),
-
   
   ## TAB 3
-  tabPanel(title="Country explorer",
-           # Top left panel  
-           fluidPage(
-             fluidRow(
-               column(6,
-                      leafletOutput("mapCounty", width = '100%',height=300) %>% 
-                        withSpinner(color="#3182bd")
+  tabPanel(title="Hotspot map",
+           div(class="outer",
+               
+               # taken from https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
+               tags$head(
+                 # Include our custom CSS
+                 includeCSS("styles.css"),
+                 includeScript("gomap.js")
                ),
-               column(6, 
-                      plotOutput('x3', height = 300),
-                      fluidRow(
-                        column(6,
-                               sliderInput(
-                                 inputId = "sld02_mmtsum",
-                                 label="Presence of management:", 
-                                 min=min(CLsp@data$mmtsum), max=max(CLsp@data$mmtsum),
-                                 value=c(min(CLsp@data$mmtsum),max(CLsp@data$mmtsum)), 
-                                 step=0.1,round=1)
-                        ),
-                        column(6,
-                               sliderInput(
-                                 inputId = "sld03_nclsum",
-                                 label="Conservation likelihood:", 
-                                 min=min(CLsp@data$nclsum), max=max(CLsp@data$nclsum),
-                                 value=c(min(CLsp@data$nclsum),max(CLsp@data$nclsum)),
-                                 step=0.1,round=1)
-                        )))
-             ),
-             
-             
-             # Bottom panel
-             DT::dataTableOutput("countryTable", width = '100%', height = 200)
+               
+               #tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+               leafletOutput("map", width = "100%", height = 700) %>% 
+                 withSpinner(color="#3182bd"),
+               
+               absolutePanel(top = 10, left = 50,
+                             
+                             radioButtons("layerOverlap", "Choose which layers to overlap:",
+                                          c("Taxonomic order"= "order",
+                                            "IUCN listing" = "iucn"),
+                                          inline = TRUE),
+                             
+                             conditionalPanel(
+                               condition = "input.layerOverlap == 'order'",
+                               selectInput("var.order", 
+                                           label = "Choose the Taxonomic order to display",
+                                           choices = list("all",
+                                                          "CARCHARHINIFORMES",
+                                                          "CHIMAERIFORMES",
+                                                          "HETERODONTIFORMES",
+                                                          "HEXANCHIFORMES",
+                                                          "LAMNIFORMES",
+                                                          "ORECTOLOBIFORMES",
+                                                          "PRISTIOPHORIFORMES",
+                                                          "RAJIFORMES",
+                                                          "SQUALIFORMES",
+                                                          "SQUATINIFORMES"),
+                                           selected = "all"),
+                               sliderInput("range1",
+                                           "Upper % species displayed :",
+                                           min = 0, max = 100, step = 10,  value = 90)
+                             ),
+                             
+                             conditionalPanel(
+                               condition = "input.layerOverlap == 'iucn'",
+                               selectInput("var.iucn", 
+                                           label = "Choose the IUCN code to display",
+                                           choices = list("all",
+                                                          "CR",
+                                                          "EN",
+                                                          "VU",
+                                                          "NT",
+                                                          "LC",
+                                                          "DD",
+                                                          "CR+EN",
+                                                          "CR+EN+VU"),
+                                           selected = "all"),
+                               sliderInput("range2",
+                                           "Upper % species displayed :",
+                                           min = 0, max = 100, step = 10,  value = 90)
+                               #checkboxInput("legend", "Show legend", TRUE)
+                             )
+               )
            )
   ),
+  
   
   ## TAB 4
   tabPanel(title="Interactive chart",
@@ -458,6 +440,7 @@ ui <- navbarPage(
                       tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions | "),
                       tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
              ))),
+  
   
   ## TAB 5
   tabPanel(title="About",
@@ -514,24 +497,24 @@ server <- function(input, output, session) {
     output$x2 <- renderPlot({
       par(mar = c(4, 4, 1, .1), font.axis = 2,font.lab = 2) # stops the arial font issue   
       if (input$sMakePlots == 'sVulnPlot'){   
-          ggplot(data = sharkdat,
-                 aes(x = code, y = Vulnerability, 
-                     fill = pointborder,colour = pointborder
-                 )) + 
-            geom_dotplot(dotsize = 0.4,binwidth = 2, 
-                         binaxis = "y", stackdir = "center", binpositions="all") + 
-            scale_fill_manual(values=c("#d3d3d3"))+
-            scale_color_manual(values=c("#d3d3d3"))+
-            scale_x_discrete(limits=c("CR", "EN", "VU", "NT", "LC", "DD"))+
-            labs(title="",x="IUCN code", y = "Vulnerability Index")+
-            theme_minimal()+
-            theme(legend.position="none") # Remove legend
+        ggplot(data = sharkdat,
+               aes(x = code, y = Vulnerability, 
+                   fill = pointborder,colour = pointborder
+               )) + 
+          geom_dotplot(dotsize = 0.4,binwidth = 2, 
+                       binaxis = "y", stackdir = "center", binpositions="all") + 
+          scale_fill_manual(values=c("#d3d3d3"))+
+          scale_color_manual(values=c("#d3d3d3"))+
+          scale_x_discrete(limits=c("CR", "EN", "VU", "NT", "LC", "DD"))+
+          labs(title="",x="IUCN code", y = "Vulnerability Index")+
+          theme_minimal()+
+          theme(legend.position="none") # Remove legend
       }else{
-          makeDispersalplot(1500) 
-        }
+        makeDispersalplot(1500) 
+      }
     })
   })
-    
+  
   # Choose which species to visualise on the map and in the plots using the datatable   
   observeEvent(input$speciestable_rows_selected, {  
     
@@ -558,23 +541,25 @@ server <- function(input, output, session) {
       if (input$sMakePlots == 'sVulnPlot'){     
         sharkdat2 <- sharkdat # So that our dataset isn't overwritten
         output$x2 <- renderPlot({
-            draw_vul <- function(x1){
-              # If a row has been selected - make border a different colour
-              if (length(x1)) sharkdat2$pointborder[x1] <- "2"
-              ggplot(data = sharkdat2,
-                     aes(x = code, y = Vulnerability, 
-                         fill = pointborder,colour = pointborder)) + 
-                geom_dotplot(dotsize = 0.4,binwidth = 2, 
-                             binaxis = "y", stackdir = "center", binpositions="all") + 
-                scale_fill_manual(values=c("#d3d3d3", "#b63737"))+
-                scale_color_manual(values=c("#d3d3d3", "#b63737"))+
-                scale_x_discrete(limits=c("CR", "EN", "VU", "NT", "LC", "DD"))+
-                labs(title="",x="IUCN code", y = "Vulnerability Index")+
-                theme_minimal()+
-                theme(legend.position="none") # Remove legend
-            }
-            draw_vul(x)
-          })
+          draw_vul <- function(x1){
+            # If a row has been selected - make border a different colour
+            if (length(x1)) sharkdat2$pointborder[x1] <- "2"
+            ggplot(data = sharkdat2,
+                   aes(x = code, y = Vulnerability, 
+                       fill = pointborder,colour = pointborder)) + 
+              geom_dotplot(dotsize = 0.4,binwidth = 2, 
+                           binaxis = "y", stackdir = "center", binpositions="all") +
+              ##geom_hline(col = "#b63737")# + # Add marker lines here for Y axis??
+              ##geom_vline(col = "#b63737")## Add marker lines here for X axis??
+              scale_fill_manual(values=c("#d3d3d3", "#b63737"))+
+              scale_color_manual(values=c("#d3d3d3", "#b63737"))+
+              scale_x_discrete(limits=c("CR", "EN", "VU", "NT", "LC", "DD"))+
+              labs(title = "",x = "IUCN code", y = "Vulnerability Index")+
+              theme_minimal()+
+              theme(legend.position="none") # Remove legend
+          }
+          draw_vul(x)
+        })
       }
       
       if (input$sMakePlots == 'sDistPlot'){
@@ -680,9 +665,6 @@ server <- function(input, output, session) {
     }
   )
   
-  
-  ######
-  
   ####TAB 2:  Interactive Chart and map containing shark MPA details ####
   
   # Arrange data in format for plots and mapping
@@ -692,6 +674,7 @@ server <- function(input, output, session) {
   layerids <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
   iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
   iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
+  
   locationRanks <- data_frame(Name = popups,
                               Date=SharkMPAs_coords[,"Date"],
                               Area.km2=SharkMPAs_coords[,"Area..km2."],
@@ -701,30 +684,64 @@ server <- function(input, output, session) {
                               Source=createLink(SharkMPAs_coords[,"Source"]),
                               lats,longs, popups,layerids,iconNames,iconColors)
   
-  # Convert the dataframe to an interactive DataTable
-  d1 <- datatable(locationRanks[,c("Name", "Date",
-                                   "Area.km2", "Territory.name",
-                                   "Sovereign","Entire.EEZ",
-                                   "Source")], 
-                  selection = 'single',
-                  rownames=FALSE,
-                  colnames=c("Name", "Date installed",
-                             'Area (km2)', 'Territory',
-                             'Sovereign', 'Entire EEZ?', 
-                             'Source'),
-                  escape = FALSE,
-
-                  options = list(dom = 'tpi',
-                                 pageLength =5,
-                                 paging=FALSE,
-                                 searching=FALSE,
-                                 stateSave = TRUE,
-                                 columnDefs = list(list(className = 'dt-left', 
-                                                        targets = 0:4)))) %>%
-    formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
-
-  # Render our Shark MPA df as an interactive DataTable in the shiny app
-  output$ranksDT <- DT::renderDataTable(d1)
+  ## Slider tool to subset data
+  qSub <-  reactive({
+    subset <- subset(locationRanks, locationRanks$Area.km2>=input$sld01_Mag[1] &
+                       locationRanks$Area.km2<=input$sld01_Mag[2]) %>% head(25)
+  })
+  
+  
+  ## Render our frequency plot
+  output$hist01 <- renderPlotly({
+    par(font.axis = 2,font.lab = 2)
+    ggplot(data=qSub(), aes(x=Entire.EEZ)) + 
+      geom_bar(stat = "count",
+               show.legend=FALSE,
+               aes(fill = Entire.EEZ))+
+      xlab('') +
+      ylab('Count') +
+      ylim(0, 20) +
+      scale_fill_manual(values=c("#41ab5d", "#2b8cbe"))+
+      ggtitle('Is MPA entire EEZ?')+
+      theme(legend.position="none")
+  })
+  
+  # Render our Shark MPA table
+  output$ranksDT <- DT::renderDataTable({
+    d1 <- datatable(qSub()[,c("Name", "Date",
+                              "Area.km2", "Territory.name",
+                              "Sovereign","Entire.EEZ",
+                              "Source")], 
+                    selection = 'single',
+                    rownames=FALSE,
+                    colnames=c("Name", "Date installed",
+                               'Area (km2)', 'Territory',
+                               'Sovereign', 'Entire EEZ?', 
+                               'Source'),
+                    escape = FALSE,
+                    options = list(dom = 'tpi',
+                                   pageLength =5,
+                                   paging=FALSE,
+                                   searching=FALSE,
+                                   stateSave = TRUE,
+                                   columnDefs = list(list(className = 'dt-left', 
+                                                          targets = 0:4))))
+    d1 %>% 
+      formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
+  })
+  
+  # Render our Shark MPA map
+  output$SharkMPAMap <- renderLeaflet({
+    leaflet(data = qSub()) %>%
+      addTiles() %>% 
+      addAwesomeMarkers(lat = qSub()$lats,#sampleData$lats, 
+                        lng = qSub()$longs, 
+                        popup = qSub()$popups, 
+                        layerId = qSub()$layerids,
+                        icon = makeAwesomeIcon(icon = qSub()$iconNames, 
+                                               markerColor = qSub()$iconColors)) %>% 
+      addControl(html = markerLegendHTML(IconSet = IconSet), position = "bottomleft")
+  })
   
   # create a reactive value that will store the position on a map click
   mapClick <- reactiveValues(clickedMarker=NULL)
@@ -732,7 +749,8 @@ server <- function(input, output, session) {
   
   # create a reactive for the DT table
   locationClick <- reactiveValues(clickedRow = NULL)
-
+  
+  
   # observe map click events
   observe({
     mapClick$clickedMarker <- paste(input$SharkMPAMap_marker_click$id)
@@ -748,7 +766,7 @@ server <- function(input, output, session) {
   
   # if map is clicked, make the same table row selection
   observeEvent(input$SharkMPAMap_marker_click$id, {
-    a <- which(locationRanks[1] == input$SharkMPAMap_marker_click$id)
+    a <- which(qSub()[1] == input$SharkMPAMap_marker_click$id)
     proxy1 %>% selectRows(a)
   })
   
@@ -757,7 +775,7 @@ server <- function(input, output, session) {
   
   # if table is clicked, highlight the same marker from the map   
   observeEvent(input$ranksDT_rows_selected,{ 
-    row_selected <- locationRanks[input$ranksDT_rows_selected,]
+    row_selected <- qSub()[input$ranksDT_rows_selected,]
     # define a proxy that lets us customize and control our SharkMPAMap that has already been rendered.
     proxy2 <- leafletProxy('SharkMPAMap', session = shiny::getDefaultReactiveDomain())
     print(row_selected)
@@ -767,19 +785,20 @@ server <- function(input, output, session) {
         layerId = as.character(row_selected$layerids),
         lng = row_selected$longs, 
         lat = row_selected$lats, 
-        icon = my_icon)    
-  
+        icon = my_icon) # %>%
+    #mapOptions(zoomToLimits = "first")    
+    
     # Reset previously selected marker
     if(!is.null(prev_row()))
     {
       proxy2 %>%
         addAwesomeMarkers(popup=as.character(prev_row()$popups), 
-                   layerId = as.character(prev_row()$layerids),
-                   lng = prev_row()$longs, 
-                   lat = prev_row()$lats,
-                   icon = makeAwesomeIcon(icon = "star", 
-                                          markerColor = prev_row()$iconColors)
-                   )
+                          layerId = as.character(prev_row()$layerids),
+                          lng = prev_row()$longs, 
+                          lat = prev_row()$lats,
+                          icon = makeAwesomeIcon(icon = "star", 
+                                                 markerColor = prev_row()$iconColors)
+        )
     }
     
     #iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
@@ -792,7 +811,7 @@ server <- function(input, output, session) {
   
   # If a row is selected in the data table, highlight the icon on the map
   observeEvent(input$ranksDT_rows_selected, {
-    row_selected = locationRanks[input$ranksDT_rows_selected,]
+    row_selected = qSub()[input$ranksDT_rows_selected,]
     proxy %>%
       addAwesomeMarkers(
         popup=as.character(row_selected$popups),
@@ -803,20 +822,13 @@ server <- function(input, output, session) {
   })
   
   
-  # Our Leaflet hotspot map containing order AND iucn category #### 
+  ####TAB 3: Interactive hotspot map containing order AND iucn category #### 
+  
   output$map <- renderLeaflet({
     
     leaflet() %>% 
       setView(lng = 0, lat = 0,  zoom = 2) %>% 
-      addTiles(group = "OSM (default)") %>% 
-      addAwesomeMarkers(lat = locationRanks$lats,#sampleData$lats, 
-                        lng = locationRanks$longs, 
-                        popup = locationRanks$popups, 
-                        layerId = locationRanks$layerids,
-                        group = "MPAs",
-                        icon = makeAwesomeIcon(icon = locationRanks$iconNames, 
-                                               markerColor = locationRanks$iconColors)) %>% 
-      addControl(html = markerLegendHTML(IconSet = IconSet), position = "bottomleft")
+      addTiles(group = "OSM (default)")
   })
   
   proxy <- leafletProxy("map") 
@@ -858,15 +870,8 @@ server <- function(input, output, session) {
                        group="order") %>%
         addLegend(pal = pal1, 
                   values = values(data1),
-                  position = "bottomleft",
-                  title = "No. species") %>%
-        # Layers control
-        addLayersControl(
-         baseGroups = c("OSM (default)"),
-          overlayGroups = c("MPAs","order"),
-          options = layersControlOptions(collapsed = TRUE)
-        )
-        
+                  position = "topright",
+                  title = "No. species") #%>%
       #labels = c("Species distribution","MPAs")) %>%
       #addPolygons(#layerId ="layer1",
       #  data=reduced.MPAs,
@@ -914,14 +919,8 @@ server <- function(input, output, session) {
                          group="IUCN") %>%
           addLegend(pal = pal1, 
                     values = values(data1),
-                    position = "bottomleft",
-                    title = "No. species")  %>%
-          # Layers control
-          addLayersControl(
-            baseGroups = c("OSM (default)"),
-            overlayGroups = c("MPAs","IUCN"),
-            options = layersControlOptions(collapsed = TRUE)
-          )
+                    position = "topright",
+                    title = "No. species")  #%>%
         #addPolygons(#layerId ="layer1",
         # data=reduced.MPAs,
         # fill = TRUE, stroke = TRUE, weight=3,
@@ -932,163 +931,7 @@ server <- function(input, output, session) {
   })
   
   
-  #### TAB 3: Country explorer map and table #### 
-  
-  ## Slider tool to subset data
-  qSub2 <-  reactive({
-    subset <- subset(CLsp, 
-                     CLsp@data$mmtsum>=input$sld02_mmtsum[1] &
-                       CLsp@data$mmtsum<=input$sld02_mmtsum[2] &
-                       CLsp@data$nclsum>=input$sld03_nclsum[1] &
-                       CLsp@data$nclsum<=input$sld03_nclsum[2]
-    )
-  })
-  
-  # Top panel - PLot the map
-  output$mapCounty <- renderLeaflet({
-    
-    leaflet(data = qSub2()) %>% 
-      setView(lng = 0, lat = 0,  zoom = 1) %>% 
-      addProviderTiles(providers$OpenStreetMap.BlackAndWhite)%>%
-      addPolygons(color = "#444444", weight = 0, smoothFactor = 0.5,
-                  opacity = 1.0, fillOpacity = 0.6,
-                  fillColor = qSub2()@data$colour2#,
-                  #fillColor = ~colorQuantile("YlOrRd", NuminEEZ)(NuminEEZ),
-                  #highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE)
-      )
-    
-    #addPolygons(layerId ="layer2",
-    #            fill = TRUE, stroke = TRUE, weight=1,
-    #            fillColor = qSub2()$colour2,
-    #           color = "#b2aeae")
-    #addLegend(colors = 'blue', 
-    #          labels = c("Selected country")) 
-  })
-  
-  #observeEvent(input$var2, {                       # Choose which species to visualise on the map using the dropdown
-  #x <- which(sharkdat$binomial == input$var2)      # Assign the row number of the species to display
-  
-  observeEvent(input$countryTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
-    x <- input$countryTable_rows_selected           # Test: Assign the row number of the species to display
-    newdata <- qSub2()[x,] # Select DT row from the SpatialPolygonsDF 
-    
-    proxy <- leafletProxy("mapCounty")
-    proxy %>% 
-      addPolygons(layerId ="layer1",
-                  data=newdata,
-                  fill = FALSE, stroke = TRUE, weight=4,
-                  color = 'white',
-                  group = "MPAs") %>% 
-      mapOptions(zoomToLimits = "first")
-  })
-  
-  #bottom tab: Country Explorer table
-  output$countryTable <- DT::renderDataTable(
-    {
-      generateNewDT <- function(x){ 
-        
-        #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-        output_dt <- DT::datatable(x, 
-                                   options=list(
-                                     pageLength = 10, # number of rows per page
-                                     scrollX = TRUE,
-                                     autoWidth = TRUE,
-                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
-                                     columnDefs = list(list(#width = '50px', 
-                                       targets = 1,
-                                       render = JS(
-                                         "function(data, type, row, meta) {",
-                                         "return type === 'display' && data.length > 30 ?",
-                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
-                                         "}")
-                                     ))), 
-                                   caption = 'Search country information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
-                                   #filter = 'top', 
-                                   selection = 'single', # selects only one row at a time
-                                   rownames = FALSE,  # no row names
-                                   colnames=c("Country", 
-                                              "ISO",
-                                              "Conservation Likelihood",
-                                              "Presence of management",
-                                              "NuminEEZ",
-                                              "Finning",
-                                              'npoastrength2015', 
-                                              'CMSMoUNov2015', 
-                                              'PMSA.Oct2015',
-                                              'Median_speciescount',
-                                              'colour2',
-                                              'marxanpercent'),
-                                   callback = JS('table.page(3).draw(false);'),
-                                   
-                                   #initComplete = JS(
-                                   #  "function(settings, json) {",
-                                   #  "$(this.api().table().header()).css({'font-size': '90%'});",
-                                   #  "}"),
-                                   #class = 'white-space: nowrap', # stops wrapping of rows
-                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
-        )
-        #formatStyle(columns = c(1:10), fontSize = '80%')
-        
-        return(output_dt)
-      }
-      generateNewDT(qSub2()@data) # Generate the DT based on the SpatialPolygonsDF
-    }
-  )
-  
-  # highlight selected rows in the scatterplot
-  output$x3 <- renderPlot(
-    {
-      s <- input$countryTable_rows_selected # Which rows selected?
-      
-      # Add the colour variable to this dataframe at the selected row
-      countryPlotData <- qSub2()@data
-      countryPlotData$pointborder <- rep(0,nrow(countryPlotData))
-      
-      # If a row has been selected - make border a different colour
-      if (length(s)){
-        countryPlotData$pointborder[s] <- 1
-      }
-      
-      par(mar = c(4, 4, 1, .1))
-      #par(font.axis = 2,font.lab = 2)  
-      #dimensions 5.X8
-      ct <- ggplot(countryPlotData, aes(x=nclsum, y = mmtsum)) + 
-        scale_y_continuous(breaks = c(0,8.5), 
-                           limits = c(0,9),
-                           labels = c("None", "High"), 
-                           name = "Presence of management") +
-        annotate("rect", xmin = -Inf, xmax = mean(CL$nclsum), ymin = -Inf, ymax = mean(CL$mmtsum), fill= "grey80")  + 
-        annotate("rect", xmin = mean(CL$nclsum), xmax = Inf, ymin = -Inf, ymax = mean(CL$mmtsum) , fill= "grey40") + 
-        annotate("rect", xmin = -Inf, xmax = mean(CL$nclsum), ymin = mean(CL$mmtsum), ymax = Inf, fill= "grey60") + 
-        annotate("rect", xmin = mean(CL$nclsum), xmax = Inf, ymin = mean(CL$mmtsum), ymax = Inf, fill= "grey20") + 
-        geom_point(shape=21,aes(size=marxanpercent,
-                                fill=factor(colour2), 
-                                colour=factor(pointborder))) + 
-        scale_size(range = c(3, 20)) +
-        scale_x_continuous(name = "Conservation likelihood", labels = c("Low", "High"), 
-                           breaks = c(-7,3), limits = c(-7,3.2)) + 
-        scale_fill_manual(values = c("#78B7C5","#3B9AB2", "#E1AF00","#F21A00", "#EBCC2A"))+
-        scale_colour_manual(values = c("black","white"))+
-        scale_alpha_manual(values = c(0.95, 0.95, 0.95, 0.95, 0.95))+
-        theme (plot.background = element_rect(fill = "NA", colour = "NA"), 
-               axis.line = element_blank(),
-               panel.grid.major = element_blank(), 
-               panel.grid.minor = element_blank(), 
-               axis.ticks.length = unit(0,"lines"),
-               panel.background = element_rect(fill = "white", colour = "white"), 
-               axis.text.x= element_text(size = 20, vjust=1,colour = "grey20"),
-               axis.text.y= element_text(size = 20, colour= c("grey20")),
-               axis.title.x= element_text(size = 20, colour = "grey20"),
-               axis.title.y= element_text(size = 20, colour = "grey20"),
-               legend.key = element_rect(fill = "grey60", colour = "grey60"))
-      
-      ct + theme(legend.position="none", 
-                 panel.border = element_rect(fill="NA",colour = "NA", size=1, linetype="solid"),
-                 legend.text = element_blank())
-    }
-  )
-  
-  ####TAB 4:  Interactive Plot containing species counts in zones ####
+  ####TAB 5:  Interactive Plot containing species counts in zones ####
   
   #v <- reactiveValues(data = NULL)
   
@@ -1214,7 +1057,6 @@ server <- function(input, output, session) {
     subplot(p2, p1, widths = c(0.3,0.7), shareY = TRUE, titleX = TRUE)
     
   })
-  
   
 }
 

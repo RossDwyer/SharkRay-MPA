@@ -53,6 +53,8 @@ allspecrast <- brick("GIS/multilayerspecrast.tif")
 #library(repmis)
 #source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
 
+reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
+
 # tab 1c species lookup table
 order.name <- c("CARCHARHINIFORMES",
                 "CHIMAERIFORMES",
@@ -263,10 +265,12 @@ CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
 # Function to make socio economic plot
 fsocialplot <- function(fdata,fx,fy,fz,fcol){
   
-  #fx = "Threatened"
-  #fy = "OpportunityIndex"
-  #fz = "ChallengeIndex"
-  
+  # fdata =  CL2sp@data
+  # fx = "Threatened"
+  # fy = "OpportunityIndex"
+  # fz = "ChallengeIndex"
+  # fcol = c("yellow","red")
+  # 
   par(mar = c(4, 4, 1, .1))  #par(font.axis = 2,font.lab = 2)  
   #dimensions 5.X8  
   

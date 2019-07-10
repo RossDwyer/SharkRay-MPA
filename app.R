@@ -56,6 +56,8 @@ allspecrast <- brick("GIS/multilayerspecrast.tif")
 #library(repmis)
 #source_data("https://github.com/RossDwyer/SharkRay-MPA/blob/master/myMPA.RData?raw=true")
 
+reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
+
 # tab 1c species lookup table
 order.name <- c("CARCHARHINIFORMES",
                 "CHIMAERIFORMES",
@@ -263,8 +265,6 @@ CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
 CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
 CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
 
-# Function to make socio economic plot (may need to put here for online resource)
-#source('~/OneDrive - The University of Queensland/GitHub/SharkRay-MPA/R/fsocialplot.R')
 
 ## Spider / radar plot
 socioeconomic_devel <- CL2sp@data %>%

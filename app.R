@@ -120,6 +120,31 @@ makeDispersalplot <- function(xmax){
                     "Satellite"))
 }
 
+# Function to make the empty landings plot
+makeLandingsplot <- function(xmax){
+  xd <- seq(1950, 2010, by=1)
+  yd <- rep(0,0,length(xd))
+  
+  #par(oma = c(0.1,1,2,1.5))
+  par(mar = c(4, 4, 2, .5), font.axis = 2,font.lab = 2) # stops the arial font issue
+  plot(x=xd,y=yd, las=1, 
+       xlab="Year", 
+       ylab="Reported catch landings ('000 t)", type="n",
+       ylim=c(0,600),
+       bty="l")
+  
+  # legend("top",bty="n",
+  #        inset = c(0,-0.13),
+  #        xpd = TRUE, horiz = TRUE,
+  #        lty=1,lwd=2,
+  #        col=c(1:3),
+  #        legend = c("Mark-recapture",
+  #                   "Passive acoustic",
+  #                   "Satellite"))
+}
+
+
+
 iucnimg <- paste0('img/DD.png')
 iucnlink <- paste0("https://github.com/RossDwyer/SharkRay-MPA/blob/master/img/DD.png")
 sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
@@ -325,7 +350,8 @@ ui <- navbarPage(
                     column(12,radioButtons(inputId = "sMakePlots", 
                                            label = "Select which plot to visualise:",
                                            choices = c("Vulnerability"= "sVulnPlot",
-                                                       "Dispersal distances" = "sDistPlot"),
+                                                       "Dispersal distances" = "sDistPlot",
+                                                       "Landings per year" = "sSpLandYr"),
                                            selected = "sVulnPlot",
                                            inline = TRUE))#,
                     #conditionalPanel(
@@ -596,9 +622,11 @@ server <- function(input, output, session) {
           labs(title="",x="IUCN code", y = "Vulnerability Index")+
           theme_minimal()+
           theme(legend.position="none") # Remove legend
-      }else{
-        makeDispersalplot(1500) 
       }
+      if (input$sMakePlots == 'sDistPlot')
+        makeDispersalplot(1500) 
+      if (input$sMakePlots == 'sSpLandYr') 
+        makeLandingsplot() 
     })
   })
   
@@ -693,6 +721,42 @@ server <- function(input, output, session) {
             
             displot2(data = Df,                                                            
                      species = as.character(specName))
+          })
+      }
+      
+      if (input$sMakePlots == 'sSpLandYr'){
+        output$x2 <- renderPlot(
+          {
+            
+            makeLandingsplot() 
+            graphics::text(1990,300, "No landings data available for this species...")
+            graphics::text(1990,250, "Please select another row")       
+            # }
+            
+            # landplot1 <- function(data, species,
+            #                      xmax=1500,
+            #                      xlab="Maximum dispersal distance (km)", 
+            #                      ylab="Probability of dispersal", ...){
+            #   
+            #   #makeLandingsplot() 
+            #   
+            #   dat <- data[data$ScientificName %in% species,]
+            #   xx <- seq(0, log(xmax), length=1000)
+            #   
+            #   if(nrow(dat)==0){
+            #     graphics::text(5,0.5, "No dispersal data available for this species...")
+            #     graphics::text(5,0.4, "Please select another row")       
+            #   }else{
+            #     
+            #     dat_mark_recap <- dat[dat$tag_type %in% "mark_recap",]
+            #     dat_passive <- dat[dat$tag_type %in% "passive",]
+            #     dat_satellite <- dat[dat$tag_type %in% "satellite",]
+            #     
+            #   }
+            # }
+            
+            # displot2(data = Df,                                                            
+            #          species = as.character(specName))
           })
       }
       

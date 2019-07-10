@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "15-June-2018" ## Date last updated
+DateUpdated <-  "09-July-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -28,6 +28,9 @@ library(DT)
 library(tibble)
 library(shinycssloaders)
 library(highcharter)
+library(fmsb)
+
+
 
 
 ##############################################################################
@@ -235,7 +238,7 @@ sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3)
 ###
 
 # tab 5 
-
+reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
 CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
 
 # merge function with the duplicateGeoms argument set to TRUE 
@@ -262,550 +265,25 @@ CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
 CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
 CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
 
-# Function to make socio economic plot
-fsocialplot <- function(fdata,fx,fy,fz,fcol){
-  
-  # fdata =  CL2sp@data
-  # fx = "Threatened"
-  # fy = "OpportunityIndex"
-  # fz = "ChallengeIndex"
-  # fcol = c("yellow","red")
-  # 
-  par(mar = c(4, 4, 1, .1))  #par(font.axis = 2,font.lab = 2)  
-  #dimensions 5.X8  
-  
-  sc <- scale_colour_gradientn(colours=fcol, limits=c(min(fdata[,fz]), max(fdata[,fz])))
-  sf <- scale_fill_gradientn(colours=fcol, limits=c(min(fdata[,fz]), max(fdata[,fz])))
-  
-  #theme(plot.background = element_rect(fill = "NA", colour = "NA"), 
-  #      axis.line = element_blank(),
-  #      panel.grid.major = element_blank(), 
-  #      panel.grid.minor = element_blank(), 
-  #      axis.ticks.length = unit(0,"lines"),
-  #      panel.background = element_rect(fill = "white", colour = "white"), 
-  #      axis.text.x= element_text(size = 15, vjust=1,colour = "grey20"),
-  #      axis.text.y= element_text(size = 15, colour= c("grey20")),
-  #      axis.title.x= element_text(size = 15, colour = "grey20"),
-  #      axis.title.y= element_text(size = 15, colour = "grey20"),
-  #      legend.key = element_rect(fill = "grey60", colour = "grey60"))
-  if(fx == "ChallengeIndex" & fy == "ChallengeIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = ChallengeIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "ChallengeIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = ChallengeIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "ChallengeIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = ChallengeIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "ChallengeIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = ChallengeIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "OpportunityIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = OpportunityIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Opportunity index") 
-  } 
-  if(fx == "ChallengeIndex" & fy == "OpportunityIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = OpportunityIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Opportunity index") 
-  } 
-  if(fx == "ChallengeIndex" & fy == "OpportunityIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = OpportunityIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "OpportunityIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = OpportunityIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "CLI" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = CLI, 
-                           colour = ChallengeIndex, fill = Threatened,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }  
-  if(fx == "ChallengeIndex" & fy == "CLI" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = CLI, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }  
-  if(fx == "ChallengeIndex" & fy == "CLI" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = CLI, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "CLI" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = CLI, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "ChallengeIndex" & fy == "Threatened" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = Threatened, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "No. threatened species") 
-  } 
-  if(fx == "ChallengeIndex" & fy == "Threatened" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = Threatened, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "No. threatened species") 
-  } 
-  if(fx == "ChallengeIndex" & fy == "Threatened" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = Threatened, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "No. threatened species") 
-  } 
-  if(fx == "ChallengeIndex" & fy == "Threatened" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = ChallengeIndex, y = Threatened, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Challenge index") +
-      scale_y_continuous(name = "No. threatened species") 
-  } 
-  if(fx == "OpportunityIndex" & fy == "OpportunityIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = OpportunityIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "OpportunityIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = OpportunityIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "OpportunityIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = OpportunityIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "OpportunityIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = OpportunityIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "ChallengeIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = ChallengeIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "ChallengeIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = ChallengeIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "ChallengeIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = ChallengeIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "ChallengeIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = ChallengeIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "CLI" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = CLI, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "CLI" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = CLI, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "CLI" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = CLI, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "CLI" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = CLI, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "OpportunityIndex" & fy == "Threatened" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = Threatened, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "OpportunityIndex" & fy == "Threatened" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = Threatened, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "OpportunityIndex" & fy == "Threatened" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = Threatened, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "OpportunityIndex" & fy == "Threatened" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = OpportunityIndex, y = Threatened, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Opportunity index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "CLI" & fy == "CLI" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = CLI, y = CLI, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "CLI" & fy == "CLI" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = CLI, 
-                           colour = ChallengeIndex, fill = ChallengeIndexv,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }  
-  if(fx == "CLI" & fy == "CLI" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = CLI, y = CLI, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "CLI" & fy == "CLI" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = CLI, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }
-  if(fx == "CLI" & fy == "ChallengeIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = CLI, y = ChallengeIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "CLI" & fy == "ChallengeIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = ChallengeIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndexv,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Challenge index") 
-  }  
-  if(fx == "CLI" & fy == "ChallengeIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = CLI, y = ChallengeIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "CLI" & fy == "ChallengeIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = ChallengeIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "CLI" & fy == "OpportunityIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = CLI, y = OpportunityIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "CLI" & fy == "OpportunityIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = OpportunityIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }    
-  if(fx == "CLI" & fy == "OpportunityIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = CLI, y = OpportunityIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "CLI" & fy == "OpportunityIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = OpportunityIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "Opportunity index") 
-  }  
-  if(fx == "CLI" & fy == "Threatened" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = CLI, y = Threatened, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "CLI" & fy == "Threatened" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = Threatened, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "CLI" & fy == "Threatened" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = Threatened, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "CLI" & fy == "Threatened" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = CLI, y = Threatened, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "Conservation likelihood index") +
-      scale_y_continuous(name = "No. threatened species") 
-  }  
-  if(fx == "Threatened" & fy == "Threatened" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = Threatened, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "No. threatened species") 
-  }
-  if(fx == "Threatened" & fy == "Threatened" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = Threatened, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "No. threatened species") 
-  } 
-  if(fx == "Threatened" & fy == "Threatened" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = Threatened, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "No. threatened species") 
-  }
-  if(fx == "Threatened" & fy == "Threatened" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = Threatened, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "No. threatened species") 
-  }
-  if(fx == "Threatened" & fy == "ChallengeIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = ChallengeIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "Threatened" & fy == "ChallengeIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = ChallengeIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Challenge index") 
-  } 
-  if(fx == "Threatened" & fy == "ChallengeIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = ChallengeIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "Threatened" & fy == "ChallengeIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = ChallengeIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) + 
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Challenge index") 
-  }
-  if(fx == "Threatened" & fy == "OpportunityIndex" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = OpportunityIndex, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "Threatened" & fy == "OpportunityIndex" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = OpportunityIndex, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Opportunity index") 
-  }  
-  if(fx == "Threatened" & fy == "OpportunityIndex" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = OpportunityIndex, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Opportunity index") 
-  }
-  if(fx == "Threatened" & fy == "OpportunityIndex" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = OpportunityIndex, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Opportunity index") 
-  }  
-  if(fx == "Threatened" & fy == "CLI" & fz == "Threatened"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = CLI, 
-                           colour = Threatened, fill = Threatened,
-                           size = Threatened, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }  
-  if(fx == "Threatened" & fy == "CLI" & fz == "CLI"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = CLI, 
-                           colour = CLI, fill = CLI,
-                           size = CLI, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  } 
-  if(fx == "Threatened" & fy == "CLI" & fz == "ChallengeIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = CLI, 
-                           colour = ChallengeIndex, fill = ChallengeIndex,
-                           size = ChallengeIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  }  
-  if(fx == "Threatened" & fy == "CLI" & fz == "OpportunityIndex"){
-    ct <- ggplot(fdata,aes(x = Threatened, y = CLI, 
-                           colour = OpportunityIndex, fill = OpportunityIndex,
-                           size = OpportunityIndex, text = Territory1)) +
-      geom_point(shape=21) + sc + sf +
-      scale_x_continuous(name = "No. threatened species") +
-      scale_y_continuous(name = "Conservation likelihood index") 
-  } 
-  
-  ggplotly(ct,tooltip = c("size","text")) %>%
-    layout(plot_bgcolor='white')#,
-    #xaxis = list(range = c(min(CL2sp@data[fx]), max(CL2sp@data[fx]))),
-    #yaxis = list(range = c(min(CL2sp@data[fy]), max(CL2sp@data[fy]))))
-}
+
+## Spider / radar plot
+socioeconomic_devel <- CL2sp@data %>%
+  filter(is.na(ChallengeIndex)==FALSE)#,
+
+iMax <- socioeconomic_devel%>%
+  summarize(Corruption=max(Corruption),
+            EconomicVulnerability=max(EconomicVulnerability),
+            Tourism=max(Tourism),
+            DependMarineResource=max(DependMarineResource),
+            Education=max(Education))
+
+iMin <- socioeconomic_devel%>%
+  summarize(Corruption=min(Corruption),
+            EconomicVulnerability=min(EconomicVulnerability),
+            Tourism=min(Tourism),
+            DependMarineResource=min(DependMarineResource),
+            Education=min(Education))
+
 
 # tab 6 (About page)
 noSpecies <- length(species.name) # number of species considered
@@ -956,67 +434,94 @@ ui <- navbarPage(
   
   ## TAB 4
   tabPanel(title="Country explorer",
-           # Top left panel  
+           # Top  panel  
            fluidPage(
              fluidRow(
-               column(6,
-                      leafletOutput("mapCounty", width = '100%',height=300) %>% 
-                        withSpinner(color="#3182bd"),
-                      fluidRow(
-                        column(6,
-                               sliderInput(
-                                 inputId = "sld21_ChallengeIndex",
-                                 label="Challenge index:", 
-                                 min=min(CL2sp@data$ChallengeIndex,na.rm=T), max=max(CL2sp@data$ChallengeIndex,na.rm=T),
-                                 value=c(min(CL2sp@data$ChallengeIndex,na.rm=T),max(CL2sp@data$ChallengeIndex,na.rm=T)), 
-                                 step=0.1,round=1),
-                               sliderInput(
-                                 inputId = "sld22_OpportunityIndex",
-                                 label="Opportunity index:", 
-                                 min=min(CL2sp@data$OpportunityIndex,na.rm=T), max=max(CL2sp@data$OpportunityIndex,na.rm=T),
-                                 value=c(min(CL2sp@data$OpportunityIndex,na.rm=T),max(CL2sp@data$OpportunityIndex,na.rm=T)),
-                                 step=0.1,round=1)
-                        ),
-                        column(6,
-                               sliderInput(
-                                 inputId = "sld23_CLI",
-                                 label="Conservation likelihood index:",
-                                 min=min(CL2sp@data$CLI,na.rm=T), max=max(CL2sp@data$CLI,na.rm=T),
-                                 value=c(min(CL2sp@data$CLI,na.rm=T),max(CL2sp@data$CLI,na.rm=T)),
-                                 step=0.1,round=1),
-                               sliderInput(
-                                 inputId = "sld24_Threatened",
-                                 label="No. threatened species:",
-                                 min=min(CL2sp@data$Threatened,na.rm=T), max=max(CL2sp@data$Threatened,na.rm=T),
-                                 value=c(min(CL2sp@data$Threatened,na.rm=T),max(CL2sp@data$Threatened,na.rm=T)),
-                                 step=1,round=1)
-                        )
-                      )
-               ),
-               column(6, 
-                      plotlyOutput('x3', height = 300),
-                      column(6,
-                             selectInput("tab.x3x", 
-                                         label = "Select X axis",
-                                         choices = list("ChallengeIndex","OpportunityIndex",
-                                                        "CLI","Threatened"),
-                                         selected = "ChallengeIndex"),
-                             selectInput("tab.x3z", 
-                                         label = "Select Z axis",
-                                         choices = list("ChallengeIndex","OpportunityIndex",
-                                                        "CLI","Threatened"),
-                                         selected = "Threatened")),
-                      column(6,
-                             selectInput("tab.x3y", 
-                                         label = "Select Y axis",
-                                         choices = list("ChallengeIndex","OpportunityIndex",
-                                                        "CLI","Threatened"),
-                                         selected = "OpportunityIndex")
-                             )
-               )
-             
-           ),
-             
+               column(2,
+                      selectInput("tab.x3z",
+                                  label = "Select Z axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "Threatened")#,
+                      #actionButton("runif", "Go!")
+                      ),
+               
+               column(10,
+                      leafletOutput("mapCounty", width = '100%', height = 300) %>%
+                        withSpinner(color="#3182bd")
+               )),
+
+               #Middle Panel
+             fluidRow(
+               column(2,
+                      selectInput("tab.x3x",
+                                  label = "Select X axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "DependMarineResource"),
+                      selectInput("tab.x3y",
+                                  label = "Select Y axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "Threatened")
+                      ),
+                      
+               column(4,
+                      plotlyOutput('x3', height = 300)),
+               column(3, 
+                      plotOutput('xspider', height = 300)),
+               column(3,
+                      plotlyOutput('xthreatbar', height = 300))
+             ),
+         
+                
+                      # fluidRow(
+                      #   column(6,
+                      #          sliderInput(
+                      #            inputId = "sld21_ChallengeIndex",
+                      #            label="Challenge index:", 
+                      #            min=min(CL2sp@data$ChallengeIndex,na.rm=T), max=max(CL2sp@data$ChallengeIndex,na.rm=T),
+                      #            value=c(min(CL2sp@data$ChallengeIndex,na.rm=T),max(CL2sp@data$ChallengeIndex,na.rm=T)), 
+                      #            step=0.1,round=1),
+                      #          sliderInput(
+                      #            inputId = "sld22_OpportunityIndex",
+                      #            label="Opportunity index:", 
+                      #            min=min(CL2sp@data$OpportunityIndex,na.rm=T), max=max(CL2sp@data$OpportunityIndex,na.rm=T),
+                      #            value=c(min(CL2sp@data$OpportunityIndex,na.rm=T),max(CL2sp@data$OpportunityIndex,na.rm=T)),
+                      #            step=0.1,round=1)
+                      #   ),
+                      #   column(6,
+                      #          sliderInput(
+                      #            inputId = "sld23_CLI",
+                      #            label="Conservation likelihood index:",
+                      #            min=min(CL2sp@data$CLI,na.rm=T), max=max(CL2sp@data$CLI,na.rm=T),
+                      #            value=c(min(CL2sp@data$CLI,na.rm=T),max(CL2sp@data$CLI,na.rm=T)),
+                      #            step=0.1,round=1),
+                      #          sliderInput(
+                      #            inputId = "sld24_Threatened",
+                      #            label="No. threatened species:",
+                      #            min=min(CL2sp@data$Threatened,na.rm=T), max=max(CL2sp@data$Threatened,na.rm=T),
+                      #            value=c(min(CL2sp@data$Threatened,na.rm=T),max(CL2sp@data$Threatened,na.rm=T)),
+                      #            step=1,round=1)
+                      #   )
+                      # )
+              # ),
+              
              
              # Bottom panel
              DT::dataTableOutput("countryTable", width = '100%', height = 200)
@@ -1384,7 +889,7 @@ server <- function(input, output, session) {
       addControl(html = markerLegendHTML(IconSet = IconSet), position = "bottomleft")
   })
   
-  proxy <- leafletProxy("map") 
+  proxy3 <- leafletProxy("map") 
   
   observe({
     # select what order to visualise
@@ -1413,7 +918,7 @@ server <- function(input, output, session) {
                            values(rast_sel_sum),
                            na.color = "transparent")
       
-      proxy %>% 
+      proxy3 %>% 
         clearImages() %>% # removes earlier rasters
         clearControls() %>% # # removes earlier legends
         addRasterImage(layerId = "layer3",
@@ -1469,7 +974,7 @@ server <- function(input, output, session) {
                              domain = values(rast_sel_sum),
                              na.color = "transparent")
         
-        proxy %>% 
+        proxy3 %>% 
           clearImages() %>% # removes earlier rasters
           clearControls() %>% # # removes earlier legends
           addRasterImage(layerId = "layer4",
@@ -1498,7 +1003,6 @@ server <- function(input, output, session) {
   
   
   ####TAB 3:  Interactive Plot containing species counts in zones ####
-  
   output$plot <- renderPlotly({
     
     # select what data to visualise
@@ -1625,59 +1129,88 @@ server <- function(input, output, session) {
   
   #### TAB 4: Country explorer map and table #### 
   
-  ## Slider tool to subset data
-  qSub2 <-  reactive({
-    subset <- subset(CL2sp, 
-                     CL2sp@data$ChallengeIndex>=input$sld21_ChallengeIndex[1] &
-                       CL2sp@data$ChallengeIndex<=input$sld21_ChallengeIndex[2] &
-                       CL2sp@data$OpportunityIndex>=input$sld22_OpportunityIndex[1] &
-                       CL2sp@data$OpportunityIndex<=input$sld22_OpportunityIndex[2] &
-                       CL2sp@data$CLI>=input$sld23_CLI[1] &
-                       CL2sp@data$CLI<=input$sld23_CLI[2]&
-                       CL2sp@data$Threatened>=input$sld24_Threatened[1] &
-                       CL2sp@data$Threatened<=input$sld24_Threatened[2]
-    )
-  })
-  
-  # Top panel - Plot the map
-  output$mapCounty <- renderLeaflet({
+  # Slider tool to subset data (Defunct)
+  # qSub2 <-  reactive({
+  #   subset <- subset(CL2sp, 
+  #                    CL2sp@data$ChallengeIndex>=input$sld21_ChallengeIndex[1] &
+  #                      CL2sp@data$ChallengeIndex<=input$sld21_ChallengeIndex[2] &
+  #                      CL2sp@data$OpportunityIndex>=input$sld22_OpportunityIndex[1] &
+  #                      CL2sp@data$OpportunityIndex<=input$sld22_OpportunityIndex[2] &
+  #                      CL2sp@data$CLI>=input$sld23_CLI[1] &
+  #                      CL2sp@data$CLI<=input$sld23_CLI[2] &
+  #                      CL2sp@data$Threatened>=input$sld24_Threatened[1] &
+  #                      CL2sp@data$Threatened<=input$sld24_Threatened[2]
+  #   )
+  # })
+ 
+  # On the selection of a z axis visiualise the map and the scatterplot
+  observeEvent(input$tab.x3z,{
     
-    leaflet(data = qSub2()[input$tab.x3z]) %>% 
-      setView(lng = 0, lat = 0,  zoom = 1) %>% 
-      addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
-      addPolygons(weight = 0, smoothFactor = 0.5,fill=TRUE,
-                  stroke = TRUE,
-                  opacity = 1.0, fillOpacity = 0.6)
-                  #fillColor = ~colorQuantile("YlOrRd", NuminEEZ)(NuminEEZ),
-                  #highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE)
+    ## 1. Plot the map
+    output$mapCounty <- renderLeaflet({
       
+      zaxis1 <- input$tab.x3z # Select which column to visualise on the map
+      zcols1 <- colorNumeric(palette="viridis", 
+                    domain=CL2sp@data[zaxis1])
+      
+      leaflet(data = CL2sp) %>%     
+        setView(lng = 0, lat = 0,  zoom = 1) %>% 
+        addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
+        addPolygons(smoothFactor = 0.2,
+                    #fill=TRUE,weight = 0, 
+                    stroke = FALSE,
+                    opacity = 1.0, fillOpacity = 0.6,
+                    color = ~zcols1(CL2sp[[zaxis1]])
+        )
+    })
     
-    #addPolygons(layerId ="layer2",
-    #            fill = TRUE, stroke = TRUE, weight=1,
-    #            fillColor = qSub2()$colour2,
-    #           color = "#b2aeae")
-    #addLegend(colors = 'blue', 
-    #          labels = c("Selected country")) 
+    ## 2. Generate the scatterplot
+    plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
+                          CL2sp@data[input$tab.x3x],
+                          CL2sp@data[input$tab.x3y],
+                          CL2sp@data[input$tab.x3z])
+    plot.df <- na.omit(plot.df) # Remove NAs for plotting
+    colnames(plot.df) <- c('Name','x','y','z')     # Add column names
+    
+    ### Add legend title
+    legendtitle <- list(yref='paper',
+                        xref='paper',
+                        y=1,x=1,
+                        text=input$tab.x3z,
+                        showarrow=F)
+    
+    l <- list(
+      font = list(
+        family = "sans-serif",
+        size = 12,
+        color = "#000"),
+      bgcolor = "#E2E2E2",
+      bordercolor = "#FFFFFF",
+      borderwidth = 2)
+    
+    ### Do a plotly scatter plot to visualize the two features
+    ### Note the use of 'source' argument
+    output$x3 <- renderPlotly({
+      plotly_scat <- plot_ly(data = plot.df, 
+                             x = ~x, y = ~y, 
+                             text = ~Name,
+                             color = ~z, size = ~z, 
+                             #alpha=0.4,
+                             hoverinfo = "text",
+                             mode = "markers", 
+                             type = "scatter", 
+                             source = "subset") 
+      plotly_scat %>%
+        layout(xaxis = list(title = input$tab.x3x),
+               yaxis = list(title = input$tab.x3y),
+               annotations = legendtitle)
+               #legend = list(orientation = "h"))#,     
+      #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
+      #dragmode =  "select"
+    })
   })
   
-  #observeEvent(input$var2, {                       # Choose which species to visualise on the map using the dropdown
-  #x <- which(sharkdat$binomial == input$var2)      # Assign the row number of the species to display
-  
-  observeEvent(input$countryTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
-    x <- input$countryTable_rows_selected           # Test: Assign the row number of the species to display
-    newdata <- qSub2()[x,] # Select DT row from the SpatialPolygonsDF 
-    
-    proxy <- leafletProxy("mapCounty")
-    proxy %>% 
-      addPolygons(layerId ="layer1",
-                  data=newdata,
-                  fill = FALSE, stroke = TRUE, weight=4,
-                  color = 'red',
-                  group = "MPAs") %>% 
-      mapOptions(zoomToLimits = "first")
-  })
-  
-  #bottom tab: Country Explorer table
+  ## 3. Country Explorer table
   output$countryTable <- DT::renderDataTable(
     {
       generateNewDT <- function(x){ 
@@ -1685,7 +1218,7 @@ server <- function(input, output, session) {
         #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
         output_dt <- DT::datatable(x, 
                                    options=list(
-                                     pageLength = 10, # number of rows per page
+                                     pageLength = 5, # number of rows per page
                                      scrollX = TRUE,
                                      autoWidth = TRUE,
                                      searchHighlight = TRUE, #Highlight searchesd text with yellow
@@ -1701,25 +1234,25 @@ server <- function(input, output, session) {
                                    #filter = 'top', 
                                    selection = 'single', # selects only one row at a time
                                    rownames = FALSE,  # no row names
-                                    colnames=c("EEZ", 
-                                               "Territory",
-                                               "ISO",
-                                               "Sovereign",
-                                               "Area (km2)",
-                                               'Economic vulnerability', 
-                                               'Dependence on marine resources', 
-                                               'Education',
-                                               'Tourism',
-                                               'Corruption',
-                                               'Challenge index',
-                                               'Opportunity index',
-                                               'Conservation likelihood index',
-                                               'No. shark and ray species',
-                                               'No. theatened species',
-                                               'Critically endangered species',
-                                               'Endangered species',
-                                               'Vulnerable species',
-                                               'Non-threatened species'),
+                                   colnames=c("EEZ", 
+                                              "Territory",
+                                              "ISO",
+                                              "Sovereign",
+                                              "Area (km2)",
+                                              'Economic vulnerability', 
+                                              'Dependence on marine resources', 
+                                              'Education',
+                                              'Tourism',
+                                              'Corruption',
+                                              'Challenge index',
+                                              'Opportunity index',
+                                              'Conservation likelihood index',
+                                              'No. shark and ray species',
+                                              'No. theatened species',
+                                              'Critically endangered species',
+                                              'Endangered species',
+                                              'Vulnerable species',
+                                              'Non-threatened species'),
                                    callback = JS('table.page(3).draw(false);'),
                                    
                                    #initComplete = JS(
@@ -1733,37 +1266,147 @@ server <- function(input, output, session) {
         
         return(output_dt)
       }
-      generateNewDT(qSub2()@data) # Generate the DT based on the SpatialPolygonsDF
+      generateNewDT(CL2sp@data) # Generate the DT based on the SpatialPolygonsDF
+      #generateNewDT(qSub2()@data) # Generate the DT based on the SpatialPolygonsDF
     }
   )
   
-  # highlight selected rows in the scatterplot
-  output$x3 <- renderPlotly(
-    {
-      s <- input$countryTable_rows_selected # Which rows selected?
+  ## Based on the Rows selected from the Country Explorer table, modify existing plots
+  observeEvent(input$countryTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
+    x <- input$countryTable_rows_selected           # Test: Assign the row number of the species to display
+    newdata <- CL2sp[x,] # Select DT row from the SpatialPolygonsDF 
+    sNAME <- newdata@data[,1] # Select Country name
+    
+    ## 1. highlight country on map
+    proxy4 <- leafletProxy("mapCounty")
+    proxy4 %>% 
+      addPolygons(layerId ="layer1",
+                  data=newdata,
+                  fill = FALSE, stroke = TRUE, weight=3,
+                  color = 'red',
+                  group = "MPAs") %>% 
+      mapOptions(zoomToLimits = "first")
+    
+    ## 2. RE-Generate the scatterplot
+    
+    #Where to plot X and Ys for scatter plot
+    xaxiscol <- as.integer(newdata@data[input$tab.x3x])
+    yaxiscol <- as.integer(newdata@data[input$tab.x3y])
+    
+    if(!is.na(xaxiscol) & !is.na(yaxiscol)){
+      # Top right panel - 
+      plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
+                            CL2sp@data[input$tab.x3x],
+                            CL2sp@data[input$tab.x3y],
+                            CL2sp@data[input$tab.x3z])
+      plot.df <- na.omit(plot.df) # Remove NAs for plotting
+      colnames(plot.df) <- c('Name','x','y','z')     # Add column names
       
-      # Add the colour variable to this dataframe at the selected row
-      countryPlotData <- qSub2()@data
-      countryPlotData$pointborder <- rep(0,nrow(countryPlotData))
+      output$x3 <- renderPlotly({
+        plotly_scat2 <- plot_ly(data = plot.df, 
+                                x = ~x, y = ~y, 
+                                text = ~Name,
+                                color = ~z, size = ~z, 
+                                hoverinfo = "text",
+                                mode = "markers", 
+                                type = "scatter", 
+                                source = "subset") %>%
+          layout(xaxis = list(title = input$tab.x3x),
+                 yaxis = list(title = input$tab.x3y))
+        plotly_scat2 %>%
+          #layout(annotations = a)
+          add_annotations(
+            x = as.numeric(newdata@data[input$tab.x3x]),
+            y = as.numeric(newdata@data[input$tab.x3y]),
+            text = sNAME,
+            xref = "x",
+            yref = "y",
+            ax = 20,
+            ay = -20,
+            xanchor = 'left',
+            showarrow = T,
+            arrowcolor = 'rgba(222,45,38,1)',
+            # Styling annotations' text:
+            font = list(color = 'rgba(222,45,38,1)',
+                        size = 12)
+          )
+        #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
+        #dragmode =  "select",
+        #plot_bgcolor = "6A446F")})
+      })
       
-      # If a row has been selected - make border a different colour
-      if (length(s)){
-        countryPlotData$pointborder[s] <- 1
-      }
-      
-      par(mar = c(4, 4, 1, .1))
-      #fsocialplot(fdata = countryPlotData, 
-      #            fx = "ChallengeIndex", fy = "OpportunityIndex", 
-      #            fz = "Threatened", fcol= c("white","red"))
-      
-      fsocialplot(fdata = countryPlotData,
-                  fx = input$tab.x3x, 
-                  fy = input$tab.x3y, 
-                  fz = input$tab.x3z, 
-                  fcol= c("yellow","red"))
     }
-  ) 
- 
+    
+    ## 4. Generate the radar plot
+    
+    ### Create socionomic df
+    socioEEZ <- CL2sp@data %>%
+      filter(GeoName==sNAME)%>%
+      select(Corruption,
+             EconomicVulnerability,
+             Tourism,
+             DependMarineResource,
+             Education)
+    socioEEZ_df <- rbind(iMax,iMin,socioEEZ) # add the max and min of each topic to show on the plot
+    
+    output$xspider <- renderPlot({
+      par(mar = c(0, 0, 0, 0))
+      radarchart(socioEEZ_df, axistype=1, # fmsb package
+                 pcol=rgb(0.2,0.5,0.5,0.9), pfcol=rgb(0.2,0.5,0.5,0.5), plwd=4, #custom polygon
+                 cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,#custom the grid
+                 vlcex=1.1,
+                 na.itp=F
+      ) #custom labels 
+    })
+    
+    ## 5. Create species threat status barplot
+    specEEZ <- CL2sp@data %>%
+      filter(GeoName==sNAME)%>%
+      select(Nospecies,
+             Threatened,
+             CR,
+             EN,
+             VU) 
+    specEEZ_df <- data.frame(x = c("All species","Threatened","CR","EN","VU"), 
+                             y=as.integer(specEEZ))
+    
+    specEEZ_df$x <- factor(specEEZ_df$x, levels = c("All species","Threatened","CR","EN","VU"))
+    
+    
+    ## Threat status of Species barplot
+    output$xthreatbar <- renderPlotly({
+      pspec <- plot_ly(specEEZ_df, 
+                       x = ~x, y = ~y, type = 'bar',
+                       marker = list(color = c('rgba(204,204,204,1)', 'rgba(254,232,200,0.8)',
+                                               'rgba(222,45,38,1)', 'rgba(252,146,114,1)', 
+                                               'rgba(254,224,210,1)'))
+      ) 
+      pspec %>%
+        layout(title = list(text= sNAME,
+                            font=list(size=12)),
+               xaxis = list(title = ""),
+               yaxis = list(title = "")
+        )
+    })
+    
+    
+    
+  }
+  
+  
+  )
+
+
+
+  #   
+  #   # Put in catch statement to remove missing counrties
+  #   if(is.na(as.integer(yaxiscol))==FALSE & is.na(as.integer(xaxiscol))==FALSE){
+  #   
+  #     )
+  #   }
+  #     
+  # })
+  # 
 }
 
 ##############################################################

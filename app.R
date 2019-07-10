@@ -30,9 +30,6 @@ library(shinycssloaders)
 library(highcharter)
 library(fmsb)
 
-
-
-
 ##############################################################################
 # Data
 ##############################################################################
@@ -58,7 +55,7 @@ allspecrast <- brick("GIS/multilayerspecrast.tif")
 
 reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
 
-# tab 1c species lookup table
+## tab 1 species lookup table
 order.name <- c("CARCHARHINIFORMES",
                 "CHIMAERIFORMES",
                 "HETERODONTIFORMES",
@@ -143,8 +140,6 @@ makeLandingsplot <- function(xmax){
   #                   "Satellite"))
 }
 
-
-
 iucnimg <- paste0('img/DD.png')
 iucnlink <- paste0("https://github.com/RossDwyer/SharkRay-MPA/blob/master/img/DD.png")
 sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
@@ -171,8 +166,54 @@ species.name <- sharkdat$binomial # Names of species for the species range maps
 pal <- c("#253494","#f93") # HEX code for the colour of the raster [1] and the MPAs [2]
 
 ###
+# tab 2 - Country EEZ datasets 
+reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
+CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
 
-# tab 2 (Shark MPA page)
+# merge function with the duplicateGeoms argument set to TRUE 
+# if TRUE geometries in x are duplicated if there are multiple matches between records in x and y
+CL2sp <- sp::merge(reduced.countries, CI_FinalPCA_spec, by.x="ISO3",by.y= "ISO_Ter1",
+                   all=F,duplicateGeoms = TRUE)
+
+# Choose the columns and the orders. Note order needs to match renaming in DT
+CL2sp@data <- CL2sp@data[,c("GeoName","Territory1","ISO3","Sovereign1","Area_km2",
+                            "EconomicVulnerability","DependMarineResource","Education",
+                            "Tourism","Corruption","ChallengeIndex",
+                            "OpportunityIndex","CLI",
+                            "Nospecies","Threatened",
+                            "CR","EN","VU","rest")]
+
+
+## Round SocioEco values to 2 Dec places
+CL2sp@data$EconomicVulnerability <- round(CL2sp@data$EconomicVulnerability, digits=2)
+CL2sp@data$DependMarineResource <- round(CL2sp@data$DependMarineResource, digits=2)
+CL2sp@data$Education <- round(CL2sp@data$Education, digits=2)
+CL2sp@data$Tourism <- round(CL2sp@data$Tourism, digits=2)
+CL2sp@data$Corruption <- round(CL2sp@data$Corruption, digits=2)
+CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
+CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
+CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
+
+## Spider / radar plot
+socioeconomic_devel <- CL2sp@data %>%
+  filter(is.na(ChallengeIndex)==FALSE)#,
+
+iMax <- socioeconomic_devel%>%
+  summarize(Corruption=max(Corruption),
+            EconomicVulnerability=max(EconomicVulnerability),
+            Tourism=max(Tourism),
+            DependMarineResource=max(DependMarineResource),
+            Education=max(Education))
+
+iMin <- socioeconomic_devel%>%
+  summarize(Corruption=min(Corruption),
+            EconomicVulnerability=min(EconomicVulnerability),
+            Tourism=min(Tourism),
+            DependMarineResource=min(DependMarineResource),
+            Education=min(Education))
+
+###
+# tab 3 (Shark MPA page)
 SharkMPAs_coords <- read.csv("Data/Table 1 Shark MPA draft with coords.csv")
 
 # legend html generator:
@@ -205,9 +246,7 @@ IconSet <- awesomeIconList(
   "Part EEZ" = makeAwesomeIcon(icon= 'star', markerColor = 'blue', library = "fa")
 )
 
-
 ###
-
 #  tab 3 - For the order/IUCN hotspot maps
 iorder <- orderrast[[1]]
 iCARCHARHINIFORMES <- orderrast[[2]]
@@ -236,7 +275,6 @@ scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
 scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 ###
-
 # tab 4
 ivis <- 50 # No species in EEZ/FAOs/LMEs to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
@@ -262,55 +300,7 @@ sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3)
 
 ###
 
-# tab 5 
-reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
-CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
-
-# merge function with the duplicateGeoms argument set to TRUE 
-# if TRUE geometries in x are duplicated if there are multiple matches between records in x and y
-CL2sp <- sp::merge(reduced.countries, CI_FinalPCA_spec, by.x="ISO3",by.y= "ISO_Ter1",
-                   all=F,duplicateGeoms = TRUE)
-
-# Choose the columns and the orders. Note order needs to match renaming in DT
-CL2sp@data <- CL2sp@data[,c("GeoName","Territory1","ISO3","Sovereign1","Area_km2",
-                            "EconomicVulnerability","DependMarineResource","Education",
-                            "Tourism","Corruption","ChallengeIndex",
-                            "OpportunityIndex","CLI",
-                            "Nospecies","Threatened",
-                            "CR","EN","VU","rest")]
-
-
-# Round values to 2 Dec places
-CL2sp@data$EconomicVulnerability <- round(CL2sp@data$EconomicVulnerability, digits=2)
-CL2sp@data$DependMarineResource <- round(CL2sp@data$DependMarineResource, digits=2)
-CL2sp@data$Education <- round(CL2sp@data$Education, digits=2)
-CL2sp@data$Tourism <- round(CL2sp@data$Tourism, digits=2)
-CL2sp@data$Corruption <- round(CL2sp@data$Corruption, digits=2)
-CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
-CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
-CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
-
-
-## Spider / radar plot
-socioeconomic_devel <- CL2sp@data %>%
-  filter(is.na(ChallengeIndex)==FALSE)#,
-
-iMax <- socioeconomic_devel%>%
-  summarize(Corruption=max(Corruption),
-            EconomicVulnerability=max(EconomicVulnerability),
-            Tourism=max(Tourism),
-            DependMarineResource=max(DependMarineResource),
-            Education=max(Education))
-
-iMin <- socioeconomic_devel%>%
-  summarize(Corruption=min(Corruption),
-            EconomicVulnerability=min(EconomicVulnerability),
-            Tourism=min(Tourism),
-            DependMarineResource=min(DependMarineResource),
-            Education=min(Education))
-
-
-# tab 6 (About page)
+# tab 5 (About page)
 noSpecies <- length(species.name) # number of species considered
 
 
@@ -369,6 +359,104 @@ ui <- navbarPage(
            )
   ),  
   
+  ## TAB 2
+  tabPanel(title="Country explorer",
+           # Top  panel  
+           fluidPage(
+             fluidRow(
+               column(2,
+                      selectInput("tab.x3z",
+                                  label = "Select Z axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "Threatened")#,
+                      #actionButton("runif", "Go!")
+               ),
+               
+               column(10,
+                      leafletOutput("mapCounty", width = '100%', height = 300) %>%
+                        withSpinner(color="#3182bd")
+               )),
+             
+             #Middle Panel
+             fluidRow(
+               column(2,
+                      selectInput("tab.x3x",
+                                  label = "Select X axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "DependMarineResource"),
+                      selectInput("tab.x3y",
+                                  label = "Select Y axis",
+                                  choices = list("Area_km2",
+                                                 "DependMarineResource","Education",
+                                                 "Tourism","Corruption",
+                                                 "EconomicVulnerability",
+                                                 "ChallengeIndex","OpportunityIndex","CLI",
+                                                 "Nospecies","Threatened",
+                                                 "CR","EN","VU","rest"),
+                                  selected = "Threatened")
+               ),
+               
+               column(4,
+                      plotlyOutput('x3', height = 300)),
+               column(3, 
+                      plotOutput('xspider', height = 300)),
+               column(3,
+                      plotlyOutput('xthreatbar', height = 300))
+             ),
+             
+             
+             # fluidRow(
+             #   column(6,
+             #          sliderInput(
+             #            inputId = "sld21_ChallengeIndex",
+             #            label="Challenge index:", 
+             #            min=min(CL2sp@data$ChallengeIndex,na.rm=T), max=max(CL2sp@data$ChallengeIndex,na.rm=T),
+             #            value=c(min(CL2sp@data$ChallengeIndex,na.rm=T),max(CL2sp@data$ChallengeIndex,na.rm=T)), 
+             #            step=0.1,round=1),
+             #          sliderInput(
+             #            inputId = "sld22_OpportunityIndex",
+             #            label="Opportunity index:", 
+             #            min=min(CL2sp@data$OpportunityIndex,na.rm=T), max=max(CL2sp@data$OpportunityIndex,na.rm=T),
+             #            value=c(min(CL2sp@data$OpportunityIndex,na.rm=T),max(CL2sp@data$OpportunityIndex,na.rm=T)),
+             #            step=0.1,round=1)
+             #   ),
+             #   column(6,
+             #          sliderInput(
+             #            inputId = "sld23_CLI",
+             #            label="Conservation likelihood index:",
+             #            min=min(CL2sp@data$CLI,na.rm=T), max=max(CL2sp@data$CLI,na.rm=T),
+             #            value=c(min(CL2sp@data$CLI,na.rm=T),max(CL2sp@data$CLI,na.rm=T)),
+             #            step=0.1,round=1),
+             #          sliderInput(
+             #            inputId = "sld24_Threatened",
+             #            label="No. threatened species:",
+             #            min=min(CL2sp@data$Threatened,na.rm=T), max=max(CL2sp@data$Threatened,na.rm=T),
+             #            value=c(min(CL2sp@data$Threatened,na.rm=T),max(CL2sp@data$Threatened,na.rm=T)),
+             #            step=1,round=1)
+             #   )
+             # )
+             # ),
+             
+             
+             # Bottom panel
+             DT::dataTableOutput("countryTable", width = '100%', height = 200)
+           )
+  ),
+  
+  
+  ## TAB 3
   tabPanel(title="Shark MPA explorer",
            fluidPage(
              #  Top panel
@@ -427,7 +515,7 @@ ui <- navbarPage(
   ),
   
   
-  ## TAB 3
+  ## TAB 4
   tabPanel(title="Region explorer",
            fluidPage(
              tags$div(class="header", checked=NA,
@@ -455,105 +543,6 @@ ui <- navbarPage(
                       tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions | "),
                       tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
              ))),
-  
-  
-  
-  ## TAB 4
-  tabPanel(title="Country explorer",
-           # Top  panel  
-           fluidPage(
-             fluidRow(
-               column(2,
-                      selectInput("tab.x3z",
-                                  label = "Select Z axis",
-                                  choices = list("Area_km2",
-                                                 "DependMarineResource","Education",
-                                                 "Tourism","Corruption",
-                                                 "EconomicVulnerability",
-                                                 "ChallengeIndex","OpportunityIndex","CLI",
-                                                 "Nospecies","Threatened",
-                                                 "CR","EN","VU","rest"),
-                                  selected = "Threatened")#,
-                      #actionButton("runif", "Go!")
-                      ),
-               
-               column(10,
-                      leafletOutput("mapCounty", width = '100%', height = 300) %>%
-                        withSpinner(color="#3182bd")
-               )),
-
-               #Middle Panel
-             fluidRow(
-               column(2,
-                      selectInput("tab.x3x",
-                                  label = "Select X axis",
-                                  choices = list("Area_km2",
-                                                 "DependMarineResource","Education",
-                                                 "Tourism","Corruption",
-                                                 "EconomicVulnerability",
-                                                 "ChallengeIndex","OpportunityIndex","CLI",
-                                                 "Nospecies","Threatened",
-                                                 "CR","EN","VU","rest"),
-                                  selected = "DependMarineResource"),
-                      selectInput("tab.x3y",
-                                  label = "Select Y axis",
-                                  choices = list("Area_km2",
-                                                 "DependMarineResource","Education",
-                                                 "Tourism","Corruption",
-                                                 "EconomicVulnerability",
-                                                 "ChallengeIndex","OpportunityIndex","CLI",
-                                                 "Nospecies","Threatened",
-                                                 "CR","EN","VU","rest"),
-                                  selected = "Threatened")
-                      ),
-                      
-               column(4,
-                      plotlyOutput('x3', height = 300)),
-               column(3, 
-                      plotOutput('xspider', height = 300)),
-               column(3,
-                      plotlyOutput('xthreatbar', height = 300))
-             ),
-         
-                
-                      # fluidRow(
-                      #   column(6,
-                      #          sliderInput(
-                      #            inputId = "sld21_ChallengeIndex",
-                      #            label="Challenge index:", 
-                      #            min=min(CL2sp@data$ChallengeIndex,na.rm=T), max=max(CL2sp@data$ChallengeIndex,na.rm=T),
-                      #            value=c(min(CL2sp@data$ChallengeIndex,na.rm=T),max(CL2sp@data$ChallengeIndex,na.rm=T)), 
-                      #            step=0.1,round=1),
-                      #          sliderInput(
-                      #            inputId = "sld22_OpportunityIndex",
-                      #            label="Opportunity index:", 
-                      #            min=min(CL2sp@data$OpportunityIndex,na.rm=T), max=max(CL2sp@data$OpportunityIndex,na.rm=T),
-                      #            value=c(min(CL2sp@data$OpportunityIndex,na.rm=T),max(CL2sp@data$OpportunityIndex,na.rm=T)),
-                      #            step=0.1,round=1)
-                      #   ),
-                      #   column(6,
-                      #          sliderInput(
-                      #            inputId = "sld23_CLI",
-                      #            label="Conservation likelihood index:",
-                      #            min=min(CL2sp@data$CLI,na.rm=T), max=max(CL2sp@data$CLI,na.rm=T),
-                      #            value=c(min(CL2sp@data$CLI,na.rm=T),max(CL2sp@data$CLI,na.rm=T)),
-                      #            step=0.1,round=1),
-                      #          sliderInput(
-                      #            inputId = "sld24_Threatened",
-                      #            label="No. threatened species:",
-                      #            min=min(CL2sp@data$Threatened,na.rm=T), max=max(CL2sp@data$Threatened,na.rm=T),
-                      #            value=c(min(CL2sp@data$Threatened,na.rm=T),max(CL2sp@data$Threatened,na.rm=T)),
-                      #            step=1,round=1)
-                      #   )
-                      # )
-              # ),
-              
-             
-             # Bottom panel
-             DT::dataTableOutput("countryTable", width = '100%', height = 200)
-           )
-  ),
-  
   
   ## TAB 5
   tabPanel(title="About",
@@ -765,8 +754,7 @@ server <- function(input, output, session) {
     
   })
   
-  #bottom tab: Species Explorer #### 
-  ## Generate data explorer table
+  ## Generate Species data explorer table
   output$speciestable <- DT::renderDataTable(
     {
       generateNewDT <- function(x){ 
@@ -816,8 +804,271 @@ server <- function(input, output, session) {
     }
 )
   
+  #### TAB 2: Country explorer map and table #### 
   
-  ####TAB 2: Hotspot map and shark MPA details ####
+  # Slider tool to subset data (Defunct)
+  # qSub2 <-  reactive({
+  #   subset <- subset(CL2sp, 
+  #                    CL2sp@data$ChallengeIndex>=input$sld21_ChallengeIndex[1] &
+  #                      CL2sp@data$ChallengeIndex<=input$sld21_ChallengeIndex[2] &
+  #                      CL2sp@data$OpportunityIndex>=input$sld22_OpportunityIndex[1] &
+  #                      CL2sp@data$OpportunityIndex<=input$sld22_OpportunityIndex[2] &
+  #                      CL2sp@data$CLI>=input$sld23_CLI[1] &
+  #                      CL2sp@data$CLI<=input$sld23_CLI[2] &
+  #                      CL2sp@data$Threatened>=input$sld24_Threatened[1] &
+  #                      CL2sp@data$Threatened<=input$sld24_Threatened[2]
+  #   )
+  # })
+  
+  # On the selection of a z axis visiualise the map and the scatterplot
+  observeEvent(input$tab.x3z,{
+    
+    ## 1. Plot the map
+    output$mapCounty <- renderLeaflet({
+      
+      zaxis1 <- input$tab.x3z # Select which column to visualise on the map
+      zcols1 <- colorNumeric(palette="viridis", 
+                             domain=CL2sp@data[zaxis1])
+      
+      leaflet(data = CL2sp) %>%     
+        setView(lng = 0, lat = 0,  zoom = 1) %>% 
+        addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
+        addPolygons(smoothFactor = 0.2,
+                    #fill=TRUE,weight = 0, 
+                    stroke = FALSE,
+                    opacity = 1.0, fillOpacity = 0.6,
+                    color = ~zcols1(CL2sp[[zaxis1]])
+        )
+    })
+    
+    ## 2. Generate the scatterplot
+    plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
+                          CL2sp@data[input$tab.x3x],
+                          CL2sp@data[input$tab.x3y],
+                          CL2sp@data[input$tab.x3z])
+    plot.df <- na.omit(plot.df) # Remove NAs for plotting
+    colnames(plot.df) <- c('Name','x','y','z')     # Add column names
+    
+    ### Add legend title
+    legendtitle <- list(yref='paper',
+                        xref='paper',
+                        y=1,x=1,
+                        text=input$tab.x3z,
+                        showarrow=F)
+    
+    l <- list(
+      font = list(
+        family = "sans-serif",
+        size = 12,
+        color = "#000"),
+      bgcolor = "#E2E2E2",
+      bordercolor = "#FFFFFF",
+      borderwidth = 2)
+    
+    ### Do a plotly scatter plot to visualize the two features
+    ### Note the use of 'source' argument
+    output$x3 <- renderPlotly({
+      plotly_scat <- plot_ly(data = plot.df, 
+                             x = ~x, y = ~y, 
+                             text = ~Name,
+                             color = ~z, size = ~z, 
+                             #alpha=0.4,
+                             hoverinfo = "text",
+                             mode = "markers", 
+                             type = "scatter", 
+                             source = "subset") 
+      plotly_scat %>%
+        layout(xaxis = list(title = input$tab.x3x),
+               yaxis = list(title = input$tab.x3y),
+               annotations = legendtitle)
+      #legend = list(orientation = "h"))#,     
+      #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
+      #dragmode =  "select"
+    })
+  })
+  
+  ## 3. Country Explorer table
+  output$countryTable <- DT::renderDataTable(
+    {
+      generateNewDT <- function(x){ 
+        
+        #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
+        output_dt <- DT::datatable(x, 
+                                   options=list(
+                                     pageLength = 5, # number of rows per page
+                                     scrollX = TRUE,
+                                     autoWidth = TRUE,
+                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
+                                     columnDefs = list(list(#width = '50px', 
+                                       targets = 1,
+                                       render = JS(
+                                         "function(data, type, row, meta) {",
+                                         "return type === 'display' && data.length > 30 ?",
+                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
+                                         "}")
+                                     ))), 
+                                   caption = 'Search country information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
+                                   #filter = 'top', 
+                                   selection = 'single', # selects only one row at a time
+                                   rownames = FALSE,  # no row names
+                                   colnames=c("EEZ", 
+                                              "Territory",
+                                              "ISO",
+                                              "Sovereign",
+                                              "Area (km2)",
+                                              'Economic vulnerability', 
+                                              'Dependence on marine resources', 
+                                              'Education',
+                                              'Tourism',
+                                              'Corruption',
+                                              'Challenge index',
+                                              'Opportunity index',
+                                              'Conservation likelihood index',
+                                              'No. shark and ray species',
+                                              'No. theatened species',
+                                              'Critically endangered species',
+                                              'Endangered species',
+                                              'Vulnerable species',
+                                              'Non-threatened species'),
+                                   callback = JS('table.page(3).draw(false);'),
+                                   
+                                   #initComplete = JS(
+                                   #  "function(settings, json) {",
+                                   #  "$(this.api().table().header()).css({'font-size': '90%'});",
+                                   #  "}"),
+                                   #class = 'white-space: nowrap', # stops wrapping of rows
+                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
+        )
+        #formatStyle(columns = c(1:10), fontSize = '80%')
+        
+        return(output_dt)
+      }
+      generateNewDT(CL2sp@data) # Generate the DT based on the SpatialPolygonsDF
+      #generateNewDT(qSub2()@data) # Generate the DT based on the SpatialPolygonsDF
+    })
+  
+  ## Based on the Rows selected from the Country Explorer table, modify existing plots
+  observeEvent(input$countryTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
+    x <- input$countryTable_rows_selected           # Test: Assign the row number of the species to display
+    newdata <- CL2sp[x,] # Select DT row from the SpatialPolygonsDF 
+    sNAME <- newdata@data[,1] # Select Country name
+    
+    ## 1. highlight country on map
+    proxy4 <- leafletProxy("mapCounty")
+    proxy4 %>% 
+      addPolygons(layerId ="layer1",
+                  data=newdata,
+                  fill = FALSE, stroke = TRUE, weight=3,
+                  color = 'red',
+                  group = "MPAs") %>% 
+      mapOptions(zoomToLimits = "first")
+    
+    ## 2. RE-Generate the scatterplot
+    
+    #Where to plot X and Ys for scatter plot
+    xaxiscol <- as.integer(newdata@data[input$tab.x3x])
+    yaxiscol <- as.integer(newdata@data[input$tab.x3y])
+    
+    if(!is.na(xaxiscol) & !is.na(yaxiscol)){
+      # Top right panel - 
+      plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
+                            CL2sp@data[input$tab.x3x],
+                            CL2sp@data[input$tab.x3y],
+                            CL2sp@data[input$tab.x3z])
+      plot.df <- na.omit(plot.df) # Remove NAs for plotting
+      colnames(plot.df) <- c('Name','x','y','z')     # Add column names
+      
+      output$x3 <- renderPlotly({
+        plotly_scat2 <- plot_ly(data = plot.df, 
+                                x = ~x, y = ~y, 
+                                text = ~Name,
+                                color = ~z, size = ~z, 
+                                hoverinfo = "text",
+                                mode = "markers", 
+                                type = "scatter", 
+                                source = "subset") %>%
+          layout(xaxis = list(title = input$tab.x3x),
+                 yaxis = list(title = input$tab.x3y))
+        plotly_scat2 %>%
+          #layout(annotations = a)
+          add_annotations(
+            x = as.numeric(newdata@data[input$tab.x3x]),
+            y = as.numeric(newdata@data[input$tab.x3y]),
+            text = sNAME,
+            xref = "x",
+            yref = "y",
+            ax = 20,
+            ay = -20,
+            xanchor = 'left',
+            showarrow = T,
+            arrowcolor = 'rgba(222,45,38,1)',
+            # Styling annotations' text:
+            font = list(color = 'rgba(222,45,38,1)',
+                        size = 12)
+          )
+        #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
+        #dragmode =  "select",
+        #plot_bgcolor = "6A446F")})
+      })
+      
+    }
+    
+    ## 4. Generate the radar plot
+    ### Create socionomic df
+    socioEEZ <- CL2sp@data %>%
+      filter(GeoName==sNAME)%>%
+      select(Corruption,
+             EconomicVulnerability,
+             Tourism,
+             DependMarineResource,
+             Education)
+    socioEEZ_df <- rbind(iMax,iMin,socioEEZ) # add the max and min of each topic to show on the plot
+    
+    output$xspider <- renderPlot({
+      par(mar = c(0, 0, 0, 0))
+      radarchart(socioEEZ_df, axistype=1, # fmsb package
+                 pcol=rgb(0.2,0.5,0.5,0.9), pfcol=rgb(0.2,0.5,0.5,0.5), plwd=4, #custom polygon
+                 cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,#custom the grid
+                 vlcex=1.1,
+                 na.itp=F
+      ) #custom labels 
+    })
+    
+    ## 5. Create species threat status barplot
+    specEEZ <- CL2sp@data %>%
+      filter(GeoName==sNAME)%>%
+      select(Nospecies,
+             Threatened,
+             CR,
+             EN,
+             VU) 
+    specEEZ_df <- data.frame(x = c("All species","Threatened","CR","EN","VU"), 
+                             y=as.integer(specEEZ))
+    
+    specEEZ_df$x <- factor(specEEZ_df$x, levels = c("All species","Threatened","CR","EN","VU"))
+    
+    
+    ## Threat status of Species barplot
+    output$xthreatbar <- renderPlotly({
+      pspec <- plot_ly(specEEZ_df, 
+                       x = ~x, y = ~y, type = 'bar',
+                       marker = list(color = c('rgba(204,204,204,1)', 'rgba(254,232,200,0.8)',
+                                               'rgba(222,45,38,1)', 'rgba(252,146,114,1)', 
+                                               'rgba(254,224,210,1)'))
+      ) 
+      pspec %>%
+        layout(title = list(text= sNAME,
+                            font=list(size=12)),
+               xaxis = list(title = ""),
+               yaxis = list(title = "")
+        )
+    })
+    
+    
+    
+  })
+  
+  #### TAB 3: Hotspot map and shark MPA details ####
   
   # Arrange data in format for plots and mapping
   lats <- SharkMPAs_coords[,"Lat"]
@@ -1066,7 +1317,7 @@ server <- function(input, output, session) {
   })
   
   
-  ####TAB 3:  Interactive Plot containing species counts in zones ####
+  #### TAB 4:  Interactive Plot containing species counts in zones ####
   output$plot <- renderPlotly({
     
     # select what data to visualise
@@ -1190,287 +1441,7 @@ server <- function(input, output, session) {
     
   })
  
-  
-  #### TAB 4: Country explorer map and table #### 
-  
-  # Slider tool to subset data (Defunct)
-  # qSub2 <-  reactive({
-  #   subset <- subset(CL2sp, 
-  #                    CL2sp@data$ChallengeIndex>=input$sld21_ChallengeIndex[1] &
-  #                      CL2sp@data$ChallengeIndex<=input$sld21_ChallengeIndex[2] &
-  #                      CL2sp@data$OpportunityIndex>=input$sld22_OpportunityIndex[1] &
-  #                      CL2sp@data$OpportunityIndex<=input$sld22_OpportunityIndex[2] &
-  #                      CL2sp@data$CLI>=input$sld23_CLI[1] &
-  #                      CL2sp@data$CLI<=input$sld23_CLI[2] &
-  #                      CL2sp@data$Threatened>=input$sld24_Threatened[1] &
-  #                      CL2sp@data$Threatened<=input$sld24_Threatened[2]
-  #   )
-  # })
- 
-  # On the selection of a z axis visiualise the map and the scatterplot
-  observeEvent(input$tab.x3z,{
-    
-    ## 1. Plot the map
-    output$mapCounty <- renderLeaflet({
-      
-      zaxis1 <- input$tab.x3z # Select which column to visualise on the map
-      zcols1 <- colorNumeric(palette="viridis", 
-                    domain=CL2sp@data[zaxis1])
-      
-      leaflet(data = CL2sp) %>%     
-        setView(lng = 0, lat = 0,  zoom = 1) %>% 
-        addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
-        addPolygons(smoothFactor = 0.2,
-                    #fill=TRUE,weight = 0, 
-                    stroke = FALSE,
-                    opacity = 1.0, fillOpacity = 0.6,
-                    color = ~zcols1(CL2sp[[zaxis1]])
-        )
-    })
-    
-    ## 2. Generate the scatterplot
-    plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
-                          CL2sp@data[input$tab.x3x],
-                          CL2sp@data[input$tab.x3y],
-                          CL2sp@data[input$tab.x3z])
-    plot.df <- na.omit(plot.df) # Remove NAs for plotting
-    colnames(plot.df) <- c('Name','x','y','z')     # Add column names
-    
-    ### Add legend title
-    legendtitle <- list(yref='paper',
-                        xref='paper',
-                        y=1,x=1,
-                        text=input$tab.x3z,
-                        showarrow=F)
-    
-    l <- list(
-      font = list(
-        family = "sans-serif",
-        size = 12,
-        color = "#000"),
-      bgcolor = "#E2E2E2",
-      bordercolor = "#FFFFFF",
-      borderwidth = 2)
-    
-    ### Do a plotly scatter plot to visualize the two features
-    ### Note the use of 'source' argument
-    output$x3 <- renderPlotly({
-      plotly_scat <- plot_ly(data = plot.df, 
-                             x = ~x, y = ~y, 
-                             text = ~Name,
-                             color = ~z, size = ~z, 
-                             #alpha=0.4,
-                             hoverinfo = "text",
-                             mode = "markers", 
-                             type = "scatter", 
-                             source = "subset") 
-      plotly_scat %>%
-        layout(xaxis = list(title = input$tab.x3x),
-               yaxis = list(title = input$tab.x3y),
-               annotations = legendtitle)
-               #legend = list(orientation = "h"))#,     
-      #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
-      #dragmode =  "select"
-    })
-  })
-  
-  ## 3. Country Explorer table
-  output$countryTable <- DT::renderDataTable(
-    {
-      generateNewDT <- function(x){ 
-        
-        #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-        output_dt <- DT::datatable(x, 
-                                   options=list(
-                                     pageLength = 5, # number of rows per page
-                                     scrollX = TRUE,
-                                     autoWidth = TRUE,
-                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
-                                     columnDefs = list(list(#width = '50px', 
-                                       targets = 1,
-                                       render = JS(
-                                         "function(data, type, row, meta) {",
-                                         "return type === 'display' && data.length > 30 ?",
-                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
-                                         "}")
-                                     ))), 
-                                   caption = 'Search country information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
-                                   #filter = 'top', 
-                                   selection = 'single', # selects only one row at a time
-                                   rownames = FALSE,  # no row names
-                                   colnames=c("EEZ", 
-                                              "Territory",
-                                              "ISO",
-                                              "Sovereign",
-                                              "Area (km2)",
-                                              'Economic vulnerability', 
-                                              'Dependence on marine resources', 
-                                              'Education',
-                                              'Tourism',
-                                              'Corruption',
-                                              'Challenge index',
-                                              'Opportunity index',
-                                              'Conservation likelihood index',
-                                              'No. shark and ray species',
-                                              'No. theatened species',
-                                              'Critically endangered species',
-                                              'Endangered species',
-                                              'Vulnerable species',
-                                              'Non-threatened species'),
-                                   callback = JS('table.page(3).draw(false);'),
-                                   
-                                   #initComplete = JS(
-                                   #  "function(settings, json) {",
-                                   #  "$(this.api().table().header()).css({'font-size': '90%'});",
-                                   #  "}"),
-                                   #class = 'white-space: nowrap', # stops wrapping of rows
-                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
-        )
-        #formatStyle(columns = c(1:10), fontSize = '80%')
-        
-        return(output_dt)
-      }
-      generateNewDT(CL2sp@data) # Generate the DT based on the SpatialPolygonsDF
-      #generateNewDT(qSub2()@data) # Generate the DT based on the SpatialPolygonsDF
-    }
-  )
-  
-  ## Based on the Rows selected from the Country Explorer table, modify existing plots
-  observeEvent(input$countryTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
-    x <- input$countryTable_rows_selected           # Test: Assign the row number of the species to display
-    newdata <- CL2sp[x,] # Select DT row from the SpatialPolygonsDF 
-    sNAME <- newdata@data[,1] # Select Country name
-    
-    ## 1. highlight country on map
-    proxy4 <- leafletProxy("mapCounty")
-    proxy4 %>% 
-      addPolygons(layerId ="layer1",
-                  data=newdata,
-                  fill = FALSE, stroke = TRUE, weight=3,
-                  color = 'red',
-                  group = "MPAs") %>% 
-      mapOptions(zoomToLimits = "first")
-    
-    ## 2. RE-Generate the scatterplot
-    
-    #Where to plot X and Ys for scatter plot
-    xaxiscol <- as.integer(newdata@data[input$tab.x3x])
-    yaxiscol <- as.integer(newdata@data[input$tab.x3y])
-    
-    if(!is.na(xaxiscol) & !is.na(yaxiscol)){
-      # Top right panel - 
-      plot.df <- data.frame(CL2sp@data[,1],  ## Create a convenience data.frame which can be used for charting
-                            CL2sp@data[input$tab.x3x],
-                            CL2sp@data[input$tab.x3y],
-                            CL2sp@data[input$tab.x3z])
-      plot.df <- na.omit(plot.df) # Remove NAs for plotting
-      colnames(plot.df) <- c('Name','x','y','z')     # Add column names
-      
-      output$x3 <- renderPlotly({
-        plotly_scat2 <- plot_ly(data = plot.df, 
-                                x = ~x, y = ~y, 
-                                text = ~Name,
-                                color = ~z, size = ~z, 
-                                hoverinfo = "text",
-                                mode = "markers", 
-                                type = "scatter", 
-                                source = "subset") %>%
-          layout(xaxis = list(title = input$tab.x3x),
-                 yaxis = list(title = input$tab.x3y))
-        plotly_scat2 %>%
-          #layout(annotations = a)
-          add_annotations(
-            x = as.numeric(newdata@data[input$tab.x3x]),
-            y = as.numeric(newdata@data[input$tab.x3y]),
-            text = sNAME,
-            xref = "x",
-            yref = "y",
-            ax = 20,
-            ay = -20,
-            xanchor = 'left',
-            showarrow = T,
-            arrowcolor = 'rgba(222,45,38,1)',
-            # Styling annotations' text:
-            font = list(color = 'rgba(222,45,38,1)',
-                        size = 12)
-          )
-        #title = paste(input$input$tab.x3x, "vs ", input$tab.x3y),
-        #dragmode =  "select",
-        #plot_bgcolor = "6A446F")})
-      })
-      
-    }
-    
-    ## 4. Generate the radar plot
-    
-    ### Create socionomic df
-    socioEEZ <- CL2sp@data %>%
-      filter(GeoName==sNAME)%>%
-      select(Corruption,
-             EconomicVulnerability,
-             Tourism,
-             DependMarineResource,
-             Education)
-    socioEEZ_df <- rbind(iMax,iMin,socioEEZ) # add the max and min of each topic to show on the plot
-    
-    output$xspider <- renderPlot({
-      par(mar = c(0, 0, 0, 0))
-      radarchart(socioEEZ_df, axistype=1, # fmsb package
-                 pcol=rgb(0.2,0.5,0.5,0.9), pfcol=rgb(0.2,0.5,0.5,0.5), plwd=4, #custom polygon
-                 cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,#custom the grid
-                 vlcex=1.1,
-                 na.itp=F
-      ) #custom labels 
-    })
-    
-    ## 5. Create species threat status barplot
-    specEEZ <- CL2sp@data %>%
-      filter(GeoName==sNAME)%>%
-      select(Nospecies,
-             Threatened,
-             CR,
-             EN,
-             VU) 
-    specEEZ_df <- data.frame(x = c("All species","Threatened","CR","EN","VU"), 
-                             y=as.integer(specEEZ))
-    
-    specEEZ_df$x <- factor(specEEZ_df$x, levels = c("All species","Threatened","CR","EN","VU"))
-    
-    
-    ## Threat status of Species barplot
-    output$xthreatbar <- renderPlotly({
-      pspec <- plot_ly(specEEZ_df, 
-                       x = ~x, y = ~y, type = 'bar',
-                       marker = list(color = c('rgba(204,204,204,1)', 'rgba(254,232,200,0.8)',
-                                               'rgba(222,45,38,1)', 'rgba(252,146,114,1)', 
-                                               'rgba(254,224,210,1)'))
-      ) 
-      pspec %>%
-        layout(title = list(text= sNAME,
-                            font=list(size=12)),
-               xaxis = list(title = ""),
-               yaxis = list(title = "")
-        )
-    })
-    
-    
-    
-  }
-  
-  
-  )
 
-
-
-  #   
-  #   # Put in catch statement to remove missing counrties
-  #   if(is.na(as.integer(yaxiscol))==FALSE & is.na(as.integer(xaxiscol))==FALSE){
-  #   
-  #     )
-  #   }
-  #     
-  # })
-  # 
 }
 
 ##############################################################

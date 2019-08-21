@@ -2,7 +2,7 @@
 # Objective: Count the number of species layers falling within a polygon region
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
-# Date: 24/04/18
+# Date: 22/01/18
 
 library(sp)
 library(rgeos)
@@ -12,46 +12,17 @@ library(plotly)
 library(leaflet)
 library(rgdal)
 
-# 0. subset the species rasters according to threat status
-
-## Load the Species data 
-Speciesdata <- read.csv("Data/datatable containing species names and IUCN categories.csv")
-
-## Which row numbers are threatened species??
-iCRENVU <- Speciesdata %>%
-  which(code=="CR" | code=="EN" | code=="VU")
-
-iCREN <- Speciesdata %>%
-  which(code=="CR" | code=="EN")
-
-iCR <- Speciesdata %>%
-  which(code=="CR")
-
-## Load the raster 
+# First run it on the EEZs
+EEZ <- readOGR("GIS/World_EEZ_v9_20161021","eez")
 specrast <- brick("GIS/multilayerspecrast.tif")
 
-## Generate the subsetted list objects
-specrast_CRENVU <- specrast_CRENVU[iCRENVU]
-specrast_CREN <- specrast_CRENVU[iCREN]
-specrast_CR <- specrast_CRENVU[iCR]
-
-
-##################
-#1. run it on the EEZs
-
-## Load the EEZs
-EEZ <- readOGR("GIS/World_EEZ_v9_20161021","eez")
 EEZ@data
 
-## plot the data to make sure it loaded ok
 plot(EEZ[1,])
 plot(specrast[[8]],add=TRUE)
 
-plot(EEZ[1,])
-plot(specrast_CRENVU[1],add=TRUE)
-
-## 1.1 - run it for all sharks and rays
 Nospecies <- rep(0,nrow(EEZ)) 
+
 for(i in 1:nrow(EEZ)){
   print(paste0(i," out of ",nrow(EEZ)))
   mr <- crop(specrast, EEZ[i,])
@@ -59,64 +30,56 @@ for(i in 1:nrow(EEZ)){
   mr[is.na(mr)] <- 0
   Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
 }
+
 EEZ_spec <- data.frame(EEZ@data,Nospecies)
 write.csv(EEZ_spec,"Data/Sharks and rays in EEZs.csv",row.names=FALSE)
 
-## 1.2 - run it for all threatened sharks and rays (CR, EN, VU)
-Nospecies <- rep(0,nrow(EEZ)) 
-for(i in 1:nrow(EEZ)){
-  print(paste0(i," out of ",nrow(EEZ)))
-  mr <- crop(specrast_CRENVU, EEZ[i,])
-  mr <- mask(mr, EEZ[i,])
+##################
+
+# Second run it on the Ocean basins
+Oceans <- readOGR("GIS/ne_10m_geography_marine_polys","ne_10m_geography_marine_polys")
+#specrast <- brick("GIS/multilayerspecrast.tif")
+
+Oceans@data
+
+plot(Oceans[2,])
+plot(specrast[[8]],add=TRUE)
+
+Nospecies <- rep(0,nrow(Oceans)) 
+
+for(i in 1:nrow(Oceans)){
+  print(paste0(i," out of ",nrow(Oceans)))
+  mr <- crop(specrast, Oceans[i,])
+  mr <- mask(mr, Oceans[i,])
   mr[is.na(mr)] <- 0
   Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
 }
-EEZ_spec_CRENVU <- data.frame(EEZ@data,Nospecies)
-write.csv(EEZ_spec_CRENVU,"Data/Sharks and rays in EEZs_CRENVU.csv",row.names=FALSE)
 
-## 1.3 - run it for all CR and EN sharks and rays
-Nospecies <- rep(0,nrow(EEZ)) 
-for(i in 1:nrow(EEZ)){
-  print(paste0(i," out of ",nrow(EEZ)))
-  mr <- crop(specrast_CREN, EEZ[i,])
-  mr <- mask(mr, EEZ[i,])
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-EEZ_spec_CREN <- data.frame(EEZ@data,Nospecies)
-write.csv(EEZ_spec_CREN,"Data/Sharks and rays in EEZs_CREN.csv",row.names=FALSE)
-
-## 1.4 - run it for all CR and EN sharks and rays
-Nospecies <- rep(0,nrow(EEZ)) 
-for(i in 1:nrow(EEZ)){
-  print(paste0(i," out of ",nrow(EEZ)))
-  mr <- crop(specrast_CREN, EEZ[i,])
-  mr <- mask(mr, EEZ[i,])
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-EEZ_spec_CREN <- data.frame(EEZ@data,Nospecies)
-write.csv(EEZ_spec_CREN,"Data/Sharks and rays in EEZs_CREN.csv",row.names=FALSE)
-
+Oceans_spec <- data.frame(Oceans@data,Nospecies)
+write.csv(Oceans_spec,"Data/Sharks and rays in Oceans.csv",row.names=FALSE)
 
 ##################
 
-# 2. run it on FAO Major Fishing areas
+# Third run it on FAO Major Fishing areas
 FAO <- readOGR("GIS/FAO_AREAS","FAO_AREAS")
+specrast <- brick("GIS/multilayerspecrast.tif")
 FAO@data
 
-## Merge file with the english and french names found in 
-## http://www.fao.org/fishery/area/search/en
+## Merge file with the enlish and french names found in 
+# http://www.fao.org/fishery/area/search/en
 F_AREA <- read.csv('Data/Capture_2017.1.1/CL_FI_AREA_GROUPS.csv')  
 names(F_AREA)[1] <- "F_AREA"
+
 FAO2 <- merge(FAO,F_AREA)
 FAO2 <- FAO2[order(FAO2$FID),] # reorder object according to FID following merge 
+
+names(F_AREA)
 
 plot(FAO2[2,])
 plot(specrast[[8]],add=TRUE)
 
-## 2.1 - run it for all sharks and rays
 Nospecies <- rep(0,nrow(FAO2)) 
+
 for(i in 1:nrow(FAO2)){
   print(paste0(i," out of ",nrow(FAO2)))
   mr <- crop(specrast, FAO2[i,])
@@ -124,94 +87,106 @@ for(i in 1:nrow(FAO2)){
   mr[is.na(mr)] <- 0
   Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
 }
+
 FAO_spec <- data.frame(FAO2@data,Nospecies)
 write.csv(FAO_spec,"Data/Sharks and rays in FAO regions.csv",row.names=FALSE)
 
-## 2.1 - run it for all threatened sharks and rays (CR, EN, VU)
-Nospecies <- rep(0,nrow(FAO2)) 
-for(i in 1:nrow(FAO2)){
-  print(paste0(i," out of ",nrow(FAO2)))
-  mr <- crop(specrast_CRENVU, FAO2[i,])
-  mr <- mask(mr, FAO2[i,])
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-FAO_spec_CRENVU <- data.frame(FAO2@data,Nospecies)
-write.csv(FAO_spec_CRENVU,"Data/Sharks and rays in FAO regions_CRENVU.csv",row.names=FALSE)
+##merge the MAJOR spatial.polydf with the species counts df
+FAO_CRENVU_df <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
+FAO_CRENVU_df <- FAO_CRENVU_df[order(FAO_CRENVU_df[,"FID_1"]),] # reorder so in the correct format for merging
+row.names(FAO_CRENVU_df) <- FAO_CRENVU_df$FID_1
+#remove duplicate columns
+FAO_CRENVU_df <- FAO_CRENVU_df %>%
+  select("F_CODE","Name_en","Nospecies","CR","EN","VU","rest")
 
-## 2.2 - run it for all threatened sharks and rays (CR, EN)
-Nospecies <- rep(0,nrow(FAO2)) 
-for(i in 1:nrow(FAO2)){
-  print(paste0(i," out of ",nrow(FAO2)))
-  mr <- crop(specrast_CREN, FAO2[i,])
-  mr <- mask(mr, FAO2[i,])
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-FAO_spec_CREN <- data.frame(FAO2@data,Nospecies)
-write.csv(FAO_spec_CREN,"Data/Sharks and rays in FAO regions_CREN.csv",row.names=FALSE)
+FAO_Major <- subset(FAO,F_LEVEL=="MAJOR")
+FAO_Major <- FAO_Major[order(FAO_Major@data[,"FID"]),]
+row.names(FAO_Major@data) <- NULL
 
-## 2.3 - run it for all critically endangered sharks and rays (CR)
-Nospecies <- rep(0,nrow(FAO2)) 
-for(i in 1:nrow(FAO2)){
-  print(paste0(i," out of ",nrow(FAO2)))
-  mr <- crop(specrast_CR, FAO2[i,])
-  mr <- mask(mr, FAO2[i,])
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-FAO_spec_CR <- data.frame(FAO2@data,Nospecies)
-write.csv(FAO_spec_CR,"Data/Sharks and rays in FAO regions_CR.csv",row.names=FALSE)
+FAO_CRENVU_spdf <- sp::merge(x= FAO_Major, y=FAO_CRENVU_df)
+FAO_CRENVU_spdf@data <- FAO_CRENVU_spdf@data %>%
+  select("FID","F_CODE","Name_en","OCEAN","SUBOCEAN","F_AREA","SURFACE","Nospecies","CR","EN","VU","rest")
+row.names(FAO_CRENVU_spdf@data) <- NULL
+
+writeOGR(FAO_CRENVU_spdf,"GIS","simplifiedFAO_counts", driver="ESRI Shapefile")
+
+
+##merge the SUBAREAS spatial.polydf with the species counts df
+FAO_Sub_CRENVU_df <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
+FAO_Sub_CRENVU_df <- FAO_Sub_CRENVU_df[order(FAO_Sub_CRENVU_df[,"FID_1"]),] # reorder so in the correct format for merging
+row.names(FAO_Sub_CRENVU_df) <- FAO_Sub_CRENVU_df$FID_1
+#remove duplicate columns
+FAO_Sub_CRENVU_df <- FAO_Sub_CRENVU_df %>%
+  select("F_CODE","Name_en","Nospecies","CR","EN","VU","rest")
+
+FAO_Subarea <- subset(FAO,F_LEVEL=="SUBAREA")
+FAO_Subarea <- FAO_Subarea[order(FAO_Subarea@data[,"FID"]),]
+row.names(FAO_Subarea@data) <- NULL
+
+FAO_Sub_CRENVU_spdf <- sp::merge(x= FAO_Subarea, y=FAO_Sub_CRENVU_df)
+FAO_Sub_CRENVU_spdf@data <- FAO_Sub_CRENVU_spdf@data %>%
+  select("FID","F_CODE","Name_en","OCEAN","SUBOCEAN","F_AREA","SURFACE","Nospecies","CR","EN","VU","rest")
+row.names(FAO_Sub_CRENVU_spdf@data) <- NULL
+
+writeOGR(FAO_Sub_CRENVU_spdf,"GIS","simplifiedFAO_subarea_counts", driver="ESRI Shapefile")
 
 ##################
 
-# 3. run it on Large Marine Ecosystems
+# Fourth run it on Large Marine Ecosystems
 LMEcos <- readOGR("GIS/LME66","LME66")
+specrast <- brick("GIS/multilayerspecrast.tif")
+LMEcos@data
 
-## 3.1 - run it for all sharks and rays
+names(LMEcos)
+
+plot(specrast[[8]])
+plot(LMEcos[2,],add=TRUE)
+
 Nospecies <- rep(0,nrow(LMEcos)) 
+
 for(i in 1:nrow(LMEcos)){
   print(paste0(i," out of ",nrow(LMEcos)))
   mr <- crop(specrast, LMEcos[i,])
-  mr <- mask(mr, LMEcos)
+  mr <- mask(mr, LMEcos[i,])
   mr[is.na(mr)] <- 0
   Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
 }
+
 LME_spec <- data.frame(LMEcos@data,Nospecies)
 write.csv(LME_spec,"Data/Sharks and rays in Large Marine Ecosystems.csv",row.names=FALSE)
 
-## 3.2 - run it for all CR EN and VU sharks and rays
-Nospecies <- rep(0,nrow(LMEcos)) 
-for(i in 1:nrow(LMEcos)){
-  print(paste0(i," out of ",nrow(LMEcos)))
-  mr <- crop(specrast_CRENVU, LMEcos[i,])
-  mr <- mask(mr, LMEcos)
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-LME_spec_CRENVU <- data.frame(LMEcos@data,Nospecies)
-write.csv(LME_spec_CRENVU,"Data/Sharks and rays in Large Marine Ecosystems_CRENVU.csv",row.names=FALSE)
+library("rgeos")
+LME_gSimplify <- gSimplify(LMEcos, tol = 0.05, topologyPreserve = TRUE)
 
-## 3.3 - run it for all CR and EN sharks and rays
-Nospecies <- rep(0,nrow(LMEcos)) 
-for(i in 1:nrow(LMEcos)){
-  print(paste0(i," out of ",nrow(LMEcos)))
-  mr <- crop(specrast_CREN, LMEcos[i,])
-  mr <- mask(mr, LMEcos)
-  mr[is.na(mr)] <- 0
-  Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
-}
-LME_spec_CREN <- data.frame(LMEcos@data,Nospecies)
-write.csv(LME_spec_CREN,"Data/Sharks and rays in Large Marine Ecosystems_CREN.csv",row.names=FALSE)
+##gSimplify doesn't preserve the @data frame, though, so we should re-create it:
+LME_CRENVU_df <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
+LME_CRENVU_gSimplify <- sp::SpatialPolygonsDataFrame(LME_gSimplify, LME_CRENVU_df,match.ID = F) 
 
-## 3.4 - run it for all CR and EN sharks and rays
-Nospecies <- rep(0,nrow(LMEcos)) 
-for(i in 1:nrow(LMEcos)){
-  print(paste0(i," out of ",nrow(LMEcos)))
-  mr <- crop(specrast_CR, LMEcos[i,])
-  mr <- mask(mr, LMEcos)
+writeOGR(LME_CRENVU_gSimplify,"GIS","simplifiedLME66", driver="ESRI Shapefile")
+##################
+
+# Fifth run it on MPAs (added 15 Aug 2019)
+MPAcos <- readOGR("GIS","MPA_Atlas_20190619")
+specrast <- brick("GIS/multilayerspecrast.tif")
+MPAcos@data
+
+names(MPAcos)
+
+plot(specrast[[8]])
+plot(MPAcos[3,],add=TRUE)
+
+Nospecies <- rep(0,nrow(MPAcos)) 
+
+for(i in 1:nrow(MPAcos)){
+  print(paste0(i," out of ",nrow(MPAcos)))
+  mr <- crop(specrast, MPAcos[i,])
+  mr <- mask(mr, MPAcos[i,])
   mr[is.na(mr)] <- 0
   Nospecies[i] <- sum(cellStats(mr,max),na.rm=TRUE)
 }
-LME_spec_CR <- data.frame(LMEcos@data,Nospecies)
-write.csv(LME_spec_CR,"Data/Sharks and rays in Large Marine Ecosystems_CR.csv",row.names=FALSE)
+
+MPA_spec <- data.frame(MPAcos@data,Nospecies)
+write.csv(MPA_spec,"Data/Sharks and rays in MPAs.csv",row.names=FALSE)
+
+
+

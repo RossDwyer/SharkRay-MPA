@@ -372,7 +372,7 @@ ui <- navbarPage(
              # Conditional panel if rows HAVE NOT been selected from the species data table, show text
              conditionalPanel(
                condition = "input.speciestable_rows_selected < 1",
-               fluidRow(column(4,helpText("Select a species to visualise the data and to download a report")))),         
+               fluidRow(column(4,helpText("Select from the table below which species to visualise.")))),         
              # Conditional panel if rows HAVE been selected from the species data table, show DOWNLOAD button
              conditionalPanel(
                condition = "input.speciestable_rows_selected >= 1",
@@ -457,35 +457,18 @@ ui <- navbarPage(
                       leafletOutput("mapRegion", width = "100%", height = 350) %>%
                         withSpinner(color="#3182bd"))
              ),
-             
-             # # If MPA selected by radio button, draw the MPA data table
-             # conditionalPanel(
-             #   condition = "input.sSelectRegionDisplay == 'SRANKSDT'",
-             #   DT::dataTableOutput('ranksDT')
-             # ),
-             
-             # If selected draw christmas tree figures
-             #conditionalPanel(
-             #  condition = "input.sSelectRegionDisplay == 'sRegionPlot'",
-             
+   
              # tags$div(class="header", checked=NA,
              #          tags$strong("This plot displays the number of shark and ray species present in marine and coastal regions")),
              # 
-             
-             
-             # radioButtons("sAreaPolygons", "Select which areas to visualise:",
-             #              c("FAO Regions" = "sFAO_count",
-             #                "FAO Subareas" = "sFAOsub_count",
-             #                "Large Marine Ecosystems" = "sLME_count",
-             #                "Exclusive Economic Zones"= "sEEZ_count"),
-             #              inline = TRUE),
              
              fluidRow(
                column(4,
                       # Select which dataset to visualise
                       radioButtons(inputId = "sSelectRegionDisplay",
-                                   label = "Select data to visualise:",
-                                   choices = c("Species in region plot" = "sRegionPlot",
+                                   label = "Show data as:",
+                                   choices = c("Stacked barplot" = "sRegionPlot",
+                                               "Raw data"= "SRANKSDT",
                                                "MPA table"= "SRANKSDT"),
                                    selected = "sRegionPlot",
                                    inline = TRUE)),
@@ -494,9 +477,21 @@ ui <- navbarPage(
                                   label = "Sort the data by the following feature",
                                   choices = list("No Species","Threatened Species","Area"),
                                   selected = "No Species"))),
-             #hr(),
-             plotlyOutput("plot", width = "100%", height = "100%") %>%
-               withSpinner(color="#3182bd"),
+             
+             # If selected draw christmas tree figures
+             conditionalPanel(
+              condition = "input.sSelectRegionDisplay == 'sRegionPlot'",
+              plotlyOutput("plot", width = "100%", height = "100%") %>%
+                withSpinner(color="#3182bd")
+              ),
+             
+             # If MPA selected by radio button, draw the MPA data table
+             conditionalPanel(
+               condition = "input.sSelectRegionDisplay == 'SRANKSDT'",
+               DT::dataTableOutput('ranksDT')
+             ),
+             
+
                
                verbatimTextOutput("event"),
                

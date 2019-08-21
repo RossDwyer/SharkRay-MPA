@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "10-July-2019" ## Date last updated
+DateUpdated <-  "20-Aug-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -357,24 +357,27 @@ ui <- navbarPage(
                                                        "Dispersal distances" = "sDistPlot",
                                                        "Landings per year" = "sSpLandYr"),
                                            selected = "sVulnPlot",
-                                           inline = TRUE))#,
-                    #conditionalPanel(
-                    #  condition = "input.sMakePlots == 'sDistPlot'",
-                    #  selectInput("sMakeDistPlot", 
-                    #              label = "Choose the data to display",
-                    #              choices = list("mark_recap",
-                    #                             "passive",
-                    #                             "satellite"),
-                    #              selected = "mark_recap"))
+                                           inline = TRUE))
              ),
              # Top right panel
              column(8,
                     leafletOutput("mapSpecies", width = '100%',height=350) %>% 
                       withSpinner(color="#3182bd")),
+             br(),  
+             br(), 
+             # Conditional panel if rows HAVE NOT been selected from the species data table, show text
+             conditionalPanel(
+               condition = "input.speciestable_rows_selected < 1",
+               fluidRow(column(4,helpText("Select a species to visualise the data and to download a report")))),         
+             # Conditional panel if rows HAVE been selected from the species data table, show DOWNLOAD button
+             conditionalPanel(
+               condition = "input.speciestable_rows_selected >= 1",
+               fluidRow(column(4,downloadButton('speciesReport', "Download Species Report")))),
+           br(),
+           br(),
              
-             
-             # Bottom panel
-             DT::dataTableOutput("speciestable", width = '100%', height = 200)
+           # Bottom panel
+           DT::dataTableOutput("speciestable", width = '100%', height = 200)
            )
   ),  
   
@@ -802,68 +805,78 @@ server <- function(input, output, session) {
   ## Generate Species data explorer table
   output$speciestable <- DT::renderDataTable(
     {
-      generateNewDT <- function(x){ 
-        
-        #Change the header rows of the shiny datatable (note. only changes the display of the columns, not the underlying names)
-        output_dt <- DT::datatable(x, 
-                                   options=list(
-                                     pageLength = 5, # number of rows per page
-                                     scrollX = TRUE,
-                                     autoWidth = TRUE,
-                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
-                                     columnDefs = list(list(#width = '50px', 
-                                       targets = 1,
-                                       render = JS(
-                                         "function(data, type, row, meta) {",
-                                         "return type === 'display' && data.length > 30 ?",
-                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
-                                         "}")
-                                     ))), 
-                                   caption = 'Search species information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
-                                   filter = 'top', 
-                                   selection = 'single', # selects only one row at a time
-                                   rownames = FALSE,  # no row names
-                                   colnames=c("Species name", 
-                                              "Common names",
-                                              'Order name', 'Family name',
-                                              'Habitat','Disperal data',
-                                              'Vulnerability index', 'Resilience',
-                                              'IUCN threat category', 
-                                              'IUCN web',
-                                              #'Download IUCN assessment',
-                                              'Fishbase web'),
-                                   callback = JS('table.page(3).draw(false);'),
-                                   
-                                   #initComplete = JS(
-                                   #  "function(settings, json) {",
-                                   #  "$(this.api().table().header()).css({'font-size': '90%'});",
-                                   #  "}"),
-                                   #class = 'white-space: nowrap', # stops wrapping of rows
-                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
-        )
-        #formatStyle(columns = c(1:10), fontSize = '80%')
-        
-        return(output_dt)
-      }
-      generateNewDT(cleantable)
+      datatable(cleantable, 
+                options=list(
+                  pageLength = 5, # number of rows per page
+                  scrollX = TRUE,
+                  autoWidth = TRUE,
+                  searchHighlight = TRUE, #Highlight searchesd text with yellow
+                  columnDefs = list(list(#width = '50px', 
+                    targets = 1,
+                    render = JS(
+                      "function(data, type, row, meta) {",
+                      "return type === 'display' && data.length > 30 ?",
+                      "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
+                      "}")
+                  ))), 
+                caption = 'Search species information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
+                filter = 'top', 
+                selection = 'single', # selects only one row at a time
+                rownames = FALSE,  # no row names
+                colnames=c("Species name", 
+                           "Common names",
+                           'Order name', 'Family name',
+                           'Habitat','Disperal data',
+                           'Vulnerability index', 'Resilience',
+                           'IUCN threat category', 
+                           'IUCN web',
+                           #'Download IUCN assessment',
+                           'Fishbase web'),
+                callback = JS('table.page(3).draw(false);'),
+                
+                #initComplete = JS(
+                #  "function(settings, json) {",
+                #  "$(this.api().table().header()).css({'font-size': '90%'});",
+                #  "}"),
+                #class = 'white-space: nowrap', # stops wrapping of rows
+                escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
+      )
+      #formatStyle(columns = c(1:10), fontSize = '80%')
+      
     }
   )
   
-  #### TAB 2: Country explorer map and table #### 
+  ###
+
+  # This generates the species report .html file
+  output$speciesReport <- downloadHandler(
+    # For PDF output, change this to "report.pdf"
+    filename = "species_report.html",
+    content = function(file) {
+      # Copy the report file to a temporary directory before processing it, in
+      # case we don't have write permissions to the current working dir (which
+      # can happen when deployed).
+      tempReport <- file.path(tempdir(), "species_report.Rmd")
+      file.copy("species_report.Rmd", tempReport, overwrite = TRUE)
+      
+      # Set up parameters to pass to Rmd document
+      params <- list(nspeciestable = input[["speciestable_rows_selected"]],
+                     speciesdata = sharkdat,
+                     speciesrast = allspecrast[[input[["speciestable_rows_selected"]]]]
+      )
+      
+      # Knit the document, passing in the `params` list, and eval it in a
+      # child of the global environment (this isolates the code in the document
+      # from the code in this app).
+      rmarkdown::render(tempReport, output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv())
+      )
+    }
+  )
   
-  # Slider tool to subset data (Defunct)
-  # qSub2 <-  reactive({
-  #   subset <- subset(CL2sp, 
-  #                    CL2sp@data$ChallengeIndex>=input$sld21_ChallengeIndex[1] &
-  #                      CL2sp@data$ChallengeIndex<=input$sld21_ChallengeIndex[2] &
-  #                      CL2sp@data$OpportunityIndex>=input$sld22_OpportunityIndex[1] &
-  #                      CL2sp@data$OpportunityIndex<=input$sld22_OpportunityIndex[2] &
-  #                      CL2sp@data$CLI>=input$sld23_CLI[1] &
-  #                      CL2sp@data$CLI<=input$sld23_CLI[2] &
-  #                      CL2sp@data$Threatened>=input$sld24_Threatened[1] &
-  #                      CL2sp@data$Threatened<=input$sld24_Threatened[2]
-  #   )
-  # })
+  
+  #### TAB 2: Country explorer map and table #### 
   
   # On the selection of a z axis visiualise the map and the scatterplot
   observeEvent(input$tab.x3z,{
@@ -1239,7 +1252,7 @@ server <- function(input, output, session) {
   
   # Our Leaflet hotspot map containing order AND iucn category ####
   output$mapRegion <- renderLeaflet({
- 
+    
     leaflet() %>%
       setView(lng = 0, lat = 0,  zoom = 1) %>%
       addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
@@ -1272,7 +1285,7 @@ server <- function(input, output, session) {
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
-            addLayersControl(baseGroups = c("OSM (default)"),       # Layers control
+      addLayersControl(baseGroups = c("OSM (default)"),       # Layers control
                        overlayGroups = c("MPAs","FAO_regions","FAO_subareas"),
                        options = layersControlOptions(collapsed = TRUE)) %>%
       # addControl(html = markerLegendHTML(IconSet = IconSet),

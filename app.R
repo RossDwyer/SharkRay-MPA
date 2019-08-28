@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "20-Aug-2019" ## Date last updated
+DateUpdated <-  "28-Aug-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -34,13 +34,9 @@ library(fmsb)
 # Data
 ##############################################################################
 
-sharkdat <- read.csv("Data/IUCNFishbaseWeb.csv")
+#sharkdat <- read.csv("Data/IUCNFishbaseWeb.csv")
+sharkdat <- read.csv("Data/IUCNFishbaseWebDispersal.csv")
 names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
-
-EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
-FAO_spec <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
-FAOsub_spec <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
-LME_spec <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
 
 ##Loads GIS files: reduced.MPAs,allspecrast,worldmap,orderrast,iucnrast ----
 orderrast <- brick("GIS/ordersum_specrast.tif")
@@ -70,6 +66,11 @@ reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORD
 # FAOs.simpledf <- SpatialPolygonsDataFrame(FAOs.simple, FAOs@data)
 # writeOGR(FAOs.simpledf[1:8],dsn="GIS/FAO_AREAS",layer="FAO_AREAS_simple", driver="ESRI Shapefile",overwrite_layer = TRUE)
 
+EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
+FAO_spec <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
+FAOsub_spec <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
+LME_spec <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
+
 # Load simplified FAO and LME shapefiles for quick loading
 #FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple")
 FAOsimple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
@@ -93,14 +94,21 @@ order.name <- c("CARCHARHINIFORMES",
 sharkdat <- sharkdat %>% 
   mutate(
     web_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-link">iucnredlist.org</a>',web_redlist),
-    assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">PDF</a>',assessment_redlist),
+    #assessment_redlist = sprintf('<a href="%s" target="_blank" class="btn btn-primary">PDF</a>',assessment_redlist),
     web_fishbase = sprintf('<a href="%s" target="_blank" class="btn btn-link">fishbase.org</a>',web_fishbase),
     pointborder = "1"
   ) %>% 
-  select(binomial,CommonName,order_name,family_nam,
+  select(FBname,
+         #CommonName,
+         order_name,family_nam,
+         binomial,
+         Length,
          DemersPelag,Vulnerability,Resilience,
-         code,web_redlist,web_fishbase,pointborder)
+         code,web_redlist,web_fishbase,
+         MarkRecapt_tags,MarkRecapt_mean,MarkRecapt_sd,passive_tags,passive_mean,passive_sd,satellite_tags,satellite_mean,
+         pointborder)
 levels(sharkdat$Resilience) <- c("Very low", "Low", "Medium", "High")
+
 
 #Read in Dispersal distance data
 Df <- read.csv("Data/DispersalKernel_Properties.csv")
@@ -172,9 +180,10 @@ sharkdat$flag <- ifelse(sharkdat$code=='CR','<img src=img/CR.png> </img>',
                                                     '<img src=img/DD.png> </img>')))))
 
 cleantable <- sharkdat %>%
-  select(binomial, 
-         CommonName,
+  select(FBname,
          order_name, family_nam,
+         binomial,
+         Length,
          DemersPelag,
          DispersalKernel,
          Vulnerability,Resilience,
@@ -216,6 +225,7 @@ CL2sp@data$Corruption <- round(CL2sp@data$Corruption, digits=2)
 CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
 CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
 CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
+CL2sp@data$Area_km2 <- round(CL2sp@data$Area_km2, digits=1)
 
 ## Spider / radar plot
 socioeconomic_devel <- CL2sp@data %>%
@@ -834,16 +844,25 @@ server <- function(input, output, session) {
                 filter = 'top', 
                 selection = 'single', # selects only one row at a time
                 rownames = FALSE,  # no row names
-                colnames=c("Species name", 
-                           "Common names",
+                colnames=c("Common name",
                            'Order name', 'Family name',
+                           'Species name',
+                           'Total length (cm)',
                            'Habitat','Disperal data',
                            'Vulnerability index', 'Resilience',
                            'IUCN threat category', 
                            'IUCN web',
                            #'Download IUCN assessment',
                            'Fishbase web'),
-                callback = JS('table.page(3).draw(false);'),
+                callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
+                'Genus and species name', 'Max reported total length (Fishbase)', 'Indicates the particular environment preferred by the species (Fishbase)',
+                'Is there Satellite, Acoustic or Recapture data available?', 
+                'Vulnerability value provided by Fishbase', 'Estimate of sp[ecies resilience from FishBase. Describes the ability of a species population to recover after a perturbance', 'IUCN threat listing'],
+    header = table.columns().header();
+for (var i = 0; i < tips.length; i++) {
+  $(header[i]).attr('title', tips[i]);
+}"),
+                #callback = JS('table.page(3).draw(false);'),
                 
                 #initComplete = JS(
                 #  "function(settings, json) {",
@@ -910,25 +929,34 @@ server <- function(input, output, session) {
                                    "Area.km2", "Territory.name",
                                    "Sovereign","Entire.EEZ",
                                    "Source")],
-                  selection = 'single',
-                  rownames=FALSE,
+                  caption = 'Search country information table',
+                  selection = 'single', # selects only one row at a time
+                  rownames=FALSE,  # no row names 
                   colnames=c("Name", "Date installed",
                              'Area (km2)', 'Territory',
                              'Sovereign', 'Entire EEZ?',
                              'Source'),
                   escape = FALSE,
-                  
                   options = list(dom = 'tpi',
-                                 pageLength =5,
+                                 pageLength =  5,
                                  paging=FALSE,
                                  searching=FALSE,
                                  stateSave = TRUE,
+                                 scrollX = TRUE,#
+                                 autoWidth = TRUE,#
+                                 searchHighlight = TRUE, #Highlight searchesd text with yellow
                                  columnDefs = list(list(className = 'dt-left',
                                                         targets = 0:4)))) %>%
     formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
   
   # Render our Shark MPA df as an interactive DataTable in the shiny app
-  output$ranksDT <- DT::renderDataTable(d1)
+  output$ranksDT <- DT::renderDataTable(d1,
+                                        callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
+                'Genus and species name', 'Max reported total length (Fishbase)'],
+    header = table.columns().header();
+for (var i = 0; i < tips.length; i++) {
+  $(header[i]).attr('title', tips[i]);
+}"))
   
   # create a reactive value that will store the position on a map click
   mapClick <- reactiveValues(clickedMarker=NULL)
@@ -1421,7 +1449,17 @@ server <- function(input, output, session) {
                                               'Endangered species',
                                               'Vulnerable species',
                                               'Non-threatened species'),
-                                   callback = JS('table.page(3).draw(false);'),
+                                   #callback = JS('table.page(3).draw(false);'),
+                                    callback = JS("var tips = ['The Exclusive Economic Zone. Generally a states EEZ extends 200 nautical miles out from its coast except where resulting points would be closer to another country',
+                                    'The territory waters', 'The ISO code',
+                 'The Sovereign nation', 'Area in km2', 'Economic vulnerability score', 'A countrys dependence on marine resources',
+                 'Education score', 'Tourism score', 'Corruption score',
+                 'The Challenge Index from Mizrahi et al 2019', 'The Opportunity Index from Mizrahi et al 2019', 'The Conservartion Likelihood Index from Davidson and Dulvy 2017',
+                 'Number of IUCN species distributions intersecting with a countrys EEZ'],
+    header = table.columns().header();
+for (var i = 0; i < tips.length; i++) {
+  $(header[i]).attr('title', tips[i]);
+}"),
                                    
                                    #initComplete = JS(
                                    #  "function(settings, json) {",

@@ -13,13 +13,17 @@ library(leaflet)
 library(rgdal)
 
 # First run it on the EEZs
-EEZ <- readOGR("GIS/World_EEZ_v9_20161021","eez")
+EEZ <- readOGR("GIS/World_EEZ_v9_20161021","eez") ## Need to update to...
+#EEZ <- readOGR("GIS/World_EEZ_v10_20180221","eez")  ## this
+EEZ_Simp <- readOGR("GIS/eez_v10_mapshaper","eez_v10")
+
+EEZ_names_n <- c("GeoName")
+EEZ_Simp1 <- EEZ_Simp[,EEZ_names_n]
+
 specrast <- brick("GIS/multilayerspecrast.tif")
 
-EEZ@data
-
-plot(EEZ[1,])
-plot(specrast[[8]],add=TRUE)
+plot(specrast[[8]])
+plot(EEZ[1,],add=TRUE)
 
 Nospecies <- rep(0,nrow(EEZ)) 
 
@@ -34,6 +38,21 @@ for(i in 1:nrow(EEZ)){
 EEZ_spec <- data.frame(EEZ@data,Nospecies)
 write.csv(EEZ_spec,"Data/Sharks and rays in EEZs.csv",row.names=FALSE)
 
+# This crashes my mac as the files are too big
+# try functions memory.limit() and memory.size() on windows to use this function
+# library(rmapshaper)
+# EEZ2 <- ms_simplify(EEZ,keep = 0.5)
+# EEZ_spec3 <- ms_simplify(EEZ2,keep = 0.5)
+# EEZ_spec3 <- ms_simplify(EEZ, keep = 0.001)
+# library("rgeos")
+# EEZ_gSimplify <- gSimplify(EEZ, tol = 0.5, topologyPreserve = TRUE)
+
+EEZ_CRENVU_df <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
+EEZ_Simp2 <- left_join(EEZ_Simp1@data,EEZ_CRENVU_df,by="GeoName") # we lost 5 rows of data from the CRENVU dataset
+#EZ_names_n1 <- c(,"MRGID.x","GeoName","MRGID_Ter1.x","Territory1.x","Sovereign1.x","ISO_Ter1.x","Area_km2.x")
+EEZ_Simp1@data <- EEZ_Simp2
+
+writeOGR(EEZ_Simp1,"GIS","simplifiedEEZ_counts1", driver="ESRI Shapefile")
 ##################
 
 # Second run it on the Ocean basins

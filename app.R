@@ -66,10 +66,14 @@ reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORD
 # FAOs.simpledf <- SpatialPolygonsDataFrame(FAOs.simple, FAOs@data)
 # writeOGR(FAOs.simpledf[1:8],dsn="GIS/FAO_AREAS",layer="FAO_AREAS_simple", driver="ESRI Shapefile",overwrite_layer = TRUE)
 
-EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
 FAO_spec <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
+#FAO_spec <- FAO_spec %>% select(Name_en,OCEAN,F_CODE,SURFACE,Nospecies,CR,EN,VU,rest)
 FAOsub_spec <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
+#FAOsub_spec <- FAOsub_spec %>% select(Name_en,OCEAN,F_SUBAREA,SURFACE,Nospecies,CR,EN,VU,rest)
 LME_spec <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
+#LME_spec  %>% select(LME_NAME,LME_NUMBER,Shape_Area,Nospecies,CR,EN,VU,rest)
+EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
+#EEZ_spec <- EEZ_spec %>% select(GeoName,Territory1,Sovereign1,ISO_Ter1,Nospecies,CR,EN,VU,rest)
 
 # Load simplified FAO and LME shapefiles for quick loading
 #FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple")
@@ -77,6 +81,8 @@ FAOsimple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
 #FAO_major_simple <- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_major_simple")
 FAO_major_simple <- readOGR(dsn="GIS","simplifiedFAO_counts")
 LMEsimple<- readOGR(dsn="GIS","simplifiedLME66")
+#EEZsimple <- readOGR("GIS/eez_v10_mapshaper","eez_v10")
+EEZsimple <- readOGR("GIS","simplifiedEEZ_counts1")
 
 ## tab 1 species lookup table
 order.name <- c("CARCHARHINIFORMES",
@@ -199,7 +205,6 @@ species.name <- sharkdat$binomial # Names of species for the species range maps
 pal <- c("#de2d26","#f93") 
 ###
 # tab 2 - Country EEZ datasets 
-reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORDERS_SIMPL-0.3")
 CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
 
 # merge function with the duplicateGeoms argument set to TRUE 
@@ -309,22 +314,24 @@ scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 ###
 # tab 3B - visualise no species in EEZ/FAOs/LMEs
-ivis <- 50 # No species in EEZ/FAOs/LMEs to visualise in the table
+ivis <- 50 # No species in FAOs/LMEs/EEZ to visualise in the table
 sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
-EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 FAOsub_spec1 <- data.frame(FAOsub_spec[order(FAOsub_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
 
 #sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1]))
 #EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
 #FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
 #LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
 
-sEEZ_count <- data.frame(x=EEZ_spec1$GeoName, y=EEZ_spec1$Nospecies, y1=EEZ_spec1$CR, y2=EEZ_spec1$EN, y3=EEZ_spec1$VU, y4=EEZ_spec1$rest, x1=EEZ_spec1$Territory1, Area=EEZ_spec1$Area_km2)
 sFAO_count <- data.frame(x=FAO_spec1$Name_en, y=FAO_spec1$Nospecies, y1=FAO_spec1$CR, y2=FAO_spec1$EN, y3=FAO_spec1$VU, y4=FAO_spec1$rest, x1=FAO_spec1$F_CODE, Area=FAO_spec1$SURFACE)
 sFAOsub_count <- data.frame(x=FAOsub_spec1$Name_en, y=FAOsub_spec1$Nospecies, y1=FAOsub_spec1$CR, y2=FAOsub_spec1$EN, y3=FAOsub_spec1$VU, y4=FAOsub_spec1$rest, x1=FAOsub_spec1$F_CODE, Area=FAOsub_spec1$SURFACE)
-sLME_count <- data.frame(x=LME_spec1$LME_NAME, y=LME_spec1$Nospecies, y1=LME_spec1$CR, y2=LME_spec1$EN, y3=LME_spec1$VU, y4=LME_spec1$rest, x1=LME_spec1$LME_NAME, Area=LME_spec1$Shape_Area)
+sLME_count <- data.frame(x=LME_spec1$LME_NAME, y=LME_spec1$Nospecies, y1=LME_spec1$CR, y2=LME_spec1$EN, y3=LME_spec1$VU, y4=LME_spec1$rest, x1=LME_spec1$LME_NUMBER, Area=LME_spec1$Shape_Area)
+sEEZ_count <- data.frame(x=EEZ_spec1$GeoName, y=EEZ_spec1$Nospecies, y1=EEZ_spec1$CR, y2=EEZ_spec1$EN, y3=EEZ_spec1$VU, y4=EEZ_spec1$rest, x1=EEZ_spec1$Territory1, Area=EEZ_spec1$Area_km2)
+
+
 # Add 'threatened' category
 sEEZ_count <- sEEZ_count %>% mutate(y5 = y1 + y2 + y3) 
 sFAO_count <- sFAO_count %>% mutate(y5 = y1 + y2 + y3) 
@@ -477,10 +484,9 @@ ui <- navbarPage(
                       # Select which dataset to visualise
                       radioButtons(inputId = "sSelectRegionDisplay",
                                    label = "Show data as:",
-                                   choices = c("Stacked barplot" = "sRegionPlot",
-                                               "Raw data"= "SRANKSDT",
-                                               "MPA table"= "SRANKSDT"),
-                                   selected = "sRegionPlot",
+                                   choices = c("Raw data"= "SRANKSDT",
+                                               "Stacked barplot" = "sRegionPlot"),
+                                   selected = "SRANKSDT",
                                    inline = TRUE)),
                column(4,
                       selectInput("tab.order",
@@ -498,19 +504,17 @@ ui <- navbarPage(
              # If MPA selected by radio button, draw the MPA data table
              conditionalPanel(
                condition = "input.sSelectRegionDisplay == 'SRANKSDT'",
-               DT::dataTableOutput('ranksDT')
+               DT::dataTableOutput('EEZTable')
              ),
              
-
-               
-               verbatimTextOutput("event"),
-               
-               tags$div(class="header", checked=NA,
-                        tags$p("For more information about the regions, click the links below..."),
-                        tags$a(href="https://www.arcgis.com/home/item.html?id=5433d0112fc8448e96f61594c90011c6", "Exclusive Economic Zones | "),
-                        tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions | "),
-                        tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
-               )
+             verbatimTextOutput("event"),
+             
+             tags$div(class="header", checked=NA,
+                      tags$p("For more information about the regions, click the links below..."),
+                      tags$a(href="https://www.vlis.be/en/imis?module=dataset&dasid=5465", "Exclusive Economic Zones | "),
+                      tags$a(href="http://www.fao.org/fishery/area/search/en", "FAO Regions | "),
+                      tags$a(href="http://www.lme.noaa.gov/index.php?option=com_content&view=article&id=1&Itemid=112", "Large Marine Ecosystems")
+             )
              #)
            )
   ),
@@ -906,123 +910,123 @@ for (var i = 0; i < tips.length; i++) {
   )
   
   
-  #### TAB 2: Hotspot map and shark MPA details ####
+  #### TAB 2: Regional explorer featuring hotspot map and region details ####
   
-  # Arrange data in format for plots and mapping
-  lats <- SharkMPAs_coords[,"Lat"]
-  longs <- SharkMPAs_coords[,"Long"]
-  popups <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
-  layerids <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
-  iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
-  iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
-  locationRanks <- data_frame(Name = popups,
-                              Date=SharkMPAs_coords[,"Date"],
-                              Area.km2=SharkMPAs_coords[,"Area..km2."],
-                              Territory.name=SharkMPAs_coords[,"Territory.name"],
-                              Sovereign=SharkMPAs_coords[,"Sovereign"],
-                              Entire.EEZ=SharkMPAs_coords[,"Entire.EEZ"],
-                              Source=createLink(SharkMPAs_coords[,"Source"]),
-                              lats,longs, popups,layerids,iconNames,iconColors)
+  # # Arrange MPAdata in format for plots and mapping
+  # lats <- SharkMPAs_coords[,"Lat"]
+  # longs <- SharkMPAs_coords[,"Long"]
+  # popups <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
+  # layerids <- SharkMPAs_coords[,"Shark.Marine.Protected.Areas"]
+  # iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
+  # iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
+  # locationRanks <- data_frame(Name = popups,
+  #                             Date=SharkMPAs_coords[,"Date"],
+  #                             Area.km2=SharkMPAs_coords[,"Area..km2."],
+  #                             Territory.name=SharkMPAs_coords[,"Territory.name"],
+  #                             Sovereign=SharkMPAs_coords[,"Sovereign"],
+  #                             Entire.EEZ=SharkMPAs_coords[,"Entire.EEZ"],
+  #                             Source=createLink(SharkMPAs_coords[,"Source"]),
+  #                             lats,longs, popups,layerids,iconNames,iconColors)
   
-  # Convert the dataframe to an interactive DataTable
-  d1 <- datatable(locationRanks[,c("Name", "Date",
-                                   "Area.km2", "Territory.name",
-                                   "Sovereign","Entire.EEZ",
-                                   "Source")],
-                  caption = 'Search country information table',
-                  selection = 'single', # selects only one row at a time
-                  rownames=FALSE,  # no row names 
-                  colnames=c("Name", "Date installed",
-                             'Area (km2)', 'Territory',
-                             'Sovereign', 'Entire EEZ?',
-                             'Source'),
-                  escape = FALSE,
-                  options = list(dom = 'tpi',
-                                 pageLength =  5,
-                                 paging=FALSE,
-                                 searching=FALSE,
-                                 stateSave = TRUE,
-                                 scrollX = TRUE,#
-                                 autoWidth = TRUE,#
-                                 searchHighlight = TRUE, #Highlight searchesd text with yellow
-                                 columnDefs = list(list(className = 'dt-left',
-                                                        targets = 0:4)))) %>%
-    formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
-  
-  # Render our Shark MPA df as an interactive DataTable in the shiny app
-  output$ranksDT <- DT::renderDataTable(d1,
-                                        callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
-                'Genus and species name', 'Max reported total length (Fishbase)'],
-    header = table.columns().header();
-for (var i = 0; i < tips.length; i++) {
-  $(header[i]).attr('title', tips[i]);
-}"))
-  
-  # create a reactive value that will store the position on a map click
-  mapClick <- reactiveValues(clickedMarker=NULL)
-  mapClick <- reactiveValues(clickedGroup=NULL)
-  
-  # create a reactive for the DT table
-  locationClick <- reactiveValues(clickedRow = NULL)
-  
-  # observe map click events
-  observe({
-    mapClick$clickedMarker <- paste(input$SharkMPAMap_marker_click$id)
-    mapClick$clickedGroup <- paste(input$SharkMPAMap_marker_click$group)
-    #locationClick$clickedRow <- input$ranksDT_rows_selected
-  })
-  
-  # define a proxy variable for the data table
-  proxy1 <- dataTableProxy('ranksDT')
-  
-  # to keep track of previously selected row
-  prev_row <- reactiveVal()
-  
-  # if map is clicked, make the same table row selection
-  observeEvent(input$SharkMPAMap_marker_click$id, {
-    a <- which(locationRanks[1] == input$SharkMPAMap_marker_click$id)
-    proxy1 %>% selectRows(a)
-  })
-  
-  # The icon style change on a map or table click
-  my_icon <- makeAwesomeIcon(icon = 'flag', 
-                             markerColor = 'red', 
-                             iconColor = 'white') # new icon style
-  
-  # if table is clicked, highlight the same marker from the map
-  observeEvent(input$ranksDT_rows_selected,{
-    row_selected <- locationRanks[input$ranksDT_rows_selected,]
-    # define a proxy that lets us customize and control our SharkMPAMap that has already been rendered.
-    proxy2 <- leafletProxy('SharkMPAMap', session = shiny::getDefaultReactiveDomain())
-    print(row_selected)
-    proxy2 %>%
-      addAwesomeMarkers(
-        popup=as.character(row_selected$popups),
-        layerId = as.character(row_selected$layerids),
-        lng = row_selected$longs,
-        lat = row_selected$lats,
-        icon = my_icon)
-    
-    # Reset previously selected marker
-    if(!is.null(prev_row()))
-    {
-      proxy2 %>%
-        addAwesomeMarkers(popup=as.character(prev_row()$popups),
-                          layerId = as.character(prev_row()$layerids),
-                          lng = prev_row()$longs,
-                          lat = prev_row()$lats,
-                          icon = makeAwesomeIcon(icon = "star",
-                                                 markerColor = prev_row()$iconColors)
-        )
-    }
-    
-    #iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
-    #iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
-    
-    # set new value to reactiveVal
-    prev_row(row_selected)
-  })
-  
+#   # Convert the dataframe to an interactive DataTable
+#   d1 <- datatable(locationRanks[,c("Name", "Date",
+#                                    "Area.km2", "Territory.name",
+#                                    "Sovereign","Entire.EEZ",
+#                                    "Source")],
+#                   caption = 'Search country information table',
+#                   selection = 'single', # selects only one row at a time
+#                   rownames=FALSE,  # no row names 
+#                   colnames=c("Name", "Date installed",
+#                              'Area (km2)', 'Territory',
+#                              'Sovereign', 'Entire EEZ?',
+#                              'Source'),
+#                   escape = FALSE,
+#                   options = list(dom = 'tpi',
+#                                  pageLength =  5,
+#                                  paging=FALSE,
+#                                  searching=FALSE,
+#                                  stateSave = TRUE,
+#                                  scrollX = TRUE,#
+#                                  autoWidth = TRUE,#
+#                                  searchHighlight = TRUE, #Highlight searchesd text with yellow
+#                                  columnDefs = list(list(className = 'dt-left',
+#                                                         targets = 0:4)))) %>%
+#     formatCurrency(3, '',digits = 0) # adds the comma seperators for km2
+#   
+#   # Render our Shark MPA df as an interactive DataTable in the shiny app
+#   output$ranksDT <- DT::renderDataTable(d1,
+#                                         callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
+#                 'Genus and species name', 'Max reported total length (Fishbase)'],
+#     header = table.columns().header();
+# for (var i = 0; i < tips.length; i++) {
+#   $(header[i]).attr('title', tips[i]);
+# }"))
+#   
+#   # create a reactive value that will store the position on a map click
+#   mapClick <- reactiveValues(clickedMarker=NULL)
+#   mapClick <- reactiveValues(clickedGroup=NULL)
+#   
+#   # create a reactive for the DT table
+#   locationClick <- reactiveValues(clickedRow = NULL)
+#   
+#   # observe map click events
+#   observe({
+#     mapClick$clickedMarker <- paste(input$SharkMPAMap_marker_click$id)
+#     mapClick$clickedGroup <- paste(input$SharkMPAMap_marker_click$group)
+#     #locationClick$clickedRow <- input$ranksDT_rows_selected
+#   })
+#   
+#   # define a proxy variable for the data table
+#   proxy1 <- dataTableProxy('ranksDT')
+#   
+#   # to keep track of previously selected row
+#   prev_row <- reactiveVal()
+#   
+#   # if map is clicked, make the same table row selection
+#   observeEvent(input$SharkMPAMap_marker_click$id, {
+#     a <- which(locationRanks[1] == input$SharkMPAMap_marker_click$id)
+#     proxy1 %>% selectRows(a)
+#   })
+#   
+#   # The icon style change on a map or table click
+#   my_icon <- makeAwesomeIcon(icon = 'flag', 
+#                              markerColor = 'red', 
+#                              iconColor = 'white') # new icon style
+#   
+#   # if table is clicked, highlight the same marker from the map
+#   observeEvent(input$ranksDT_rows_selected,{
+#     row_selected <- locationRanks[input$ranksDT_rows_selected,]
+#     # define a proxy that lets us customize and control our SharkMPAMap that has already been rendered.
+#     proxy2 <- leafletProxy('SharkMPAMap', session = shiny::getDefaultReactiveDomain())
+#     print(row_selected)
+#     proxy2 %>%
+#       addAwesomeMarkers(
+#         popup=as.character(row_selected$popups),
+#         layerId = as.character(row_selected$layerids),
+#         lng = row_selected$longs,
+#         lat = row_selected$lats,
+#         icon = my_icon)
+#     
+#     # Reset previously selected marker
+#     if(!is.null(prev_row()))
+#     {
+#       proxy2 %>%
+#         addAwesomeMarkers(popup=as.character(prev_row()$popups),
+#                           layerId = as.character(prev_row()$layerids),
+#                           lng = prev_row()$longs,
+#                           lat = prev_row()$lats,
+#                           icon = makeAwesomeIcon(icon = "star",
+#                                                  markerColor = prev_row()$iconColors)
+#         )
+#     }
+#     
+#     #iconNames <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "star", "star")
+#     #iconColors <- ifelse(SharkMPAs_coords[,"Entire.EEZ"] == "Y", "green", "blue")
+#     
+#     # set new value to reactiveVal
+#     prev_row(row_selected)
+#   })
+#   
   
   # If a row is selected in the data table, highlight the icon on the map
   # observeEvent(input$ranksDT_rows_selected, {
@@ -1043,21 +1047,20 @@ for (var i = 0; i < tips.length; i++) {
     leaflet() %>%
       setView(lng = 0, lat = 0,  zoom = 1) %>%
       addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
-      addAwesomeMarkers(lat = locationRanks$lats,    # Add MPAs
-                        lng = locationRanks$longs,
-                        popup = locationRanks$popups,
-                        layerId = locationRanks$layerids,
-                        group = "MPAs",
-                        icon = makeAwesomeIcon(icon = locationRanks$iconNames,
-                                               markerColor = locationRanks$iconColors)) %>%
+      # addAwesomeMarkers(lat = locationRanks$lats,    # Add MPAs
+      #                   lng = locationRanks$longs,
+      #                   popup = locationRanks$popups,
+      #                   layerId = locationRanks$layerids,
+      #                   group = "MPAs",
+      #                   icon = makeAwesomeIcon(icon = locationRanks$iconNames,
+      #                                          markerColor = locationRanks$iconColors)) %>%
       addPolygons(data=FAOsimple,       # Add FAO layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",
-                                                      weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_subareas") %>%
       
@@ -1067,8 +1070,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",
-                                                      weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
@@ -1078,17 +1080,26 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~LME_NAME,
-                  highlightOptions = highlightOptions(color = "white",
-                                                      weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "LMEs") %>%
       
+      addPolygons(data=EEZsimple,       # Add LME layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~GeoName,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "EEZs") %>%
+      
       addLayersControl(baseGroups = c("OSM (default)"),       # Layers control
-                       overlayGroups = c("FAO_regions","FAO_subareas","LMEs","MPAs"),
+                       overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs"),
                        options = layersControlOptions(collapsed = TRUE)) %>%
       # addControl(html = markerLegendHTML(IconSet = IconSet),
       #            position = "bottomright") %>%
-      hideGroup(group=c("FAO_subareas","LMEs","MPAs"))
+      hideGroup(group=c("FAO_subareas","LMEs","EEZs"))
   })
   
   proxy3 <- leafletProxy("mapRegion")
@@ -1136,7 +1147,7 @@ for (var i = 0; i < tips.length; i++) {
         # Layers control
         addLayersControl(
           baseGroups = c("OSM (default)"),
-          overlayGroups = c("FAO_regions","FAO_subareas","LMEs","MPAs","order"),
+          overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs","order"),
           options = layersControlOptions(collapsed = TRUE)
         )
       
@@ -1193,7 +1204,7 @@ for (var i = 0; i < tips.length; i++) {
           # Layers control
           addLayersControl(
             baseGroups = c("OSM (default)"),
-            overlayGroups = c("FAO_regions","FAO_subareas","LMEs","MPAs","IUCN"),
+            overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs","IUCN"),
             options = layersControlOptions(collapsed = TRUE)
           )
         #addPolygons(#layerId ="layer1",
@@ -1206,11 +1217,13 @@ for (var i = 0; i < tips.length; i++) {
   })
   
   
-  #### TAB 3B:  Interactive Plot containing species counts in zones ####
+  #### TAB 2B:  Interactive Plot containing species counts in zones ####
+  
   output$plot <- renderPlotly({
     
     # select what data to visualise
     # also sets the height of the plot
+    
     if (input$sAreaPolygons == 'sFAO_count'){
       data1 <- sFAO_count
       iheight = 750
@@ -1229,13 +1242,10 @@ for (var i = 0; i < tips.length; i++) {
     }
     
     #Set factor names in decreasing order so y axis always plotted in this order
-    
     if(input$tab.order=="No Species")
       data1$x <- factor(data1$x, levels = data1$x[order(data1$y,decreasing =FALSE)])
-    
     if(input$tab.order=="Threatened Species")
       data1$x <- factor(data1$x, levels = data1$x[order(data1$y5,decreasing =FALSE)])
-    
     if(input$tab.order=="Area")
       data1$x <- factor(data1$x, levels = data1$x[order(data1$Area,decreasing =FALSE)])
     
@@ -1330,6 +1340,75 @@ for (var i = 0; i < tips.length; i++) {
     subplot(p2, p1, widths = c(0.3,0.7), shareY = TRUE, titleX = TRUE)
     
   })
+  
+  #### TAB 2C:  Interactive Table containing species counts in zones ####
+  
+  output$EEZTable <- DT::renderDataTable({
+    
+    # select what data to visualise
+    # also sets the height of the plot
+    
+    if (input$sAreaPolygons == 'sFAO_count'){
+      data1 <- sFAO_count
+    }
+    if (input$sAreaPolygons == 'sFAOsub_count'){
+      data1 <- sFAOsub_count
+    }
+    if (input$sAreaPolygons == 'sLME_count'){
+      data1 <- sLME_count
+    }
+    if (input$sAreaPolygons == 'sEEZ_count'){
+      data1 <- sEEZ_count
+    }
+    
+    #Set factor names in decreasing order so y axis always plotted in this order
+    if(input$tab.order=="No Species")
+      data1$x <- factor(data1$x, levels = data1$x[order(data1$y,decreasing =FALSE)])
+    if(input$tab.order=="Threatened Species")
+      data1$x <- factor(data1$x, levels = data1$x[order(data1$y5,decreasing =FALSE)])
+    if(input$tab.order=="Area")
+      data1$x <- factor(data1$x, levels = data1$x[order(data1$Area,decreasing =FALSE)])
+    
+    row.names(data1) <- NULL
+    
+    # Generate first plot of species number per country
+    Tab2datatable <- DT::datatable(data1, 
+                                   options=list(
+                                     scrollX = TRUE,
+                                     autoWidth = TRUE,
+                                     searchHighlight = TRUE, #Highlight searchesd text with yellow
+                                     columnDefs = list(list(#width = '50px',
+                                       targets = 1,
+                                       render = JS(
+                                         "function(data, type, row, meta) {",
+                                         "return type === 'display' && data.length > 30 ?",
+                                         "'<span title=\"' + data + '\">' + data.substr(0, 30) + '...</span>' : data;",
+                                         "}")
+                                     ))),
+                                   caption = 'Search information table', # <a href="#" onclick="alert('This script allows you to write help text for an item');">help me</a> #
+                                   #filter = 'top', 
+                                   selection = 'single', # selects only one row at a time
+                                   rownames = FALSE,
+                                   colnames=c("Name", 
+                                              "No species",
+                                              "No. Critically Endangered species",
+                                              "No. Endangered species",
+                                              "No. Vulnerable species",
+                                              "No. not-threatened or data deficient species",
+                                              "Other ID",
+                                              "Area (km2)",
+                                              "No. threatened species"),
+                                   callback = JS("var tips = ['Need to enter column 1 info','Need to enter column 2 info','Need to enter column 3 info','Need to enter column 4 info','Need to enter column 5 info','Need to enter column 6 info','Need to enter column 7 info'],
+    header = table.columns().header();
+for (var i = 0; i < tips.length; i++) {
+  $(header[i]).attr('title', tips[i]);
+}"),
+                                   escape = FALSE  # This bit is to stop the links from rendering literally (i.e. text only)
+        )
+        
+    Tab2datatable
+    })
+  
   
   ####
   

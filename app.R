@@ -66,23 +66,56 @@ reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORD
 # FAOs.simpledf <- SpatialPolygonsDataFrame(FAOs.simple, FAOs@data)
 # writeOGR(FAOs.simpledf[1:8],dsn="GIS/FAO_AREAS",layer="FAO_AREAS_simple", driver="ESRI Shapefile",overwrite_layer = TRUE)
 
-FAO_spec <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
-#FAO_spec <- FAO_spec %>% select(Name_en,OCEAN,F_CODE,SURFACE,Nospecies,CR,EN,VU,rest)
-FAOsub_spec <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
-#FAOsub_spec <- FAOsub_spec %>% select(Name_en,OCEAN,F_SUBAREA,SURFACE,Nospecies,CR,EN,VU,rest)
-LME_spec <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
-#LME_spec  %>% select(LME_NAME,LME_NUMBER,Shape_Area,Nospecies,CR,EN,VU,rest)
-EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
-#EEZ_spec <- EEZ_spec %>% select(GeoName,Territory1,Sovereign1,ISO_Ter1,Nospecies,CR,EN,VU,rest)
+###
+# tab 2B - visualise no species in FAOs/LMEs/EEZs
 
 # Load simplified FAO and LME shapefiles for quick loading
 #FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple")
-FAOsimple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
-#FAO_major_simple <- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_major_simple")
 FAO_major_simple <- readOGR(dsn="GIS","simplifiedFAO_counts")
+FAO_sub_simple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
+#FAO_major_simple <- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_major_simple")
 LMEsimple<- readOGR(dsn="GIS","simplifiedLME66")
 #EEZsimple <- readOGR("GIS/eez_v10_mapshaper","eez_v10")
 EEZsimple <- readOGR("GIS","simplifiedEEZ_counts1")
+
+FAO_major_simple@data <- FAO_major_simple@data %>% select(Name_en,OCEAN,F_CODE,SURFACE,Nospecies,CR,EN,VU,rest)
+FAO_sub_simple@data <- FAO_sub_simple@data %>% select(Name_en,OCEAN,F_CODE,SURFACE,Nospecies,CR,EN,VU,rest)
+LMEsimple@data  <-  LMEsimple@data %>% select(LME_NAME,LME_NUMBER,Shape_Area,Nospecies,CR,EN,VU,rest)
+EEZsimple@data  <- EEZsimple@data %>% select(GeoName,Territory1,Sovereign1,ISO_Ter1,Area_km2,Nospecies,CR,EN,VU,rest)
+EEZsimple <- EEZsimple[complete.cases(EEZsimple@data),] # removes na rows
+
+#FAO_spec <- read.csv("Data/Sharks and rays in MAJOR FAOs_CRENVU.csv")
+FAO_spec <- FAO_major_simple@data
+# FAOsub_spec <- read.csv("Data/Sharks and rays in SUBAREA FAOs_CRENVU.csv")
+FAOsub_spec <- FAO_sub_simple@data
+#LME_spec <- read.csv("Data/Sharks and rays in LMEs_CRENVU.csv")
+LME_spec <- LMEsimple@data
+#EEZ_spec <- read.csv("Data/Sharks and rays in EEZs_CRENVU.csv")
+EEZ_spec <- EEZsimple@data 
+
+# ivis <- 50 # No species in FAOs/LMEs/EEZ to visualise in the table
+# sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
+# FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+# FAOsub_spec1 <- data.frame(FAOsub_spec[order(FAOsub_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+# LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+# EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
+#sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1]))
+#EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
+#FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
+#LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
+
+# Standardise column names and numbers for easy visualisation
+sFAO_count <- data.frame(x=FAO_spec$Name_en, y=FAO_spec$Nospecies, y1=FAO_spec$CR, y2=FAO_spec$EN, y3=FAO_spec$VU, y4=FAO_spec$rest, x1=FAO_spec$F_CODE, Area=FAO_spec$SURFACE)
+sFAOsub_count <- data.frame(x=FAOsub_spec$Name_en, y=FAOsub_spec$Nospecies, y1=FAOsub_spec$CR, y2=FAOsub_spec$EN, y3=FAOsub_spec$VU, y4=FAOsub_spec$rest, x1=FAOsub_spec$F_CODE, Area=FAOsub_spec$SURFACE)
+sLME_count <- data.frame(x=LME_spec$LME_NAME, y=LME_spec$Nospecies, y1=LME_spec$CR, y2=LME_spec$EN, y3=LME_spec$VU, y4=LME_spec$rest, x1=LME_spec$LME_NUMBER, Area=LME_spec$Shape_Area)
+sEEZ_count <- data.frame(x=EEZ_spec$GeoName, y=EEZ_spec$Nospecies, y1=EEZ_spec$CR, y2=EEZ_spec$EN, y3=EEZ_spec$VU, y4=EEZ_spec$rest, x1=EEZ_spec$Territory1, Area=EEZ_spec$Area_km2)
+
+# Add 'threatened' category
+sEEZ_count <- sEEZ_count %>% mutate(y5 = y1 + y2 + y3) 
+sFAO_count <- sFAO_count %>% mutate(y5 = y1 + y2 + y3) 
+sFAOsub_count <- sFAOsub_count %>% mutate(y5 = y1 + y2 + y3) 
+sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3) 
+
 
 ## tab 1 species lookup table
 order.name <- c("CARCHARHINIFORMES",
@@ -313,32 +346,6 @@ scolours.ord <- c("#e5f5e0", "#a1d99b", "#31a354")
 scolours.iucn <- c("#fee0d2", "#fc9272", "#de2d26")
 
 ###
-# tab 3B - visualise no species in EEZ/FAOs/LMEs
-ivis <- 50 # No species in FAOs/LMEs/EEZ to visualise in the table
-sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1])(ivis))
-FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-FAOsub_spec1 <- data.frame(FAOsub_spec[order(FAOsub_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),][1:ivis,],row.names=NULL)
-
-#sbarchart_colours <- rev(colorRampPalette(brewer.pal(9,"Blues")[-1]))
-#EEZ_spec1 <- data.frame(EEZ_spec[order(EEZ_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
-#FAO_spec1 <- data.frame(FAO_spec[order(FAO_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
-#LME_spec1 <- data.frame(LME_spec[order(LME_spec$Nospecies,decreasing=TRUE),],row.names=NULL)
-
-sFAO_count <- data.frame(x=FAO_spec1$Name_en, y=FAO_spec1$Nospecies, y1=FAO_spec1$CR, y2=FAO_spec1$EN, y3=FAO_spec1$VU, y4=FAO_spec1$rest, x1=FAO_spec1$F_CODE, Area=FAO_spec1$SURFACE)
-sFAOsub_count <- data.frame(x=FAOsub_spec1$Name_en, y=FAOsub_spec1$Nospecies, y1=FAOsub_spec1$CR, y2=FAOsub_spec1$EN, y3=FAOsub_spec1$VU, y4=FAOsub_spec1$rest, x1=FAOsub_spec1$F_CODE, Area=FAOsub_spec1$SURFACE)
-sLME_count <- data.frame(x=LME_spec1$LME_NAME, y=LME_spec1$Nospecies, y1=LME_spec1$CR, y2=LME_spec1$EN, y3=LME_spec1$VU, y4=LME_spec1$rest, x1=LME_spec1$LME_NUMBER, Area=LME_spec1$Shape_Area)
-sEEZ_count <- data.frame(x=EEZ_spec1$GeoName, y=EEZ_spec1$Nospecies, y1=EEZ_spec1$CR, y2=EEZ_spec1$EN, y3=EEZ_spec1$VU, y4=EEZ_spec1$rest, x1=EEZ_spec1$Territory1, Area=EEZ_spec1$Area_km2)
-
-
-# Add 'threatened' category
-sEEZ_count <- sEEZ_count %>% mutate(y5 = y1 + y2 + y3) 
-sFAO_count <- sFAO_count %>% mutate(y5 = y1 + y2 + y3) 
-sFAOsub_count <- sFAOsub_count %>% mutate(y5 = y1 + y2 + y3) 
-sLME_count <- sLME_count %>% mutate(y5 = y1 + y2 + y3) 
-
-###
 
 # tab 4 (About page)
 noSpecies <- length(species.name) # number of species considered
@@ -433,7 +440,7 @@ ui <- navbarPage(
                                     selected = "all"),
                         sliderInput("range2",
                                     "Upper % species displayed :",
-                                    min = 0, max = 100, step = 10,  value = 90)
+                                    min = 0, max = 100, step = 10,  value = 100)
                       ),
                       
                       conditionalPanel(
@@ -453,7 +460,7 @@ ui <- navbarPage(
                                                    "SQUATINIFORMES")),#,selected = "all"),
                         sliderInput("range1",
                                     "Upper % species displayed :",
-                                    min = 0, max = 100, step = 10,  value = 90)
+                                    min = 0, max = 100, step = 10,  value = 100)
                         #                                    )
                       ),
                       br(),
@@ -504,7 +511,7 @@ ui <- navbarPage(
              # If MPA selected by radio button, draw the MPA data table
              conditionalPanel(
                condition = "input.sSelectRegionDisplay == 'SRANKSDT'",
-               DT::dataTableOutput('EEZTable')
+               DT::dataTableOutput('RegionTable')
              ),
              
              verbatimTextOutput("event"),
@@ -663,7 +670,54 @@ server <- function(input, output, session) {
       setView(lng = 0, lat = 0,  zoom = 1) %>% 
       addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
       addLegend(colors = pal[1], 
-                labels = c("Select a species")) 
+                labels = c("Select a species")) %>%
+      
+      addPolygons(data=FAO_major_simple,       # Add FAO layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~Name_en,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "FAO_regions") %>%
+      
+      addPolygons(data=FAOsimple,       # Add FAO subarea layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~Name_en,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "FAO_subareas") %>%
+      
+      addPolygons(data=LMEsimple,       # Add LME layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~LME_NAME,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "LMEs") %>%
+      
+      addPolygons(data=EEZsimple,       # Add EEZ layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~GeoName,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "EEZs") %>%
+      
+      addLayersControl(baseGroups = c("OSM (default)"),       # Layers control
+                       overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs","IUCN"),
+                       options = layersControlOptions(collapsed = TRUE)) %>%
+      # addControl(html = markerLegendHTML(IconSet = IconSet),
+      #            position = "bottomright") %>%
+      hideGroup(group=c("FAO_regions","FAO_subareas","LMEs","EEZs"))
   })
   
   # Top right panel - Choose which plot to visualise
@@ -712,7 +766,8 @@ server <- function(input, output, session) {
                      colors=pal[1], 
                      opacity = 0.5,
                      group = "Species") %>%
-      mapOptions(zoomToLimits = "first")
+      mapOptions(zoomToLimits = "first") 
+    
     
     observeEvent(input$sMakePlots, { 
       # select what plot to visualise
@@ -1044,6 +1099,10 @@ for (var i = 0; i < tips.length; i++) {
   # Our Leaflet hotspot map containing order AND iucn category ####
   output$mapRegion <- renderLeaflet({
     
+    pal0 <- colorNumeric(scolours.iucn,
+                         values(istatus),
+                         na.color = "transparent")
+    
     leaflet() %>%
       setView(lng = 0, lat = 0,  zoom = 1) %>%
       addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
@@ -1084,7 +1143,7 @@ for (var i = 0; i < tips.length; i++) {
                   dashArray = "3",
                   group = "LMEs") %>%
       
-      addPolygons(data=EEZsimple,       # Add LME layers
+      addPolygons(data=EEZsimple,       # Add EEZ layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
                   opacity = 1.0, fillOpacity = 0.1,
@@ -1094,8 +1153,20 @@ for (var i = 0; i < tips.length; i++) {
                   dashArray = "3",
                   group = "EEZs") %>%
       
+      #Added this to ensure plot plotted by default
+      addRasterImage(layerId = "layer4",
+                     istatus,
+                     colors = pal0,
+                     opacity = 0.7,
+                     group="IUCN") %>%
+      
+      addLegend(pal = pal0,
+                values = values(istatus),
+                position = "bottomleft",
+                title = "No. species") %>%
+      
       addLayersControl(baseGroups = c("OSM (default)"),       # Layers control
-                       overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs"),
+                       overlayGroups = c("FAO_regions","FAO_subareas","LMEs","EEZs","IUCN"),
                        options = layersControlOptions(collapsed = TRUE)) %>%
       # addControl(html = markerLegendHTML(IconSet = IconSet),
       #            position = "bottomright") %>%
@@ -1103,7 +1174,7 @@ for (var i = 0; i < tips.length; i++) {
   })
   
   proxy3 <- leafletProxy("mapRegion")
-  
+
   observe({
     # select what order to visualise
     if (input$layerOverlap == 'order'){
@@ -1343,11 +1414,9 @@ for (var i = 0; i < tips.length; i++) {
   
   #### TAB 2C:  Interactive Table containing species counts in zones ####
   
-  output$EEZTable <- DT::renderDataTable({
+  output$RegionTable <- DT::renderDataTable({
     
-    # select what data to visualise
-    # also sets the height of the plot
-    
+    # select what data to visualise on region table
     if (input$sAreaPolygons == 'sFAO_count'){
       data1 <- sFAO_count
     }
@@ -1409,10 +1478,38 @@ for (var i = 0; i < tips.length; i++) {
     Tab2datatable
     })
   
-  
-  ####
-  
-  
+  ## Based on the Rows selected from the Country Explorer table, modify existing plots
+  observeEvent(input$RegionTable_rows_selected, {  # Test: Choose which species to visualise on the map using the datatable   
+    x1 <- input$RegionTable_rows_selected           # Test: Assign the row number of the species to display
+    
+    # Select what polygons to visualise on leaflet plot
+    if (input$sAreaPolygons == 'sFAO_count'){
+      data_region_plot <- FAO_major_simple
+    }
+    if (input$sAreaPolygons == 'sFAOsub_count'){
+      data_region_plot <- FAO_sub_simple
+    }
+    if (input$sAreaPolygons == 'sLME_count'){
+      data_region_plot <- LMEsimple
+    }
+    if (input$sAreaPolygons == 'sEEZ_count'){
+      data_region_plot <- EEZsimple
+    }
+    
+    newdata_region <- data_region_plot[x1,] # Select DT row from the SpatialPolygonsDF 
+    sNAME2 <- newdata_region@data[,1] # Select Country name
+    
+    ## 1. highlight region on map
+    proxy5 <- leafletProxy("mapRegion")
+    proxy5 %>% 
+      addPolygons(layerId ="layer1",
+                  data=newdata_region,
+                  fill = FALSE, stroke = TRUE, weight=3,
+                  color = 'white') %>%  #'#00aeef'
+      mapOptions(zoomToLimits = "first")
+  })
+    
+    
   #### TAB 3: Country explorer map and table #### 
   
   # On the selection of a z axis visiualise the map and the scatterplot

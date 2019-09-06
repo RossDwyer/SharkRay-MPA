@@ -33,19 +33,29 @@ This markdown document was produced from the Shark Explorer App (SEA), which is 
 This report presents data for the species...
 ```{r, echo=FALSE}
 # Sort out the species data table
-sharkdat <- params$speciesdata # The `params` object available in the document.
-names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
-sharkdat <- sharkdat %>%
-  select(binomial,CommonName,order_name,family_nam,
+sharkdat2 <- params$speciesdata # The `params` object available in the document.
+#names(sharkdat)[1] <- 'binomial' # Ensures continuity between pages
+sharkdat2 <- sharkdat2 %>%
+  select(FBname,order_name,family_nam,
+         binomial,Length,
          DemersPelag,Vulnerability,Resilience,
-         code,web_redlist,web_fishbase,pointborder)
-levels(sharkdat$Resilience) <- c("Very low", "Low", "Medium", "High")
+         code)
+levels(sharkdat2$Resilience) <- c("Very low", "Low", "Medium", "High")
+
+sharkdat2$FBname[params$nspeciestable]
+
+####
 
 specName <- as.character(params$speciesdata$binomial[params$nspeciestable])  # Assign the row number to the df to extract the species name
 
 specName
 ```
 
+
+Which has the following attributes
+```{r, echo=FALSE}
+sharkdat2[params$nspeciestable,]
+```
 
 An interactive map showing the species distribution
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}

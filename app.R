@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "28-Aug-2019" ## Date last updated
+DateUpdated <-  "06-Sep-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -70,7 +70,7 @@ reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORD
 # tab 2B - visualise no species in FAOs/LMEs/EEZs
 
 # Load simplified FAO and LME shapefiles for quick loading
-#FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple")
+#FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple") 
 FAO_major_simple <- readOGR(dsn="GIS","simplifiedFAO_counts")
 FAO_sub_simple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
 #FAO_major_simple <- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_major_simple")

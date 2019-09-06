@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "28-Aug-2019" ## Date last updated
+DateUpdated <-  "06-Sep-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -70,7 +70,7 @@ reduced.countries <- readOGR(dsn="GIS/TM_WORLD_BORDERS_SIMPL-0.3","TM_WORLD_BORD
 # tab 2B - visualise no species in FAOs/LMEs/EEZs
 
 # Load simplified FAO and LME shapefiles for quick loading
-#FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple")
+#FAOsimple<- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_simple") 
 FAO_major_simple <- readOGR(dsn="GIS","simplifiedFAO_counts")
 FAO_sub_simple <- readOGR(dsn="GIS","simplifiedFAO_subarea_counts")
 #FAO_major_simple <- readOGR(dsn="GIS/FAO_AREAS","FAO_AREAS_major_simple")
@@ -682,7 +682,7 @@ server <- function(input, output, session) {
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
-      addPolygons(data=FAOsimple,       # Add FAO subarea layers
+      addPolygons(data=FAO_sub_simple,       # Add FAO subarea layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
                   opacity = 1.0, fillOpacity = 0.1,
@@ -1113,16 +1113,6 @@ for (var i = 0; i < tips.length; i++) {
       #                   group = "MPAs",
       #                   icon = makeAwesomeIcon(icon = locationRanks$iconNames,
       #                                          markerColor = locationRanks$iconColors)) %>%
-      addPolygons(data=FAOsimple,       # Add FAO layers
-                  smoothFactor = 0.2,
-                  stroke = TRUE,weight=1,
-                  opacity = 1.0, fillOpacity = 0.1,
-                  color = "white",
-                  popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
-                  dashArray = "3",
-                  group = "FAO_subareas") %>%
-      
       addPolygons(data=FAO_major_simple,       # Add FAO layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
@@ -1132,6 +1122,16 @@ for (var i = 0; i < tips.length; i++) {
                   highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_regions") %>%
+      
+      addPolygons(data=FAO_sub_simple,       # Add FAO layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~Name_en,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "FAO_subareas") %>%
       
       addPolygons(data=LMEsimple,       # Add LME layers
                   smoothFactor = 0.2,

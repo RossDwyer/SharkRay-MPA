@@ -682,7 +682,7 @@ server <- function(input, output, session) {
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
-      addPolygons(data=FAOsimple,       # Add FAO subarea layers
+      addPolygons(data=FAO_sub_simple,       # Add FAO subarea layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
                   opacity = 1.0, fillOpacity = 0.1,
@@ -1113,16 +1113,6 @@ for (var i = 0; i < tips.length; i++) {
       #                   group = "MPAs",
       #                   icon = makeAwesomeIcon(icon = locationRanks$iconNames,
       #                                          markerColor = locationRanks$iconColors)) %>%
-      addPolygons(data=FAOsimple,       # Add FAO layers
-                  smoothFactor = 0.2,
-                  stroke = TRUE,weight=1,
-                  opacity = 1.0, fillOpacity = 0.1,
-                  color = "white",
-                  popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
-                  dashArray = "3",
-                  group = "FAO_subareas") %>%
-      
       addPolygons(data=FAO_major_simple,       # Add FAO layers
                   smoothFactor = 0.2,
                   stroke = TRUE,weight=1,
@@ -1132,6 +1122,16 @@ for (var i = 0; i < tips.length; i++) {
                   highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_regions") %>%
+      
+      addPolygons(data=FAO_sub_simple,       # Add FAO layers
+                  smoothFactor = 0.2,
+                  stroke = TRUE,weight=1,
+                  opacity = 1.0, fillOpacity = 0.1,
+                  color = "white",
+                  popup = ~Name_en,
+                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  dashArray = "3",
+                  group = "FAO_subareas") %>%
       
       addPolygons(data=LMEsimple,       # Add LME layers
                   smoothFactor = 0.2,

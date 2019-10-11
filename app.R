@@ -914,7 +914,9 @@ server <- function(input, output, session) {
                            #'Download IUCN assessment',
                            'Fishbase web'),
                 callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
-                'Genus and species name', 'Max reported total length (Fishbase)', 'Indicates the particular environment preferred by the species (Fishbase)',
+                'Genus and species name', 
+                'Max reported total length in cm (Fishbase). For sharks this is measured as a straight line from the tip of the snout to the end of the upper caudal fin lobe. Ray sizes are also given as total lengths.', 
+                'Indicates the particular environment preferred by the species (Fishbase)',
                 'Is there Satellite, Acoustic or Recapture data available?', 
                 'Vulnerability value provided by Fishbase', 'Estimate of sp[ecies resilience from FishBase. Describes the ability of a species population to recover after a perturbance', 'IUCN threat listing'],
     header = table.columns().header();
@@ -1119,7 +1121,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
@@ -1129,7 +1131,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_subareas") %>%
       
@@ -1139,7 +1141,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~LME_NAME,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "LMEs") %>%
       
@@ -1149,7 +1151,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~GeoName,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "EEZs") %>%
       
@@ -1309,7 +1311,7 @@ for (var i = 0; i < tips.length; i++) {
     }
     if (input$sAreaPolygons == 'sEEZ_count'){
       data1 <- sEEZ_count
-      iheight = 1400
+      iheight = 5000
     }
     
     #Set factor names in decreasing order so y axis always plotted in this order
@@ -1322,8 +1324,8 @@ for (var i = 0; i < tips.length; i++) {
     
     row.names(data1) <- NULL
     
-    setmar1 <- list(l = 400, r = 0, b = 50, t = 0, pad = 1) # The Number of species plot
-    setmar2 <- list(l = 0, r = 50, b = 50, t = 0, pad = 1) # The Areas plot
+    setmar1 <- list(l = 400, r = 0, b = 50, t = 0, pad = 0) # The Number of species plot 
+    setmar2 <- list(l = 0, r = 50, b = 50, t = 0, pad = 0) # The Areas plot
     
     # Generate first plot of species number per country
     p1 <- plot_ly(data1, 
@@ -1334,6 +1336,7 @@ for (var i = 0; i < tips.length; i++) {
                                 line = list(color = 'rgb(202,0,32)',
                                             width = 1)),
                   height = iheight, # Use an ifelse statement to set this depending on the area entered
+                  #width= "200%",
                   hoverinfo = 'text',
                   text = ~paste('<b>',x,'</b>',
                                 '<br>',y1,' out of ', y,' species listed as Critically Endangered')) %>%
@@ -1467,7 +1470,15 @@ for (var i = 0; i < tips.length; i++) {
                                               "Other ID",
                                               "Area (km2)",
                                               "No. threatened species"),
-                                   callback = JS("var tips = ['Need to enter column 1 info','Need to enter column 2 info','Need to enter column 3 info','Need to enter column 4 info','Need to enter column 5 info','Need to enter column 6 info','Need to enter column 7 info'],
+                                   callback = JS("var tips = ['The FAO, LME or EEZ name',
+                                   'The number of sharks, rays and chimaerids with range distributions that overlap with this area',
+                                   'The number of species with Critically Endangered IUCN status that overlap with this area',
+                                   'The number of species with Endangered IUCN status that overlap with this area',
+                                   'The number of species with Vulnerable IUCN status that overlap with this area',
+                                   'The number of species with Near Threatened, Least Concern or Data Deficient status that overlap with this area',
+                                   '',
+                                   'The area of the polygon in km2',
+                                   'The number of species with Critically Endangered, Endangered or Vulnerable status that overlap with this area'],
     header = table.columns().header();
 for (var i = 0; i < tips.length; i++) {
   $(header[i]).attr('title', tips[i]);
@@ -1504,7 +1515,7 @@ for (var i = 0; i < tips.length; i++) {
     proxy5 %>% 
       addPolygons(layerId ="layer1",
                   data=newdata_region,
-                  fill = FALSE, stroke = TRUE, weight=3,
+                  fill = FALSE, stroke = TRUE, weight=8,
                   color = 'white') %>%  #'#00aeef'
       mapOptions(zoomToLimits = "first")
   })
@@ -1628,10 +1639,14 @@ for (var i = 0; i < tips.length; i++) {
                                    #callback = JS('table.page(3).draw(false);'),
                                     callback = JS("var tips = ['The Exclusive Economic Zone. Generally a states EEZ extends 200 nautical miles out from its coast except where resulting points would be closer to another country',
                                     'The territory waters', 'The ISO code',
-                 'The Sovereign nation', 'Area in km2', 'Economic vulnerability score', 'A countrys dependence on marine resources',
-                 'Education score', 'Tourism score', 'Corruption score',
-                 'The Challenge Index from Mizrahi et al 2019', 'The Opportunity Index from Mizrahi et al 2019', 'The Conservartion Likelihood Index from Davidson and Dulvy 2017',
-                 'Number of IUCN species distributions intersecting with a countrys EEZ'],
+                 'The Sovereign nation', 'Area in km2', 
+                 'Nations with higher economic vulnerability are considered to have a lower adaptive capacity to comply with restrictive regulations due to having a lower diversity of economic activities to rely on if one (e.g. fishing) is restricted. Thus, it may be more challenging to achieve MPA benefits when they are established in more economically vulnerable nations.',
+                 'The incentive and potential for people to adapt to stricter fishing regulations is likely to be lower in nations that are more dependent on fishing and, hence, have more to lose from fishing restrictions.  Thus, it may be more challenging to achieve conservation benefits when MPAs are established in nations with higher dependence on fishing. Note that this metric does not account for small-scale fisheries, which are likely to make up a significant portion of the fisheries in many marine resource dependent countries.',
+                 'Formally schooled fishers and community members may be more likely to be aware of, understand and support conservation efforts such as MPAs. They may also be more able to move into alternative or supplementary employment if fishing livelihoods are restricted. Thus, placing MPAs in countries with higher education levels may offer increased opportunities for increased benefits.', 
+                 'In nations where tourism is more prevalent, especially if it is marine based, there may be higher incentives for conservation, and/or opportunities for livelihood diversification. Thus, tourism may present opportunities for increased benefits from MPAs, but only if tourism impacts and alternative livelihood programs are managed accordingly.', 
+                 'Shark fishing bans are less likely to be complied with and well managed in areas with higher levels of corruption. Thus, it may be more challenging to achieve conservation benefits when MPAs are established in nations with higher corruption.',
+                 'The Challenge Index identifies those nations where the socioeconomic and political conditions are less amenable to establishing Shark MPAs that are likely to provide conservation benefits to sharks. From Mizrahi et al 2019', 'The Opportunity Index from Mizrahi et al 2019', 'The Conservartion Likelihood Index from Davidson and Dulvy 2017',
+                 'Number of shark, ray and chimaerid IUCN species distributions intersecting with a countrys EEZ'],
     header = table.columns().header();
 for (var i = 0; i < tips.length; i++) {
   $(header[i]).attr('title', tips[i]);
@@ -1722,19 +1737,20 @@ for (var i = 0; i < tips.length; i++) {
     ### Create socionomic df
     socioEEZ <- CL2sp@data %>%
       filter(GeoName==sNAME)%>%
-      select(Corruption,
-             EconomicVulnerability,
+      select(DependMarineResource,
              Tourism,
-             DependMarineResource,
+             EconomicVulnerability,
+             Corruption,
              Education)
     socioEEZ_df <- rbind(iMax,iMin,socioEEZ) # add the max and min of each topic to show on the plot
     
     output$xspider <- renderPlot({
-      par(mar = c(0, 0, 0, 0))
+      par(mar = c(0, 0.5, 0.5, 1),xpd = TRUE) # ensure label names aren't cut off
       radarchart(socioEEZ_df, axistype=1, # fmsb package
                  pcol=rgb(0.2,0.5,0.5,0.9), pfcol=rgb(0.2,0.5,0.5,0.5), plwd=4, #custom polygon
                  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,#custom the grid
                  vlcex=1.1,
+                 vlabels = c("Dependence on marine resources","Tourism","Economic vulnerability","Corruption","Education"),
                  na.itp=F
       ) #custom labels 
     })

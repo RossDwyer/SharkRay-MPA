@@ -1737,19 +1737,20 @@ for (var i = 0; i < tips.length; i++) {
     ### Create socionomic df
     socioEEZ <- CL2sp@data %>%
       filter(GeoName==sNAME)%>%
-      select(Corruption,
-             EconomicVulnerability,
+      select(DependMarineResource,
              Tourism,
-             DependMarineResource,
+             EconomicVulnerability,
+             Corruption,
              Education)
     socioEEZ_df <- rbind(iMax,iMin,socioEEZ) # add the max and min of each topic to show on the plot
     
     output$xspider <- renderPlot({
-      par(mar = c(0, 0, 0, 0))
+      par(mar = c(0, 0.5, 0.5, 1),xpd = TRUE) # ensure label names aren't cut off
       radarchart(socioEEZ_df, axistype=1, # fmsb package
                  pcol=rgb(0.2,0.5,0.5,0.9), pfcol=rgb(0.2,0.5,0.5,0.5), plwd=4, #custom polygon
                  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,#custom the grid
                  vlcex=1.1,
+                 vlabels = c("Dependence on marine resources","Tourism","Economic vulnerability","Corruption","Education"),
                  na.itp=F
       ) #custom labels 
     })

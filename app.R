@@ -914,7 +914,9 @@ server <- function(input, output, session) {
                            #'Download IUCN assessment',
                            'Fishbase web'),
                 callback = JS("var tips = ['The common English name for the species', 'The Order the species belongs to', 'The Family the species belongs to', 
-                'Genus and species name', 'Max reported total length (Fishbase)', 'Indicates the particular environment preferred by the species (Fishbase)',
+                'Genus and species name', 
+                'Max reported total length in cm (Fishbase). For sharks this is measured as a straight line from the tip of the snout to the end of the upper caudal fin lobe. Ray sizes are also given as total lengths.', 
+                'Indicates the particular environment preferred by the species (Fishbase)',
                 'Is there Satellite, Acoustic or Recapture data available?', 
                 'Vulnerability value provided by Fishbase', 'Estimate of sp[ecies resilience from FishBase. Describes the ability of a species population to recover after a perturbance', 'IUCN threat listing'],
     header = table.columns().header();
@@ -1119,7 +1121,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_regions") %>%
       
@@ -1129,7 +1131,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~Name_en,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "FAO_subareas") %>%
       
@@ -1139,7 +1141,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~LME_NAME,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "LMEs") %>%
       
@@ -1149,7 +1151,7 @@ for (var i = 0; i < tips.length; i++) {
                   opacity = 1.0, fillOpacity = 0.1,
                   color = "white",
                   popup = ~GeoName,
-                  highlightOptions = highlightOptions(color = "white",weight = 2,bringToFront = TRUE),
+                  highlightOptions = highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
                   dashArray = "3",
                   group = "EEZs") %>%
       
@@ -1309,7 +1311,7 @@ for (var i = 0; i < tips.length; i++) {
     }
     if (input$sAreaPolygons == 'sEEZ_count'){
       data1 <- sEEZ_count
-      iheight = 1400
+      iheight = 5000
     }
     
     #Set factor names in decreasing order so y axis always plotted in this order
@@ -1322,8 +1324,8 @@ for (var i = 0; i < tips.length; i++) {
     
     row.names(data1) <- NULL
     
-    setmar1 <- list(l = 400, r = 0, b = 50, t = 0, pad = 1) # The Number of species plot
-    setmar2 <- list(l = 0, r = 50, b = 50, t = 0, pad = 1) # The Areas plot
+    setmar1 <- list(l = 400, r = 0, b = 50, t = 0, pad = 0) # The Number of species plot 
+    setmar2 <- list(l = 0, r = 50, b = 50, t = 0, pad = 0) # The Areas plot
     
     # Generate first plot of species number per country
     p1 <- plot_ly(data1, 
@@ -1334,6 +1336,7 @@ for (var i = 0; i < tips.length; i++) {
                                 line = list(color = 'rgb(202,0,32)',
                                             width = 1)),
                   height = iheight, # Use an ifelse statement to set this depending on the area entered
+                  #width= "200%",
                   hoverinfo = 'text',
                   text = ~paste('<b>',x,'</b>',
                                 '<br>',y1,' out of ', y,' species listed as Critically Endangered')) %>%

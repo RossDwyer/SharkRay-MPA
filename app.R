@@ -3,7 +3,7 @@
 # Species: All >1000 sharks and Rays
 # Developer: Ross Dwyer
 
-DateUpdated <-  "06-Sep-2019" ## Date last updated
+DateUpdated <-  "27-Nov-2019" ## Date last updated
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -245,6 +245,8 @@ CI_FinalPCA_spec <- read.csv("Data/CI_Database_FinalPCA_with_species.csv")
 CL2sp <- sp::merge(reduced.countries, CI_FinalPCA_spec, by.x="ISO3",by.y= "ISO_Ter1",
                    all=F,duplicateGeoms = TRUE)
 
+
+
 # Choose the columns and the orders. Note order needs to match renaming in DT
 CL2sp@data <- CL2sp@data[,c("GeoName","Territory1","ISO3","Sovereign1","Area_km2",
                             "EconomicVulnerability","DependMarineResource","Education",
@@ -264,6 +266,11 @@ CL2sp@data$ChallengeIndex <- round(CL2sp@data$ChallengeIndex, digits=2)
 CL2sp@data$OpportunityIndex <- round(CL2sp@data$OpportunityIndex, digits=2)
 CL2sp@data$CLI <- round(CL2sp@data$CLI, digits=2)
 CL2sp@data$Area_km2 <- round(CL2sp@data$Area_km2, digits=1)
+
+#Manually remove  these to stop visualisation bug
+CL2sp <- subset(CL2sp,GeoName!="Joint regime area United Kingdom / Denmark (Faeroe Islands)")
+CL2sp <- subset(CL2sp,GeoName!="Joint regime area United States / Russia")
+
 
 ## Spider / radar plot
 socioeconomic_devel <- CL2sp@data %>%
@@ -630,8 +637,8 @@ ui <- navbarPage(
              h4('This Shiny App was built to help visualise shark and ray distribution information across the globe'),
              p('The purpose of the tool is to help identify priority areas on a global scale where spatial protection would provide the greatest benefit to shark and ray conservation efforts.'),
              br(),
-             p('The app was funded by <a href="www.sharksandrays.org">The Shark Conservation Trust</a> (formally the Global Partnership for Sharks & Rays), a sponsored project of Rockefeller Philanthropy Advisors.'),  
-             p('It contains range distribution information of 1083 shark and ray species downloaded from <a href="%22http://www.iucnredlist.org%22">The IUCN Red List of Threatened Species</a>.'),
+             p('The app was funded by The Shark Conservation Trust (formally the Global Partnership for Sharks & Rays), a sponsored project of Rockefeller Philanthropy Advisors.'),  
+             p('It contains range distribution information of 1083 shark and ray species downloaded from The IUCN Red List of Threatened Species.'),
              br(),
              a(href = "For more information, visit www.sharksandrays.org", "For more information, visit www.sharksandrays.org"),
              br(),
